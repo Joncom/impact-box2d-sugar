@@ -12,7 +12,7 @@ ig.module(
         body: null,
         angle: 0,
 
-        fixedRotation: false,
+        isFixedRotation: false,
         isBullet: false,
 
         init: function(x, y, settings) {
@@ -32,7 +32,7 @@ ig.module(
             bodyDef.type = b2.Body.b2_dynamicBody;
 
             this.body = ig.world.CreateBody(bodyDef);
-            this.body.SetFixedRotation(this.fixedRotation);
+            this.body.SetFixedRotation(this.isFixedRotation);
             this.body.SetBullet(this.isBullet);
 
             var shapeDef = new b2.PolygonShape();
