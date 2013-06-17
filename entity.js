@@ -7,7 +7,7 @@ ig.module(
 )
 .defines(function(){
 
-    ig.Box2DEntity = ig.Entity.extend({
+    ig.Entity.inject({
 
         body: null,
         angle: 0,
