@@ -13,6 +13,7 @@ ig.module(
         angle: 0,
 
         fixedRotation: false,
+        isBullet: false,
 
         init: function(x, y, settings) {
             this.parent(x, y, settings);
@@ -32,6 +33,7 @@ ig.module(
 
             this.body = ig.world.CreateBody(bodyDef);
             this.body.SetFixedRotation(this.fixedRotation);
+            this.body.SetBullet(this.isBullet);
 
             var shapeDef = new b2.PolygonShape();
             shapeDef.SetAsBox(
