@@ -12,6 +12,9 @@ ig.module(
         body: null,
         angle: 0,
 
+        bodyType: b2.Body.b2_dynamicBody,
+        density: 1.0,
+        vertices: [],
         isFixedRotation: false,
         isBullet: false,
 
@@ -26,22 +29,38 @@ ig.module(
 
         createBody: function() {
             var bodyDef = new b2.BodyDef();
-            bodyDef.position.Set(
-            (this.pos.x + this.size.x / 2) * b2.SCALE, (this.pos.y + this.size.y / 2) * b2.SCALE);
+            bodyDef.type = this.bodyType;
 
-            bodyDef.type = b2.Body.b2_dynamicBody;
+            if(!this.shape || this.shape === ig.Entity.SHAPE.BOX) {
+                bodyDef.position.Set(
+                    (this.pos.x + this.size.x / 2) * b2.SCALE,
+                    (this.pos.y + this.size.y / 2) * b2.SCALE
+                );
+                var shapeDef = new b2.PolygonShape();
+                shapeDef.SetAsBox(
+                    this.size.x / 2 * b2.SCALE,
+                    this.size.y / 2 * b2.SCALE
+                );
+            } else if(this.shape === ig.Entity.SHAPE.CIRCLE) {
+                bodyDef.position.Set(
+                    (this.pos.x + this.radius / 2) * b2.SCALE,
+                    (this.pos.y + this.radius / 2) * b2.SCALE
+                );
+                var shapeDef = new b2.CircleShape();
+                shapeDef.SetRadius(this.radius * b2.SCALE);
+            } else if(this.shape === ig.Entity.SHAPE.POLYGON) {
+                bodyDef.position.Set(
+                    (this.pos.x + this.size.x / 2) * b2.SCALE,
+                    (this.pos.y + this.size.y / 2) * b2.SCALE
+                );
+                var shapeDef = new b2.PolygonShape();
+                shapeDef.SetAsArray(this.vertices, this.vertices.length);
+            }
 
             this.body = ig.world.CreateBody(bodyDef);
             this.body.SetFixedRotation(this.isFixedRotation);
             this.body.SetBullet(this.isBullet);
-
-            var shapeDef = new b2.PolygonShape();
-            shapeDef.SetAsBox(
-                this.size.x / 2 * b2.SCALE,
-                this.size.y / 2 * b2.SCALE);
-
-            // CreateFixture2( var shapedef, density )
-            this.body.CreateFixture2(shapeDef, 0.1);
+            this.body.CreateFixture2(shapeDef, this.density);
         },
 
         update: function() {
@@ -64,5 +83,11 @@ ig.module(
         }
 
     });
+
+    ig.Entity.SHAPE = {
+        BOX: 0,
+        CIRCLE: 1,
+        POLYGON: 2
+    };
 
 });
