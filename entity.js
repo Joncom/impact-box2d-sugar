@@ -13,6 +13,7 @@ ig.module(
         angle: 0,
 
         bodyType: b2.Body.b2_dynamicBody,
+        shape: 0, // ig.Entity.SHAPE.BOX
         density: 1.0,
         vertices: [],
         isFixedRotation: false,
