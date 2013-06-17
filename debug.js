@@ -28,13 +28,7 @@ ig.module(
         draw: function() {
             ig.system.context.save();
             ig.system.context.translate(-ig.game.screen.x * ig.system.scale, -ig.game.screen.y * ig.system.scale);
-
-            // Set debug drawer, draw and unset again, to prevent box2d
-            // from drawing on it's own during step()
-            this.world.SetDebugDraw(this.drawer);
             this.world.DrawDebugData();
-            this.world.SetDebugDraw(null);
-
             ig.system.context.restore();
         },
 
