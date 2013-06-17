@@ -7,7 +7,7 @@ ig.module(
 )
 .defines(function(){
 
-    ig.Box2DGame = ig.Game.extend({
+    ig.Game.inject({
 
         collisionRects: [],
         debugCollisionRects: false,
