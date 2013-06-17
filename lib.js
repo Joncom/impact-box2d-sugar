@@ -26,7 +26,7 @@
 
 ig.module('plugins.box2d.lib').defines(function(){
 
-    
+
     b2 = {
 	SCALE: 0.1
     };
@@ -24772,7 +24772,7 @@ ig.module('plugins.box2d.lib').defines(function(){
 		a=a._super}return!1
 	};
 
-    
+
     ig.global.b2 = b2;
 
 });
