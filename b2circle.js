@@ -45,27 +45,6 @@ ig.module(
         this.body.CreateFixture2(circleDef, 0.1);
     },
 
-    // Helpful to handle generation of random spawn point when
-    // object is out of canvas in next frame
-    randomPos: function( body ) {
-        // Range of acceptable values is: 0.8 > x < 47.2 & 1.6 > y < 26.4
-        // generate random location
-        var randPos = {x: Math.random()*45 + 1, y: Math.random()*23 + 2};
-
-        // Set random location
-        this.body.SetPosition(randPos);
-    },
-
-
-    randomVel: function ( body ) {
-        // Gen +/- for vector
-        var pOmX = Math.random() < 0.5 ? -1 : 1;
-        var pOmY = Math.random() < 0.5 ? -1 : 1;
-
-        // gen and set new velocity
-        this.body.SetLinearVelocity( new b2.Vec2(pOmX*Math.random()*16, pOmY*Math.random()*16));
-    },
-
     update: function() {
         var p = this.body.GetPosition();
         this.pos = {
