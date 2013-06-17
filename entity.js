@@ -1,5 +1,5 @@
 ig.module(
-    'plugins.box2d.b2entity'
+    'plugins.box2d.entity'
 )
 .requires(
     'impact.entity',
