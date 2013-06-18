@@ -13,14 +13,13 @@ ig.module(
         alpha: 0.5,
         canvas: null,
 
-        init: function(world, alpha, thickness) {
+        init: function(world, alpha) {
             this.world = world;
             this.canvas = ig.system.canvas;
             this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
             this.drawer = new b2.DebugDraw();
             this.drawer.SetSprite(this);
             this.drawer.SetDrawScale(1 / b2.SCALE * ig.system.scale);
-            this.drawer.SetLineThickness(thickness);
             this.drawer.SetAlpha(this.alpha);
             this.drawer.SetFillAlpha(this.alpha);
             this.drawer.SetFlags(b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit);
