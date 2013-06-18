@@ -13,6 +13,11 @@ ig.module(
         alpha: 0.33,
         canvas: null,
 
+        // These are set dynamically by Box2D.
+        lineWidth: null,
+        fillStyle: null,
+        strokeSyle: null
+
         init: function(world, alpha) {
             this.world = world;
             this.canvas = ig.system.canvas;
