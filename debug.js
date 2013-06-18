@@ -10,22 +10,26 @@ ig.module(
 
         drawer: null,
         world: null,
-        alpha: 0.33,
         canvas: null,
+
+        alpha: 0.33,
+        thickness: 1,
 
         // These are set dynamically by Box2D.
         lineWidth: null,
         fillStyle: null,
-        strokeSyle: null
+        strokeSyle: null,
 
-        init: function(world, alpha) {
+        init: function(world, alpha, thickness) {
             this.world = world;
             this.canvas = ig.system.canvas;
             this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
+            this.thickness = (typeof thickness === 'number' ? thickness : this.thickness);
             this.drawer = new b2.DebugDraw();
             this.drawer.SetSprite(this);
             this.drawer.SetDrawScale(1 / b2.SCALE * ig.system.scale);
             this.drawer.SetAlpha(this.alpha);
+            this.drawer.SetLineThickness(this.thickness);
             this.drawer.SetFillAlpha(this.alpha);
             this.drawer.SetFlags(b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit);
             this.world.SetDebugDraw(this.drawer);
