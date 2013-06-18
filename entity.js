@@ -31,6 +31,7 @@ ig.module(
             if (!ig.global.wm) {
                 this.createBody();
                 this.body.entity = this;
+                this.applyGravity(); // 1st step needs gravity too!
             }
         },
 
