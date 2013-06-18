@@ -41,7 +41,7 @@ ig.module(
         },
 
         closePath: function() {
-            ig.system.context.stroke();
+            ig.system.context.closePath();
         },
 
         fill: function() {
