@@ -35,10 +35,24 @@ ig.module(
         },
 
         clearRect: function() {},
-        beginPath: function() {},
-        closePath: function() {},
-        fill: function() {},
-        stroke: function() {},
+
+        beginPath: function() {
+            ig.system.context.beginPath();
+        },
+
+        closePath: function() {
+            ig.system.context.stroke();
+        },
+
+        fill: function() {
+            ig.system.context.globalAlpha = this.alpha;
+            ig.system.context.fill();
+            ig.system.context.globalAlpha = 1;
+        },
+
+        stroke: function() {
+            ig.system.context.stroke();
+        },
 
         moveTo: function(x, y) {
             ig.system.context.beginPath();
