@@ -55,6 +55,10 @@ ig.module(
             ig.system.context.beginPath();
         },
 
+        arc: function(x, y, radius, startAngle, endAngle, counterClockwise) {
+            ig.system.context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+        },
+
         closePath: function() {
             ig.system.context.closePath();
         },
