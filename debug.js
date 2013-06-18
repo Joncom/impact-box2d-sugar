@@ -51,9 +51,7 @@ ig.module(
         },
 
         fill: function() {
-            ig.system.context.globalAlpha = this.alpha;
             ig.system.context.fill();
-            ig.system.context.globalAlpha = 1;
         },
 
         stroke: function() {
