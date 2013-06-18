@@ -5,6 +5,7 @@ The following `Entity` functionally now behaves how you would expect:
 - [touches](http://impactjs.com/documentation/class-reference/entity#touches)
 - [gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)
 - [last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)
+- [maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)
 
 TODO:
 - [type](http://impactjs.com/documentation/class-reference/entity#type)
@@ -13,6 +14,5 @@ TODO:
 - [collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)
 - [handleMovementTrace](http://impactjs.com/documentation/class-reference/entity#handlemovementtrace)
 - [bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)
-- [maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)
 
 TODO Also: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
