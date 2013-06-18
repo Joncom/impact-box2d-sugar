@@ -10,19 +10,17 @@ ig.module(
 
         drawer: null,
         world: null,
-        alpha: 1,
+        alpha: 0.5,
+        drawScale: null,
 
-        init: function(world, alpha, thickness) {
-            this.world = world;
-
+        init: function(world, alpha) {
+            this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
+            this.drawScale = 1 / b2.SCALE * ig.system.scale;
             this.drawer = new b2.DebugDraw();
-            this.drawer.m_sprite = {
-                graphics: this
-            };
-            this.drawer.m_drawScale = 1 / b2.SCALE * ig.system.scale;
-            this.drawer.m_fillAlpha = alpha || 0.3;
-            this.drawer.m_lineThickness = thickness || 1.0;
-            this.drawer.m_drawFlags = b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit;
+            this.drawer.SetFlags(b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit);
+            this.drawer.m_sprite = { graphics: this };
+            this.world = world;
+            this.world.SetDebugDraw(this.drawer);
         },
 
         draw: function() {
