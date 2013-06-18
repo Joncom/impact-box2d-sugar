@@ -9,9 +9,10 @@ ig.module(
 
     ig.Entity.inject({
 
+        maxVel: { x: 9999, y: 9999 },
+
         body: null,
         angle: 0,
-
         bodyType: b2.Body.b2_dynamicBody,
         shape: 0, // ig.Entity.SHAPE.BOX
         density: 1.0,
@@ -90,6 +91,7 @@ ig.module(
             this.angle = this.body.GetAngle().round(2);
 
             this.updateStanding();
+            this.limitVelocity();
 
             if (this.currentAnim) {
                 this.currentAnim.update();
@@ -114,6 +116,19 @@ ig.module(
         applyGravity: function() {
             var gravity = new b2.Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * b2.SCALE);
             this.body.ApplyForce( gravity, this.body.GetPosition() );
+        },
+
+        limitVelocity: function() {
+            var velocity = this.body.GetLinearVelocity();
+            var x = velocity.x / b2.SCALE;
+            var y = velocity.y / b2.SCALE;
+            if(x < -this.maxVel.x)     x = -this.maxVel.x;
+            else if(x > this.maxVel.x) x = this.maxVel.x;
+            if(y < -this.maxVel.y)     y = -this.maxVel.y;
+            else if(y > this.maxVel.y) y = this.maxVel.y;
+            velocity.x = x * b2.SCALE;
+            velocity.y = y * b2.SCALE;
+            this.body.SetLinearVelocity(velocity, this.body.GetPosition());
         },
 
         updateStanding: function() {
