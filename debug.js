@@ -12,7 +12,7 @@ ig.module(
         world: null,
         canvas: null,
 
-        alpha: 0.33,
+        alpha: 0.5,
         thickness: 1,
 
         // These are set dynamically by Box2D.
