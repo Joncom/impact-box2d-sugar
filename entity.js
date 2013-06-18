@@ -47,12 +47,13 @@ ig.module(
                     this.size.y / 2 * b2.SCALE
                 );
             } else if(this.shape === ig.Entity.SHAPE.CIRCLE) {
+                var radius = this.size.x / 2;
                 bodyDef.position.Set(
-                    (this.pos.x + this.size.x / 2) * b2.SCALE,
-                    (this.pos.y + this.size.y / 2) * b2.SCALE
+                    (this.pos.x + radius) * b2.SCALE,
+                    (this.pos.y + radius) * b2.SCALE
                 );
                 var shapeDef = new b2.CircleShape();
-                shapeDef.SetRadius(this.radius * b2.SCALE);
+                shapeDef.SetRadius(radius * b2.SCALE);
             } else if(this.shape === ig.Entity.SHAPE.POLYGON) {
                 bodyDef.position.Set(
                     (this.pos.x + this.size.x / 2) * b2.SCALE,
