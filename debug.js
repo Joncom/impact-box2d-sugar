@@ -12,13 +12,15 @@ ig.module(
         world: null,
         alpha: 0.5,
         drawScale: null,
+        canvas: null,
 
         init: function(world, alpha) {
+            this.canvas = ig.system.canvas;
             this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
             this.drawScale = 1 / b2.SCALE * ig.system.scale;
             this.drawer = new b2.DebugDraw();
             this.drawer.SetFlags(b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit);
-            this.drawer.m_sprite = { graphics: this };
+            this.drawer.SetSprite(this);
             this.world = world;
             this.world.SetDebugDraw(this.drawer);
         },
@@ -30,12 +32,11 @@ ig.module(
             ig.system.context.restore();
         },
 
-        clear: function() {},
-
-        lineStyle: function(thickness, color, alpha) {
-            ig.system.context.strokeStyle = 'rgb(' + color._r + ',' + color._g + ',' + color._b + ')';
-            ig.system.context.lineWidth = thickness;
-        },
+        clearRect: function() {},
+        beginPath: function() {},
+        closePath: function() {},
+        fill: function() {},
+        stroke: function() {},
 
         moveTo: function(x, y) {
             ig.system.context.beginPath();
@@ -45,6 +46,14 @@ ig.module(
         lineTo: function(x, y) {
             ig.system.context.lineTo(x, y);
             ig.system.context.stroke();
+        }
+
+        /*
+        clear: function() {},
+
+        lineStyle: function(thickness, color, alpha) {
+            ig.system.context.strokeStyle = 'rgb(' + color._r + ',' + color._g + ',' + color._b + ')';
+            ig.system.context.lineWidth = thickness;
         },
 
         beginFill: function(color, alpha) {
@@ -64,6 +73,7 @@ ig.module(
             ig.system.context.arc(x, y, r, 0, Math.PI * 2, true);
             ig.system.context.stroke();
         }
+        */
 
     });
 
