@@ -10,7 +10,7 @@ ig.module(
 
         drawer: null,
         world: null,
-        alpha: 0.5,
+        alpha: 0.33,
         canvas: null,
 
         init: function(world, alpha) {
