@@ -4,3 +4,4 @@ The following `Entity` functionally now behaves how you would expect:
 - [.standing](http://impactjs.com/documentation/class-reference/entity#standing)
 - [.touches](http://impactjs.com/documentation/class-reference/entity#touches)
 - [.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)
+- [last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)
