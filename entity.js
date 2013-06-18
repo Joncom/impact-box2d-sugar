@@ -44,8 +44,8 @@ ig.module(
                 );
             } else if(this.shape === ig.Entity.SHAPE.CIRCLE) {
                 bodyDef.position.Set(
-                    (this.pos.x + this.radius / 2) * b2.SCALE,
-                    (this.pos.y + this.radius / 2) * b2.SCALE
+                    (this.pos.x + this.size.x / 2) * b2.SCALE,
+                    (this.pos.y + this.size.y / 2) * b2.SCALE
                 );
                 var shapeDef = new b2.CircleShape();
                 shapeDef.SetRadius(this.radius * b2.SCALE);
