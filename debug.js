@@ -40,6 +40,9 @@ ig.module(
         clearRect: function() {},
 
         beginPath: function() {
+            ig.system.context.lineWidth = this.lineWidth;
+            ig.system.context.fillStyle = this.fillStyle;
+            ig.system.context.strokeStyle = this.strokeSyle;
             ig.system.context.beginPath();
         },
 
