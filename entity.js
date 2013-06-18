@@ -69,6 +69,7 @@ ig.module(
             fixtureDef.shape = shapeDef;
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;
+            fixtureDef.restitution = this.bounciness;
 
             this.body = ig.world.CreateBody(bodyDef);
             this.body.SetFixedRotation(this.isFixedRotation);
