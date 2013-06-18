@@ -80,6 +80,8 @@ ig.module(
                 x: (p.x / b2.SCALE - this.size.x / 2),
                 y: (p.y / b2.SCALE - this.size.y / 2)
             };
+            this.last.x = this.pos.x;
+            this.last.y = this.pos.y;
             this.angle = this.body.GetAngle().round(2);
 
             this.updateStanding();
