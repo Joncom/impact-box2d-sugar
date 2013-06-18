@@ -29,7 +29,11 @@ ig.module(
 
         draw: function() {
             ig.system.context.save();
-            ig.system.context.translate(-ig.game.screen.x * ig.system.scale, -ig.game.screen.y * ig.system.scale);
+            ig.system.context.translate(
+                -ig.game.screen.x * ig.system.scale,
+                -ig.game.screen.y * ig.system.scale + ig.system.canvas.height
+            );
+            ig.system.context.scale( 1, -1 );
             this.world.DrawDebugData();
             ig.system.context.restore();
         },
