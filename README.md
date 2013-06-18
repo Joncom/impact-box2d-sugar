@@ -14,3 +14,5 @@ TODO:
 - [handleMovementTrace](http://impactjs.com/documentation/class-reference/entity#handlemovementtrace)
 - [bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)
 - [maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)
+
+TODO Also: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
