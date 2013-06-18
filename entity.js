@@ -76,6 +76,10 @@ ig.module(
         },
 
         update: function() {
+            if(this.body.IsAwake()) {
+                this.applyGravity();
+            }
+
             var p = this.body.GetPosition();
             this.pos = {
                 x: (p.x / b2.SCALE - this.size.x / 2),
@@ -105,6 +109,11 @@ ig.module(
                 }
             }
             return false;
+        },
+
+        applyGravity: function() {
+            var gravity = new b2.Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * b2.SCALE);
+            this.body.ApplyForce( gravity, this.body.GetPosition() );
         },
 
         updateStanding: function() {

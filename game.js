@@ -27,9 +27,10 @@ ig.module(
         },
 
         createWorldFromMap: function(origData, width, height, tilesize) {
-            var gravity = new b2.Vec2(0, this.gravity * b2.SCALE);
-            var world = new b2.World(gravity, true);
 
+            // Gravity is applied to entities individually.
+            var gravity = new b2.Vec2(0, 0);
+            var world = new b2.World(gravity, true);
 
             // We need to delete those tiles that we already processed. The original
             // map data is copied, so we don't destroy the original.
