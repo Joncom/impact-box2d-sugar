@@ -68,33 +68,6 @@ ig.module(
             ig.system.context.stroke();
         }
 
-        /*
-        clear: function() {},
-
-        lineStyle: function(thickness, color, alpha) {
-            ig.system.context.strokeStyle = 'rgb(' + color._r + ',' + color._g + ',' + color._b + ')';
-            ig.system.context.lineWidth = thickness;
-        },
-
-        beginFill: function(color, alpha) {
-            this.alpha = alpha;
-            ig.system.context.fillStyle = 'rgb(' + color._r + ',' + color._g + ',' + color._b + ')';
-            ig.system.context.beginPath();
-        },
-
-        endFill: function() {
-            ig.system.context.globalAlpha = this.alpha;
-            ig.system.context.fill();
-            ig.system.context.globalAlpha = 1;
-        },
-
-        drawCircle: function(x, y, r) {
-            ig.system.context.beginPath();
-            ig.system.context.arc(x, y, r, 0, Math.PI * 2, true);
-            ig.system.context.stroke();
-        }
-        */
-
     });
 
 });
