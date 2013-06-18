@@ -82,6 +82,8 @@ ig.module(
             };
             this.angle = this.body.GetAngle().round(2);
 
+            this.updateStanding();
+
             if (this.currentAnim) {
                 this.currentAnim.update();
                 this.currentAnim.angle = this.angle;
@@ -91,6 +93,17 @@ ig.module(
         kill: function() {
             ig.world.DestroyBody(this.body);
             this.parent();
+        },
+
+        updateStanding: function() {
+            this.standing = false;
+            for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
+                var normal = edge.contact.m_manifold.m_localPlaneNormal;
+                if( normal.y > 0 ) {
+                    this.standing = true;
+                    break;
+                }
+            }
         }
 
     });
