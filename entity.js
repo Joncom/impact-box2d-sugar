@@ -97,6 +97,15 @@ ig.module(
             this.parent();
         },
 
+        touches: function( other ) {
+            for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
+                if(edge.other.entity === other) {
+                    return true;
+                }
+            }
+            return false;
+        },
+
         updateStanding: function() {
             this.standing = false;
             for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
