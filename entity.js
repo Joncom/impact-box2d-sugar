@@ -63,10 +63,15 @@ ig.module(
                 shapeDef.SetAsArray(this.vertices, this.vertices.length);
             }
 
+            var fixtureDef = new b2.FixtureDef();
+            fixtureDef.shape = shapeDef;
+            fixtureDef.density = this.density;
+            fixtureDef.friction = 1;
+
             this.body = ig.world.CreateBody(bodyDef);
             this.body.SetFixedRotation(this.isFixedRotation);
             this.body.SetBullet(this.isBullet);
-            this.body.CreateFixture2(shapeDef, this.density);
+            this.body.CreateFixture(fixtureDef);
         },
 
         update: function() {
