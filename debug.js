@@ -18,8 +18,8 @@ ig.module(
             this.canvas = ig.system.canvas;
             this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
             this.drawer = new b2.DebugDraw();
-            this.drawer.m_sprite = { canvas: ig.system.canvas, graphics: this };
-            this.drawer.SetDrawScale(b2.SCALE);
+            this.drawer.SetSprite(this);
+            this.drawer.SetDrawScale(1 / b2.SCALE * ig.system.scale);
             this.drawer.SetLineThickness(thickness);
             this.drawer.SetAlpha(this.alpha);
             this.drawer.SetFillAlpha(this.alpha);
