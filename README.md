@@ -18,7 +18,8 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 ### FAQ ###
 
 ###### Q: How come my game freezes? ######
-This usually happens if somewhere in the world a number has become `NaN`. Make sure you use `b2.Vec2` when appropriate.
+This usually means a number has become `NaN`.
+This can happen if you forget to use `b2.Vec2`.
 
 ###### Q: Where can I find information on function/class "blank"? ######
 http://www.box2dflash.org/docs/2.1a/reference/
