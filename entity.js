@@ -126,7 +126,7 @@ ig.module(
             this.standing = false;
             for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
                 var normal = edge.contact.m_manifold.m_localPlaneNormal;
-                if( normal.y > 0 ) {
+                if( normal.y < 0 ) {
                     this.standing = true;
                     break;
                 }
