@@ -115,6 +115,9 @@ ig.module(
             return false;
         },
 
+        // Entity collision handled by Box2D now.
+        checkEntities: function() {},
+
         applyGravity: function() {
             var gravity = new b2.Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * b2.SCALE);
             this.body.ApplyForce( gravity, this.body.GetPosition() );
