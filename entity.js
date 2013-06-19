@@ -46,6 +46,7 @@ ig.module(
                 (this.pos.x + this.size.x / 2) * b2.SCALE,
                 (this.pos.y + this.size.y / 2) * b2.SCALE
             );
+            this.body = ig.world.CreateBody(bodyDef);
 
             if(!this.shape || this.shape === ig.Box2DEntity.SHAPE.BOX) {
                 var shapeDef = new b2.PolygonShape();
@@ -57,6 +58,36 @@ ig.module(
             } else if(this.shape === ig.Box2DEntity.SHAPE.POLYGON) {
                 var shapeDef = new b2.PolygonShape();
                 shapeDef.SetAsArray(this.vertices, this.vertices.length);
+            } else if(this.shape === ig.Box2DEntity.SHAPE.PILL) {
+                var radius = this.size.x / 2;
+                var circleOffsetY = this.size.y / 2 - radius;
+
+                var topCircleDef = new b2.CircleShape();
+                topCircleDef.SetRadius(radius * b2.SCALE);
+                topCircleDef.SetLocalPosition(0, -circleOffsetY * b2.SCALE);
+                topCircleFixture = this.body.CreateFixture2(topCircleDef, this.density);
+                topCircleFixture.SetRestitution(this.bounciness);
+                topCircleFixture.SetFriction(1);
+
+                var bottomCircleDef = new b2.CircleShape();
+                bottomCircleDef.SetRadius(radius * b2.SCALE);
+                bottomCircleDef.SetLocalPosition(0, circleOffsetY * b2.SCALE);
+                bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
+                bottomCircleFixture.SetRestitution(this.bounciness);
+                bottomCircleFixture.SetFriction(1);
+
+                var boxDef = new b2.PolygonDef();
+                var boxWidth = this.size.x / 2 * b2.SCALE;
+                var boxHeight = (this.size.y / 2 - this.size.x / 2) * b2.SCALE;
+                boxDef.SetAsBox(boxWidth, boxHeight);
+                boxFixture = this.body.CreateFixture2(boxDef, this.density);
+                boxFixture.SetRestitution(this.bounciness);
+                boxFixture.SetFriction(1);
+
+                this.body.SetFixedRotation(this.isFixedRotation);
+                this.body.SetBullet(this.isBullet);
+                this.body.CreateFixture(fixtureDef);
+                return;
             }
 
             var fixtureDef = new b2.FixtureDef();
@@ -65,7 +96,6 @@ ig.module(
             fixtureDef.friction = 1;
             fixtureDef.restitution = this.bounciness;
 
-            this.body = ig.world.CreateBody(bodyDef);
             this.body.SetFixedRotation(this.isFixedRotation);
             this.body.SetBullet(this.isBullet);
             this.body.CreateFixture(fixtureDef);
