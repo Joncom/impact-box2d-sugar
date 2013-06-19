@@ -7,10 +7,9 @@ ig.module(
 )
 .defines(function(){
 
-    ig.Entity.inject({
+    ig.Box2DEntity = ig.Entity.extend({
 
         maxVel: { x: 9999, y: 9999 },
-
         body: null,
         angle: 0,
         bodyType: b2.Body.b2_dynamicBody,
@@ -149,7 +148,7 @@ ig.module(
 
     });
 
-    ig.Entity.SHAPE = {
+    ig.Box2DEntity.SHAPE = {
         BOX: 0,
         CIRCLE: 1,
         POLYGON: 2
