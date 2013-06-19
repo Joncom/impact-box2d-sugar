@@ -34,6 +34,7 @@ ig.module(
                 this.body.SetFixedRotation(this.isFixedRotation);
                 this.setFixturesToSensorMode(this.isSensor);
                 this.applyGravity(); // 1st step needs gravity too!
+                ig.world.Step(0, 5, 5); // Make contact edges available for .touches
             }
         },
 
