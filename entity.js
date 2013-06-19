@@ -116,9 +116,9 @@ ig.module(
             this.body.SetLinearVelocity(velocity, this.body.GetPosition());
         },
 
-        setFixturesToSensorMode: function(bool) {
+        setFixturesToSensorMode: function(isSensor) {
             for(var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
-                fixture.isSensor = bool;
+                fixture.SetSensor(isSensor);
             }
         },
 
