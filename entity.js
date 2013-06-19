@@ -12,13 +12,16 @@ ig.module(
         maxVel: { x: 9999, y: 9999 },
         body: null,
         angle: 0,
+
+        /* Box2D Setup Stuff */
         bodyType: b2.Body.b2_dynamicBody,
         shape: 0, // ig.Box2DEntity.SHAPE.BOX
         density: 1.0,
-        vertices: [],
-        isFixedRotation: false,
-        isBullet: false,
-        allowSleep: true,
+        vertices: [], // Only used if shape = ig.Box2DEntity.SHAPE.POLYGON
+        isFixedRotation: false, // Prevents entity from rotating.
+        isBullet: false, // Prevents tunneling at the cost of performance.
+        allowSleep: true, // Better performance.
+        /* END */
 
         init: function(x, y, settings) {
             this.parent(x, y, settings);
