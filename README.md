@@ -7,12 +7,10 @@ The following `Entity` functionally now behaves how you would expect:
 - [last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)
 - [maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)
 - [bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)
-
-TODO:
 - [type](http://impactjs.com/documentation/class-reference/entity#type)
 - [checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst)
 - [check](http://impactjs.com/documentation/class-reference/entity#check)
 - [collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)
 - [handleMovementTrace](http://impactjs.com/documentation/class-reference/entity#handlemovementtrace)
 
-TODO Also: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
+TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
