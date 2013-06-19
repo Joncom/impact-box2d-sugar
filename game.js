@@ -107,7 +107,6 @@ ig.module(
         },
 
         update: function() {
-            // Save found by Alexandre.  Thanks!
             ig.world.Step(ig.system.tick, 5, 5);
             ig.world.ClearForces();
             this.parent();
