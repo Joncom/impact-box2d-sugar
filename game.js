@@ -28,20 +28,13 @@ ig.module(
 
             // Setup contact listener to trigger collision events.
             var listener = new b2.ContactListener();
-            var callback = function(type, contact) {
+            listener.BeginContact = function(contact) {
                 contactData = {
-                    type: type,
                     entityA: contact.GetFixtureA().GetBody().entity,
                     entityB: contact.GetFixtureB().GetBody().entity,
                     normal: ig.copy(contact.GetManifold().m_localPlaneNormal)
-                }
+                };
                 ig.game.contactBuffer.push(contactData);
-            };
-            listener.BeginContact = function(contact) {
-                return callback('BEGIN', contact);
-            };
-            listener.EndContact = function (contact) {
-                return callback('END', contact);
             };
             ig.world.SetContactListener(listener);
         },
