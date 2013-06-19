@@ -19,3 +19,6 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 Q: How come my game freezes?
 A: Box2D will not usually throw an errors if you pass it illegal data. Make sure you provide `b2.Vec2`'s where required.
+
+Q: Where can I find information on function/class "blank"?
+A: http://www.box2dflash.org/docs/2.1a/reference/
