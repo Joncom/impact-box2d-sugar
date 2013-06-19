@@ -30,16 +30,16 @@ ig.module('plugins.box2d.entities.pill')
             bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
             bottomCircleFixture.SetRestitution(this.bounciness);
             bottomCircleFixture.SetFriction(1);
-            topCircleFixture.isSensor = this.isSensor;
+            bottomCircleFixture.isSensor = this.isSensor;
 
-            var boxDef = new b2.PolygonDef();
+            var boxDef = new b2.PolygonShape();
             var boxWidth = this.size.x / 2 * b2.SCALE;
             var boxHeight = (this.size.y / 2 - this.size.x / 2) * b2.SCALE;
             boxDef.SetAsBox(boxWidth, boxHeight);
             boxFixture = this.body.CreateFixture2(boxDef, this.density);
             boxFixture.SetRestitution(this.bounciness);
             boxFixture.SetFriction(1);
-            topCircleFixture.isSensor = this.isSensor;
+            boxFixture.isSensor = this.isSensor;
 
             this.body.CreateFixture(fixtureDef);
         }
