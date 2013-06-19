@@ -88,6 +88,9 @@ ig.module(
 
         touches: function(other) {
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
+                if(!edge.contact.IsTouching()) {
+                    continue;
+                }
                 if (edge.other.entity === other) {
                     return true;
                 }
