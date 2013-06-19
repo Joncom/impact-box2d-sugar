@@ -125,6 +125,9 @@ ig.module(
         updateStanding: function() {
             this.standing = false;
             for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
+                if (!edge.contact.IsTouching()) {
+                    continue;
+                }
                 var normal = edge.contact.m_manifold.m_localPlaneNormal;
                 if( normal.y < 0 ) {
                     this.standing = true;
