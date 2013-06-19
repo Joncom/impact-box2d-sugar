@@ -9,6 +9,7 @@ ig.module(
 
     ig.Box2DGame = ig.Game.extend({
 
+        allowSleep: true,
         collisionRects: [],
         debugCollisionRects: false,
         contactBuffer: [],
@@ -43,7 +44,7 @@ ig.module(
 
             // Gravity is applied to entities individually.
             var gravity = new b2.Vec2(0, 0);
-            var world = new b2.World(gravity, true);
+            var world = new b2.World(gravity, this.allowSleep);
 
             // We need to delete those tiles that we already processed. The original
             // map data is copied, so we don't destroy the original.
