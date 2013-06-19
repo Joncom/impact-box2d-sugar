@@ -33,6 +33,7 @@ ig.module(
             if (!ig.global.wm) {
                 this.createBody();
                 this.body.entity = this;
+                this.body.SetSleepingAllowed(this.allowSleep);
                 this.applyGravity(); // 1st step needs gravity too!
             }
         },
@@ -40,7 +41,6 @@ ig.module(
         createBody: function() {
             var bodyDef = new b2.BodyDef();
             bodyDef.type = this.bodyType;
-            bodyDef.allowSleep = this.allowSleep;
             bodyDef.position.Set(
                 (this.pos.x + this.size.x / 2) * b2.SCALE,
                 (this.pos.y + this.size.y / 2) * b2.SCALE

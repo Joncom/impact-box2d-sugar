@@ -9,7 +9,6 @@ ig.module('plugins.box2d.entities.polygon')
         createBody: function() {
             var bodyDef = new b2.BodyDef();
             bodyDef.type = this.bodyType;
-            bodyDef.allowSleep = this.allowSleep;
             bodyDef.position.Set(
                 (this.pos.x + this.size.x / 2) * b2.SCALE,
                 (this.pos.y + this.size.y / 2) * b2.SCALE
