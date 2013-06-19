@@ -40,8 +40,6 @@ ig.module('plugins.box2d.entities.pill')
             boxFixture.SetRestitution(this.bounciness);
             boxFixture.SetFriction(1);
             boxFixture.isSensor = this.isSensor;
-
-            this.body.CreateFixture(fixtureDef);
         }
 
     });
