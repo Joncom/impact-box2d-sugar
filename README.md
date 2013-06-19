@@ -17,9 +17,9 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 ### FAQ ###
 
+###### Q: Where can I find information on function/class "blank"? ######
+http://www.box2dflash.org/docs/2.1a/reference/
+
 ###### Q: How come my game freezes? ######
 This usually means a number has become `NaN`.
 This can happen if you forget to use `b2.Vec2`.
-
-###### Q: Where can I find information on function/class "blank"? ######
-http://www.box2dflash.org/docs/2.1a/reference/
