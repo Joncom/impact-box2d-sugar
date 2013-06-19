@@ -4,26 +4,24 @@ ig.module('plugins.box2d.entities.ball')
 
     ig.b2Ball = ig.Box2DEntity.extend({
 
+        radius: 8,
+
         init: function(x, y, settings) {
             this.parent(x, y, settings);
-
-            if(this.size.x !== this.size.y) {
-                throw "Circles must have equal width and height.";
-            }
+            this.size.x = this.size.y = (2 * this.radius);
         },
 
         createBody: function() {
             var bodyDef = new b2.BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
-                (this.pos.x + this.size.x / 2) * b2.SCALE,
-                (this.pos.y + this.size.y / 2) * b2.SCALE
+                (this.pos.x + this.radius) * b2.SCALE,
+                (this.pos.y + this.radius) * b2.SCALE
             );
             this.body = ig.world.CreateBody(bodyDef);
 
-            var radius = this.size.x / 2;
             var shapeDef = new b2.CircleShape();
-            shapeDef.SetRadius(radius * b2.SCALE);
+            shapeDef.SetRadius(this.radius * b2.SCALE);
 
             var fixtureDef = new b2.FixtureDef();
             fixtureDef.shape = shapeDef;
