@@ -14,3 +14,8 @@ The following `Entity` functionally now behaves how you would expect:
 - [handleMovementTrace](http://impactjs.com/documentation/class-reference/entity#handlemovementtrace)
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
+
+### FAQ ###
+
+Q: How come my game freezes?
+A: Box2D will not usually throw an errors if you pass it illegal data. Make sure you provide `b2.Vec2`'s where required.
