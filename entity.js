@@ -25,10 +25,6 @@ ig.module(
         init: function(x, y, settings) {
             this.parent(x, y, settings);
 
-            if(this.shape === ig.Box2DEntity.SHAPE.CIRCLE && this.size.x !== this.size.y) {
-                throw "Circles must have equal width and height.";
-            }
-
             // Only create a box2d body when we are not in Weltmeister
             if (!ig.global.wm) {
                 this.createBody();
