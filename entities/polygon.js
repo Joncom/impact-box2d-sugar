@@ -23,7 +23,6 @@ ig.module('plugins.box2d.entities.polygon')
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;
             fixtureDef.restitution = this.bounciness;
-            fixtureDef.isSensor = this.isSensor;
 
             this.body.CreateFixture(fixtureDef);
         }

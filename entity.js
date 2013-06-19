@@ -32,6 +32,7 @@ ig.module(
                 this.body.SetSleepingAllowed(this.allowSleep);
                 this.body.SetBullet(this.isBullet);
                 this.body.SetFixedRotation(this.isFixedRotation);
+                this.setFixturesToSensorMode(this.isSensor);
                 this.applyGravity(); // 1st step needs gravity too!
             }
         },
@@ -53,7 +54,6 @@ ig.module(
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;
             fixtureDef.restitution = this.bounciness;
-            fixtureDef.isSensor = this.isSensor;
 
             this.body.CreateFixture(fixtureDef);
         },
@@ -114,6 +114,12 @@ ig.module(
             velocity.x = x * b2.SCALE;
             velocity.y = y * b2.SCALE;
             this.body.SetLinearVelocity(velocity, this.body.GetPosition());
+        },
+
+        setFixturesToSensorMode: function(bool) {
+            for(var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
+                fixture.isSensor = bool;
+            }
         },
 
         updateStanding: function() {
