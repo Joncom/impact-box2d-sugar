@@ -13,7 +13,7 @@ ig.module(
         body: null,
         angle: 0,
         bodyType: b2.Body.b2_dynamicBody,
-        shape: 0, // ig.Entity.SHAPE.BOX
+        shape: 0, // ig.Box2DEntity.SHAPE.BOX
         density: 1.0,
         vertices: [],
         isFixedRotation: false,
@@ -22,7 +22,7 @@ ig.module(
         init: function(x, y, settings) {
             this.parent(x, y, settings);
 
-            if(this.shape === ig.Entity.SHAPE.CIRCLE && this.size.x !== this.size.y) {
+            if(this.shape === ig.Box2DEntity.SHAPE.CIRCLE && this.size.x !== this.size.y) {
                 throw "Circles must have equal width and height.";
             }
 
@@ -38,7 +38,7 @@ ig.module(
             var bodyDef = new b2.BodyDef();
             bodyDef.type = this.bodyType;
 
-            if(!this.shape || this.shape === ig.Entity.SHAPE.BOX) {
+            if(!this.shape || this.shape === ig.Box2DEntity.SHAPE.BOX) {
                 bodyDef.position.Set(
                     (this.pos.x + this.size.x / 2) * b2.SCALE,
                     (this.pos.y + this.size.y / 2) * b2.SCALE
@@ -48,7 +48,7 @@ ig.module(
                     this.size.x / 2 * b2.SCALE,
                     this.size.y / 2 * b2.SCALE
                 );
-            } else if(this.shape === ig.Entity.SHAPE.CIRCLE) {
+            } else if(this.shape === ig.Box2DEntity.SHAPE.CIRCLE) {
                 var radius = this.size.x / 2;
                 bodyDef.position.Set(
                     (this.pos.x + radius) * b2.SCALE,
@@ -56,7 +56,7 @@ ig.module(
                 );
                 var shapeDef = new b2.CircleShape();
                 shapeDef.SetRadius(radius * b2.SCALE);
-            } else if(this.shape === ig.Entity.SHAPE.POLYGON) {
+            } else if(this.shape === ig.Box2DEntity.SHAPE.POLYGON) {
                 bodyDef.position.Set(
                     (this.pos.x + this.size.x / 2) * b2.SCALE,
                     (this.pos.y + this.size.y / 2) * b2.SCALE
