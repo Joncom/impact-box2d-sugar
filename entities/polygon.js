@@ -25,7 +25,6 @@ ig.module('plugins.box2d.entities.polygon')
             fixtureDef.restitution = this.bounciness;
             fixtureDef.isSensor = this.isSensor;
 
-            this.body.SetFixedRotation(this.isFixedRotation);
             this.body.CreateFixture(fixtureDef);
         }
 

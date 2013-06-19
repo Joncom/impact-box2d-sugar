@@ -41,7 +41,6 @@ ig.module('plugins.box2d.entities.pill')
             boxFixture.SetFriction(1);
             topCircleFixture.isSensor = this.isSensor;
 
-            this.body.SetFixedRotation(this.isFixedRotation);
             this.body.CreateFixture(fixtureDef);
         }
 

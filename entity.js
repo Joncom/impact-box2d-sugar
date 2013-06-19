@@ -31,6 +31,7 @@ ig.module(
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
                 this.body.SetBullet(this.isBullet);
+                this.body.SetFixedRotation(this.isFixedRotation);
                 this.applyGravity(); // 1st step needs gravity too!
             }
         },
@@ -54,7 +55,6 @@ ig.module(
             fixtureDef.restitution = this.bounciness;
             fixtureDef.isSensor = this.isSensor;
 
-            this.body.SetFixedRotation(this.isFixedRotation);
             this.body.CreateFixture(fixtureDef);
         },
 
