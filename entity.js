@@ -15,9 +15,7 @@ ig.module(
 
         /* Box2D Setup Stuff */
         bodyType: b2.Body.b2_dynamicBody,
-        shape: 0, // ig.Box2DEntity.SHAPE.BOX
         density: 1.0,
-        vertices: [], // Only used if shape = ig.Box2DEntity.SHAPE.POLYGON
         isFixedRotation: false, // Prevents entity from rotating.
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
@@ -49,50 +47,8 @@ ig.module(
             );
             this.body = ig.world.CreateBody(bodyDef);
 
-            if(!this.shape || this.shape === ig.Box2DEntity.SHAPE.BOX) {
-                var shapeDef = new b2.PolygonShape();
-                shapeDef.SetAsBox(this.size.x / 2 * b2.SCALE, this.size.y / 2 * b2.SCALE);
-            } else if(this.shape === ig.Box2DEntity.SHAPE.CIRCLE) {
-                var radius = this.size.x / 2;
-                var shapeDef = new b2.CircleShape();
-                shapeDef.SetRadius(radius * b2.SCALE);
-            } else if(this.shape === ig.Box2DEntity.SHAPE.POLYGON) {
-                var shapeDef = new b2.PolygonShape();
-                shapeDef.SetAsArray(this.vertices, this.vertices.length);
-            } else if(this.shape === ig.Box2DEntity.SHAPE.PILL) {
-                var radius = this.size.x / 2;
-                var circleOffsetY = this.size.y / 2 - radius;
-
-                var topCircleDef = new b2.CircleShape();
-                topCircleDef.SetRadius(radius * b2.SCALE);
-                topCircleDef.SetLocalPosition(0, -circleOffsetY * b2.SCALE);
-                topCircleFixture = this.body.CreateFixture2(topCircleDef, this.density);
-                topCircleFixture.SetRestitution(this.bounciness);
-                topCircleFixture.SetFriction(1);
-                topCircleFixture.isSensor = this.isSensor;
-
-                var bottomCircleDef = new b2.CircleShape();
-                bottomCircleDef.SetRadius(radius * b2.SCALE);
-                bottomCircleDef.SetLocalPosition(0, circleOffsetY * b2.SCALE);
-                bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
-                bottomCircleFixture.SetRestitution(this.bounciness);
-                bottomCircleFixture.SetFriction(1);
-                topCircleFixture.isSensor = this.isSensor;
-
-                var boxDef = new b2.PolygonDef();
-                var boxWidth = this.size.x / 2 * b2.SCALE;
-                var boxHeight = (this.size.y / 2 - this.size.x / 2) * b2.SCALE;
-                boxDef.SetAsBox(boxWidth, boxHeight);
-                boxFixture = this.body.CreateFixture2(boxDef, this.density);
-                boxFixture.SetRestitution(this.bounciness);
-                boxFixture.SetFriction(1);
-                topCircleFixture.isSensor = this.isSensor;
-
-                this.body.SetFixedRotation(this.isFixedRotation);
-                this.body.SetBullet(this.isBullet);
-                this.body.CreateFixture(fixtureDef);
-                return;
-            }
+            var shapeDef = new b2.PolygonShape();
+            shapeDef.SetAsBox(this.size.x / 2 * b2.SCALE, this.size.y / 2 * b2.SCALE);
 
             var fixtureDef = new b2.FixtureDef();
             fixtureDef.shape = shapeDef;
@@ -176,11 +132,5 @@ ig.module(
         }
 
     });
-
-    ig.Box2DEntity.SHAPE = {
-        BOX: 0,
-        CIRCLE: 1,
-        POLYGON: 2
-    };
 
 });
