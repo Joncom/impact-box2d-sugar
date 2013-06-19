@@ -1,8 +1,8 @@
-ig.module('plugins.box2d.entities.pill')
+ig.module('plugins.box2d.entities.polygon')
 .requires('plugins.box2d.entity')
 .defines(function(){
 
-    ig.b2Pill = ig.Box2DEntity.extend({
+    ig.b2Polygon = ig.Box2DEntity.extend({
 
         vertices: [],
 
