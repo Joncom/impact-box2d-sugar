@@ -37,30 +37,19 @@ ig.module(
         createBody: function() {
             var bodyDef = new b2.BodyDef();
             bodyDef.type = this.bodyType;
+            bodyDef.position.Set(
+                (this.pos.x + this.size.x / 2) * b2.SCALE,
+                (this.pos.y + this.size.y / 2) * b2.SCALE
+            );
 
             if(!this.shape || this.shape === ig.Box2DEntity.SHAPE.BOX) {
-                bodyDef.position.Set(
-                    (this.pos.x + this.size.x / 2) * b2.SCALE,
-                    (this.pos.y + this.size.y / 2) * b2.SCALE
-                );
                 var shapeDef = new b2.PolygonShape();
-                shapeDef.SetAsBox(
-                    this.size.x / 2 * b2.SCALE,
-                    this.size.y / 2 * b2.SCALE
-                );
+                shapeDef.SetAsBox(this.size.x / 2 * b2.SCALE, this.size.y / 2 * b2.SCALE);
             } else if(this.shape === ig.Box2DEntity.SHAPE.CIRCLE) {
                 var radius = this.size.x / 2;
-                bodyDef.position.Set(
-                    (this.pos.x + radius) * b2.SCALE,
-                    (this.pos.y + radius) * b2.SCALE
-                );
                 var shapeDef = new b2.CircleShape();
                 shapeDef.SetRadius(radius * b2.SCALE);
             } else if(this.shape === ig.Box2DEntity.SHAPE.POLYGON) {
-                bodyDef.position.Set(
-                    (this.pos.x + this.size.x / 2) * b2.SCALE,
-                    (this.pos.y + this.size.y / 2) * b2.SCALE
-                );
                 var shapeDef = new b2.PolygonShape();
                 shapeDef.SetAsArray(this.vertices, this.vertices.length);
             }
