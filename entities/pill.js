@@ -16,16 +16,14 @@ ig.module('plugins.box2d.entities.pill')
             var radius = this.size.x / 2;
             var circleOffsetY = this.size.y / 2 - radius;
 
-            var topCircleDef = new b2.CircleShape();
-            topCircleDef.SetRadius(radius * b2.SCALE);
+            var topCircleDef = new b2.CircleShape(radius * b2.SCALE);
             topCircleDef.SetLocalPosition(0, -circleOffsetY * b2.SCALE);
             topCircleFixture = this.body.CreateFixture2(topCircleDef, this.density);
             topCircleFixture.SetRestitution(this.bounciness);
             topCircleFixture.SetFriction(1);
             topCircleFixture.isSensor = this.isSensor;
 
-            var bottomCircleDef = new b2.CircleShape();
-            bottomCircleDef.SetRadius(radius * b2.SCALE);
+            var bottomCircleDef = new b2.CircleShape(radius * b2.SCALE);
             bottomCircleDef.SetLocalPosition(0, circleOffsetY * b2.SCALE);
             bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
             bottomCircleFixture.SetRestitution(this.bounciness);
