@@ -59,7 +59,7 @@ ig.module(
         },
 
         update: function() {
-            if(this.body.IsAwake()) {
+            if (this.body.IsAwake()) {
                 this.applyGravity();
             }
 
@@ -86,9 +86,9 @@ ig.module(
             this.parent();
         },
 
-        touches: function( other ) {
-            for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
-                if(edge.other.entity === other) {
+        touches: function(other) {
+            for (var edge = this.body.m_contactList; edge; edge = edge.next) {
+                if (edge.other.entity === other) {
                     return true;
                 }
             }
@@ -100,36 +100,36 @@ ig.module(
 
         applyGravity: function() {
             var gravity = new b2.Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * b2.SCALE);
-            this.body.ApplyForce( gravity, this.body.GetPosition() );
+            this.body.ApplyForce(gravity, this.body.GetPosition());
         },
 
         limitVelocity: function() {
             var velocity = this.body.GetLinearVelocity();
             var x = velocity.x / b2.SCALE;
             var y = velocity.y / b2.SCALE;
-            if(x < -this.maxVel.x)     x = -this.maxVel.x;
-            else if(x > this.maxVel.x) x = this.maxVel.x;
-            if(y < -this.maxVel.y)     y = -this.maxVel.y;
-            else if(y > this.maxVel.y) y = this.maxVel.y;
+            if (x < -this.maxVel.x) x = -this.maxVel.x;
+            else if (x > this.maxVel.x) x = this.maxVel.x;
+            if (y < -this.maxVel.y) y = -this.maxVel.y;
+            else if (y > this.maxVel.y) y = this.maxVel.y;
             velocity.x = x * b2.SCALE;
             velocity.y = y * b2.SCALE;
             this.body.SetLinearVelocity(velocity, this.body.GetPosition());
         },
 
         setFixturesToSensorMode: function(isSensor) {
-            for(var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
+            for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(isSensor);
             }
         },
 
         updateStanding: function() {
             this.standing = false;
-            for( var edge = this.body.m_contactList; edge; edge = edge.next ) {
+            for (var edge = this.body.m_contactList; edge; edge = edge.next) {
                 if (!edge.contact.IsTouching()) {
                     continue;
                 }
                 var normal = edge.contact.m_manifold.m_localPlaneNormal;
-                if( normal.y < 0 ) {
+                if (normal.y < 0) {
                     this.standing = true;
                     break;
                 }
