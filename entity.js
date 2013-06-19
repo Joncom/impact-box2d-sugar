@@ -20,6 +20,7 @@ ig.module(
         vertices: [], // Only used if shape = ig.Box2DEntity.SHAPE.POLYGON
         isFixedRotation: false, // Prevents entity from rotating.
         isBullet: false, // Prevents tunneling at the cost of performance.
+        isSensor: false,
         allowSleep: true, // Better performance.
         /* END */
 
@@ -68,6 +69,7 @@ ig.module(
                 topCircleFixture = this.body.CreateFixture2(topCircleDef, this.density);
                 topCircleFixture.SetRestitution(this.bounciness);
                 topCircleFixture.SetFriction(1);
+                topCircleFixture.isSensor = this.isSensor;
 
                 var bottomCircleDef = new b2.CircleShape();
                 bottomCircleDef.SetRadius(radius * b2.SCALE);
@@ -75,6 +77,7 @@ ig.module(
                 bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
                 bottomCircleFixture.SetRestitution(this.bounciness);
                 bottomCircleFixture.SetFriction(1);
+                topCircleFixture.isSensor = this.isSensor;
 
                 var boxDef = new b2.PolygonDef();
                 var boxWidth = this.size.x / 2 * b2.SCALE;
@@ -83,6 +86,7 @@ ig.module(
                 boxFixture = this.body.CreateFixture2(boxDef, this.density);
                 boxFixture.SetRestitution(this.bounciness);
                 boxFixture.SetFriction(1);
+                topCircleFixture.isSensor = this.isSensor;
 
                 this.body.SetFixedRotation(this.isFixedRotation);
                 this.body.SetBullet(this.isBullet);
@@ -95,6 +99,7 @@ ig.module(
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;
             fixtureDef.restitution = this.bounciness;
+            fixtureDef.isSensor = this.isSensor;
 
             this.body.SetFixedRotation(this.isFixedRotation);
             this.body.SetBullet(this.isBullet);
