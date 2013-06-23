@@ -19,7 +19,7 @@ ig.module(
                 var entityA = this.entities[e];
                 for(var id in entityA.checkQueue) {
                     var entityB = entityA.checkQueue[id].entity;
-                    if(entityA.checkQueue[id].contacts > 0) {
+                    if(entityA.checkQueue[id].contactCount > 0) {
                         entityA.check(entityB);
                     }
                 }
@@ -55,15 +55,15 @@ ig.module(
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
                         if(typeof a.checkQueue[b.id] === 'undefined') {
-                            a.checkQueue[b.id] = { contacts: 0, entity: b };
+                            a.checkQueue[b.id] = { contactCount: 0, entity: b };
                         }
-                        a.checkQueue[b.id].contacts++;
+                        a.checkQueue[b.id].contactCount++;
                     }
                     if (b.checkAgainst & a.type) {
                         if(typeof b.checkQueue[a.id] === 'undefined') {
-                            b.checkQueue[a.id] = { contacts: 0, entity: a };
+                            b.checkQueue[a.id] = { contactCount: 0, entity: a };
                         }
-                        b.checkQueue[a.id].contacts++;
+                        b.checkQueue[a.id].contactCount++;
                     }
                 }
             };
@@ -78,15 +78,15 @@ ig.module(
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
                         if(typeof a.checkQueue[b.id] === 'undefined') {
-                            a.checkQueue[b.id] = { contacts: 0, entity: b };
+                            a.checkQueue[b.id] = { contactCount: 0, entity: b };
                         }
-                        a.checkQueue[b.id].contacts--;
+                        a.checkQueue[b.id].contactCount--;
                     }
                     if (b.checkAgainst & a.type) {
                         if(typeof b.checkQueue[a.id] === 'undefined') {
-                            b.checkQueue[a.id] = { contacts: 0, entity: a };
+                            b.checkQueue[a.id] = { contactCount: 0, entity: a };
                         }
-                        b.checkQueue[a.id].contacts--;
+                        b.checkQueue[a.id].contactCount--;
                     }
                 }
             };
