@@ -16,10 +16,12 @@ ig.module(
 
         checkEntities: function() {
             for( var e = 0; e < this.entities.length; e++ ) {
-                var entity = this.entities[e];
-                for(var id in entity.checkQueue) {
-                    var other = entity.checkQueue[id];
-                    entity.check(other);
+                var entityA = this.entities[e];
+                for(var id in entityA.checkQueue) {
+                    var entityB = entityA.checkQueue[id].entity;
+                    if(entityA.checkQueue[id].contacts > 0) {
+                        entityA.check(entityB);
+                    }
                 }
             }
         },
