@@ -7,7 +7,7 @@ ig.module(
 )
 .defines(function(){
 
-    ig.Box2DEntity = ig.Entity.extend({
+    ig.Entity.inject({
 
         maxVel: { x: 9999, y: 9999 },
         body: null,

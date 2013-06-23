@@ -3,6 +3,6 @@ ig.module('plugins.box2d.entities.box')
 .defines(function(){
 
     // Box shape is the defined by default.
-    ig.b2Box = ig.Box2DEntity.extend({});
+    ig.b2Box = ig.Entity.extend({});
 
 });
