@@ -1,47 +1,30 @@
-ig.module(
-    'plugins.box2d.debug'
-)
-.requires(
-    'plugins.box2d.lib'
-)
+ig.module('plugins.box2d.debug')
+.requires('plugins.box2d.lib')
 .defines(function(){
 
     ig.Box2DDebug = ig.Class.extend({
-
         drawer: null,
-        world: null,
         canvas: null,
+        world: null,
 
         alpha: 0.5,
         thickness: 1,
 
-        // These are set dynamically by Box2D.
-        lineWidth: null,
-        fillStyle: null,
-        strokeSyle: null,
-
         init: function(world, alpha, thickness) {
             this.world = world;
             this.canvas = ig.system.canvas;
-            this.alpha = (typeof alpha !== 'undefined' ? alpha : this.alpha);
-            this.thickness = (typeof thickness === 'number' ? thickness : this.thickness);
-            this.drawer = new b2.DebugDraw();
+            this.drawer = new Box2D.Dynamics.b2DebugDraw();
             this.drawer.SetSprite(this);
             this.drawer.SetDrawScale(1 / Box2D.SCALE * ig.system.scale);
-            this.drawer.SetAlpha(this.alpha);
-            this.drawer.SetLineThickness(this.thickness);
-            this.drawer.SetFillAlpha(this.alpha);
-            this.drawer.SetFlags(b2.DebugDraw.e_shapeBit | b2.DebugDraw.e_jointBit);
-            this.world.SetDebugDraw(this.drawer);
+            this.drawer.SetFillAlpha(alpha || 0.3);
+            this.drawer.SetLineThickness(thickness || 1.0);
+            this.drawer.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
+            world.SetDebugDraw(this.drawer);
         },
 
         draw: function() {
             ig.system.context.save();
-            ig.system.context.translate(
-                -ig.game.screen.x * ig.system.scale,
-                -ig.game.screen.y * ig.system.scale + ig.system.canvas.height
-            );
-            ig.system.context.scale( 1, -1 );
+            ig.system.context.translate(-ig.game.screen.x * ig.system.scale, -ig.game.screen.y * ig.system.scale);
             this.world.DrawDebugData();
             ig.system.context.restore();
         },
