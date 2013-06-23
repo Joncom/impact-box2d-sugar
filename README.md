@@ -3,8 +3,9 @@ Impact Box2D Sugar
 
 #### Box2D Physics Plugin for the Impact Game Engine ####
 
-The goal of this plugin is to make developing Box2D games as easy as possible.
-It is based off the official Impact Box2D plugin using Box2D 2.1a.
+The goal of this plugin is to make developing Box2D games as simple as possible.
+
+It is based off the [official plugin](https://github.com/phoboslab/impact-box2d) running Box2D 2.1a.
 
 #### What's New? ####
 
