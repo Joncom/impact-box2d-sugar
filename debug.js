@@ -1,5 +1,5 @@
 ig.module('plugins.box2d.debug')
-.requires('plugins.box2d.lib')
+.requires('plugins.box2d.game')
 .defines(function(){
 
     ig.Box2DDebug = ig.Class.extend({
@@ -65,5 +65,19 @@ ig.module('plugins.box2d.debug')
         }
 
     });
+
+    ig.Game.inject({
+        loadLevel: function(data) {
+            this.parent(data);
+            this.debugDrawer = new ig.Box2DDebug(ig.world);
+        },
+        draw: function() {
+            this.parent();
+            this.debugDrawer.draw();
+        }
+    });
+
+
+
 
 });
