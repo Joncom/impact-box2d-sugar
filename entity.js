@@ -71,9 +71,6 @@ ig.module(
             this.parent();
         },
 
-        // Override if you wish to use the res object.
-        handleMovementTrace: function(res) {},
-
         touches: function(other) {
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
                 if(!edge.contact.IsTouching()) {
@@ -148,38 +145,6 @@ ig.module(
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(isSensor);
             }
-        },
-
-        /* Builds the quite possibly useful res object.
-         * AUTHOR: quidmonkey
-         * URL:    http://impactjs.com/forums/code/box2d-collision-plugin/page/2#post22254 */
-        buildResObject: function(normal) {
-            var res = {
-                collision: {x: false, y: false, slope: false},
-                pos: null,
-                slopeAngle: null,
-                tile: null
-            };
-            res.pos = {
-                x: (this.pos.x / Box2D.SCALE - this.size.x / 2),
-                y: (this.pos.y / Box2D.SCALE - this.size.y / 2)
-            };
-            if (Math.abs(normal.x) === 1) {
-                res.pos.x += this.vel.x > 0 ? this.size.x : 0;
-                res.collision.x = true;
-            } else if (normal.x) {
-                res.collision.slope = true;
-                res.slopeAngle = Math.atan2(normal.x, -normal.y); // atan of normal orthogonal
-            }
-            if (Math.abs(normal.y) === 1) {
-                res.pos.y += this.vel.y > 0 ? this.size.y : 0;
-                res.collision.y = true;
-            } else if (normal.y) {
-                res.collision.slope = true;
-                res.slopeAngle = Math.atan2(normal.x, -normal.y); // atan of normal orthogonal
-            }
-            res.tile = ig.game.collisionMap.getTile(res.pos.x, res.pos.y);
-            return res;
         },
 
         updateStanding: function() {
