@@ -16,7 +16,7 @@ ig.module('plugins.box2d.debug')
             this.drawer = new Box2D.Dynamics.b2DebugDraw();
             this.drawer.SetSprite(this);
             this.drawer.SetDrawScale(1 / Box2D.SCALE * ig.system.scale);
-            this.drawer.SetFillAlpha(alpha || 0.3);
+            this.drawer.SetFillAlpha(alpha || this.alpha);
             this.drawer.SetLineThickness(thickness || 1.0);
             this.drawer.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
             world.SetDebugDraw(this.drawer);
