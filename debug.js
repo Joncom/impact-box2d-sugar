@@ -47,6 +47,7 @@ ig.module('plugins.box2d.debug')
         },
 
         fill: function() {
+            ig.system.context.fillStyle = this.fillStyle;
             ig.system.context.fill();
         },
 
