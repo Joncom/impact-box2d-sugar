@@ -87,6 +87,9 @@ ig.module(
             this.parent();
         },
 
+        // Override if you wish to use the res object.
+        handleMovementTrace: function(res) {},
+
         touches: function(other) {
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
                 if(!edge.contact.IsTouching()) {
