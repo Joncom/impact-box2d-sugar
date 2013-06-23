@@ -19,6 +19,12 @@ The following `Entity` functionally has been restored:
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
 
+### Usage ###
+
+1. Copy the contents of this repo into `lib/plugins/box2d/`.
+2. In `main.js`, require `plugins.box2d.game` instead of `impact.game`.
+3. In your entities, require `plugins.box2d.entity` instead of `impact.entity`.
+
 ### FAQ ###
 
 **Q:** What version of Box2D is this?
@@ -29,10 +35,3 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 **Q:** My game freezes. What do?
 **A:** This usually means a number `NaN` because you passed the wrong argument.
-
-### Usage ###
-
-1. Copy the contents of this repo into `lib/plugins/box2d/`.
-2. In `main.js`, require `plugins.box2d.game` instead of `impact.game`.
-3. In your entities, require `plugins.box2d.entity` instead of `impact.entity`.
-
