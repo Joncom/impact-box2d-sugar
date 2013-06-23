@@ -1,11 +1,7 @@
 Impact Box2D Sugar
 ==========
 
-#### Box2D Physics Plugin for the Impact Game Engine ####
-
-The goal of this plugin is to make developing Box2D games as simple as possible.
-
-It is based off the [official plugin](https://github.com/phoboslab/impact-box2d) running Box2D 2.1a.
+##### The goal of this plugin is to make developing Box2D games with Impact as simple as possible.#####
 
 #### What's New? ####
 
@@ -25,8 +21,11 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 ### FAQ ###
 
-**Q:** Where can I find information on function/class "blank"?
+**Q:** What version of Box2D is this?
+**A:** Box2D 2.1a via Box2DWeb.
+
+**Q:** Where is some good documentation on this version of Box2D?
 **A:** http://www.box2dflash.org/docs/2.1a/reference/
 
-**Q:** How come my game freezes?
-**A:** This usually means a number has become `NaN`, possibly caused by forgeting to use `b2Vec2`.
+**Q:** My game freezes. What do?
+**A:** This usually means a number `NaN` because you passed the wrong argument.
