@@ -14,7 +14,7 @@ ig.module(
         angle: 0,
 
         checkQueue: {},
-        collideWithQueue: [],
+        collideQueue: {},
 
         /* Box2D Setup Stuff */
         bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,

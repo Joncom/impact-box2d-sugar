@@ -17,11 +17,19 @@ ig.module(
         checkEntities: function() {
             for( var e = 0; e < this.entities.length; e++ ) {
                 var entityA = this.entities[e];
+
                 for(var id in entityA.checkQueue) {
                     var entityB = entityA.checkQueue[id].entity;
                     if(entityA.checkQueue[id].contactCount > 0) {
                         entityA.check(entityB);
                     }
+                }
+
+                for(var id in entityA.collideQueue) {
+                    var entityB = entityA.collideQueue[id].entity;
+                    var axis = entityA.collideQueue[id].axis;
+                    entityA.collideWith(entityB, axis);
+                    delete entityA.collideQueue[id];
                 }
             }
         },
@@ -65,6 +73,12 @@ ig.module(
                         }
                         b.checkQueue[a.id].contactCount++;
                     }
+
+                    // Preserve Impact's collideWith calls.
+                    var normal = contact.GetManifold().m_localPlaneNormal;
+                    var axis = (Math.abs(contact.normal.y) > Math.abs(contact.normal.x)) ? 'y' : 'x';
+                    a.collideQueue[b.id] = { entity: b, axis: axis };
+                    b.collideQueue[a.id] = { entity: a, axis: axis };
                 }
             };
             listener.EndContact = function(contact) {
@@ -218,14 +232,6 @@ ig.module(
                 var res = this.buildResObject(contact);
                 entity.handleMovementTrace(res);
                 return;
-            }
-            // Favor the axis of greater penetration.
-            if (Math.abs(contact.normal.y) > Math.abs(contact.normal.x)) {
-                a.collideWith(b, 'y');
-                b.collideWith(a, 'y');
-            } else {
-                a.collideWith(b, 'x');
-                b.collideWith(a, 'x');
             }
         },
 
