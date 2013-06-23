@@ -16,7 +16,6 @@ ig.module(
         checkEntities: function() {},
 
         loadLevel: function(data) {
-
             // Find the collision layer and create the box2d world from it
             for (var i = 0; i < data.layer.length; i++) {
                 var ld = data.layer[i];
@@ -25,9 +24,7 @@ ig.module(
                     break;
                 }
             }
-
             this.parent(data);
-
             this.setupContactListener();
         },
 
