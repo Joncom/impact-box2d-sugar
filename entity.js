@@ -16,7 +16,7 @@ ig.module(
         /* Box2D Setup Stuff */
         bodyType: b2.Body.b2_dynamicBody,
         density: 1.0,
-        isFixedRotation: false, // Prevents entity from rotating.
+        isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
         allowSleep: true, // Better performance.
