@@ -1,7 +1,12 @@
-Impact Box2D Plugin w/ Sugar
+Impact Box2D Sugar
 ==========
 
-This v2.1a Box2D plugin is an adaptation of the plugin found [here](https://github.com/clok/PiSpace/tree/3f2900026b58d5fb97a8ea5621dfabd573af96d1/lib/plugins/box2d).
+#### Box2D Physics Plugin for the Impact Game Engine ####
+
+The goal of this plugin is to make developing Box2D games in Impact as easy as possible.
+It is based off the official Impact Box2D plugin using Box2D 2.1a.
+
+#### What's New? ####
 
 The following `Entity` functionally now behaves how you would expect:
 - [standing](http://impactjs.com/documentation/class-reference/entity#standing)
