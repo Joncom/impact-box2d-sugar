@@ -13,25 +13,7 @@ ig.module(
         collisionRects: [],
         debugCollisionRects: false,
 
-        checkEntities: function() {
-            for( var e = 0; e < this.entities.length; e++ ) {
-                var entityA = this.entities[e];
-                // Preserve Impact's entity checks.
-                for(var id in entityA.checkQueue) {
-                    var entityB = entityA.checkQueue[id].entity;
-                    if(entityA.checkQueue[id].contactCount > 0) {
-                        entityA.check(entityB);
-                    }
-                }
-                // Preserve Impact's collideWith calls.
-                for(var id in entityA.collideQueue) {
-                    var entityB = entityA.collideQueue[id].entity;
-                    var axis = entityA.collideQueue[id].axis;
-                    entityA.collideWith(entityB, axis);
-                    delete entityA.collideQueue[id];
-                }
-            }
-        },
+        checkEntities: function() {},
 
         loadLevel: function(data) {
 

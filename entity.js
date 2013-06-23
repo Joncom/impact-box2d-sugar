@@ -62,7 +62,26 @@ ig.module(
             this.body.CreateFixture(fixtureDef);
         },
 
+        processCollisionQueues: function() {
+            // Preserve Impact's entity checks.
+            for(var id in this.checkQueue) {
+                var other = this.checkQueue[id].entity;
+                if(this.checkQueue[id].contactCount > 0) {
+                    this.check(other);
+                }
+            }
+            // Preserve Impact's collideWith calls.
+            for(var id in this.collideQueue) {
+                var other = this.collideQueue[id].entity;
+                var axis = this.collideQueue[id].axis;
+                this.collideWith(other, axis);
+                delete this.collideQueue[id];
+            }
+        },
+
         update: function() {
+            this.processCollisionQueues();
+
             if (this.body.IsAwake()) {
                 this.applyGravity();
             }
