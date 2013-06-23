@@ -14,6 +14,9 @@ ig.module(
         debugCollisionRects: false,
         contactBuffer: [],
 
+        // Touching-entity checks handled by Box2D.
+        checkEntities: function() {},
+
         loadLevel: function(data) {
 
             // Find the collision layer and create the box2d world from it
