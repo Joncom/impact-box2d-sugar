@@ -16,14 +16,14 @@ ig.module(
         checkEntities: function() {
             for( var e = 0; e < this.entities.length; e++ ) {
                 var entityA = this.entities[e];
-
+                // Preserve Impact's entity checks.
                 for(var id in entityA.checkQueue) {
                     var entityB = entityA.checkQueue[id].entity;
                     if(entityA.checkQueue[id].contactCount > 0) {
                         entityA.check(entityB);
                     }
                 }
-
+                // Preserve Impact's collideWith calls.
                 for(var id in entityA.collideQueue) {
                     var entityB = entityA.collideQueue[id].entity;
                     var axis = entityA.collideQueue[id].axis;
@@ -52,16 +52,8 @@ ig.module(
         setupContactListener: function() {
             var listener = new Box2D.Dynamics.b2ContactListener();
             listener.BeginContact = function(contact) {
-                contactData = {
-                    entityA: contact.GetFixtureA().GetBody().entity,
-                    entityB: contact.GetFixtureB().GetBody().entity,
-                    normal: ig.copy(contact.GetManifold().m_localPlaneNormal)
-                };
-                ig.game.contactBuffer.push(contactData);
-
-                // Preserve Impact's entity checks.
-                var a = contactData.entityA;
-                var b = contactData.entityB;
+                var a = contact.GetFixtureA().GetBody().entity;
+                var b = contact.GetFixtureB().GetBody().entity;
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
                         if(typeof a.checkQueue[b.id] === 'undefined') {
@@ -75,8 +67,6 @@ ig.module(
                         }
                         b.checkQueue[a.id].contactCount++;
                     }
-
-                    // Preserve Impact's collideWith calls.
                     var normal = contact.GetManifold().m_localPlaneNormal;
                     var axis = (Math.abs(normal.y) > Math.abs(normal.x)) ? 'y' : 'x';
                     a.collideQueue[b.id] = { entity: b, axis: axis };
@@ -84,13 +74,8 @@ ig.module(
                 }
             };
             listener.EndContact = function(contact) {
-                contactData = {
-                    entityA: contact.GetFixtureA().GetBody().entity,
-                    entityB: contact.GetFixtureB().GetBody().entity,
-                    normal: ig.copy(contact.GetManifold().m_localPlaneNormal)
-                };
-                var a = contactData.entityA;
-                var b = contactData.entityB;
+                var a = contact.GetFixtureA().GetBody().entity;
+                var b = contact.GetFixtureB().GetBody().entity;
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
                         if(typeof a.checkQueue[b.id] === 'undefined') {
@@ -192,7 +177,6 @@ ig.module(
         update: function() {
             ig.world.Step(ig.system.tick, 5, 5);
             ig.world.ClearForces();
-            this.processContactBuffer();
             this.parent();
         },
 
