@@ -35,7 +35,7 @@ ig.module(
                 this.body.SetSleepingAllowed(this.allowSleep);
                 this.body.SetBullet(this.isBullet);
                 this.body.SetFixedRotation(this.isFixedRotation);
-                this.setFixturesToSensorMode(this.isSensor);
+                this.setFixturesAsSensors(this.isSensor);
                 this.applyGravity(); // 1st step needs gravity too!
                 ig.world.Step(0, 5, 5); // Make contact edges available for .touches
             }
@@ -141,9 +141,9 @@ ig.module(
             this.body.SetLinearVelocity(velocity, this.body.GetPosition());
         },
 
-        setFixturesToSensorMode: function(isSensor) {
+        setFixturesAsSensors: function(flag) {
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
-                fixture.SetSensor(isSensor);
+                fixture.SetSensor(flag);
             }
         },
 
