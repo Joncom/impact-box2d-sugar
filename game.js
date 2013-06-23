@@ -175,41 +175,6 @@ ig.module(
                 }
             }
             return rect;
-        },
-
-        /* Builds the quite possibly useful res object.
-         * AUTHOR: quidmonkey
-         * URL:    http://impactjs.com/forums/code/box2d-collision-plugin/page/2#post22254 */
-        buildResObject: function(contact) {
-            var a = contact.entityA;
-            var b = contact.entityB;
-            var entity = !a ? b : a;
-            var res = {
-                collision: {x: false, y: false, slope: false},
-                pos: null,
-                slopeAngle: null,
-                tile: null
-            };
-            res.pos = {
-                x: (entity.pos.x / Box2D.SCALE - entity.size.x / 2),
-                y: (entity.pos.y / Box2D.SCALE - entity.size.y / 2)
-            };
-            if (Math.abs(contact.normal.x) === 1) {
-                res.pos.x += entity.vel.x > 0 ? entity.size.x : 0;
-                res.collision.x = true;
-            } else if (contact.normal.x) {
-                res.collision.slope = true;
-                res.slopeAngle = Math.atan2(contact.normal.x, -contact.normal.y); // atan of normal orthogonal
-            }
-            if (Math.abs(contact.normal.y) === 1) {
-                res.pos.y += entity.vel.y > 0 ? entity.size.y : 0;
-                res.collision.y = true;
-            } else if (contact.normal.y) {
-                res.collision.slope = true;
-                res.slopeAngle = Math.atan2(contact.normal.x, -contact.normal.y); // atan of normal orthogonal
-            }
-            res.tile = ig.game.collisionMap.getTile(res.pos.x, res.pos.y);
-            return res;
         }
 
     });
