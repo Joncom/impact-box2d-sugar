@@ -68,6 +68,8 @@ ig.module(
                 var other = this.checkQueue[id].entity;
                 if(this.checkQueue[id].contactCount > 0) {
                     this.check(other);
+                } else {
+                    delete this.checkQueue[id];
                 }
             }
             // Preserve Impact's collideWith calls.
