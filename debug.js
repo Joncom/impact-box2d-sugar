@@ -32,7 +32,7 @@ ig.module('plugins.box2d.debug')
         clearRect: function() {},
 
         beginPath: function() {
-            ig.system.context.lineWidth = this.lineWidth;
+            ig.system.context.lineWidth = this.strokeWidth;
             ig.system.context.fillStyle = this.fillStyle;
             ig.system.context.strokeStyle = this.strokeSyle;
             ig.system.context.beginPath();
