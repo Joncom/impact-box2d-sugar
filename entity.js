@@ -33,6 +33,7 @@ ig.module(
                 this.createBody();
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
+                this.body.SetAngle(this.angle);
                 this.body.SetBullet(this.isBullet);
                 this.body.SetFixedRotation(this.isFixedRotation);
                 this.setFixturesAsSensors(this.isSensor);
