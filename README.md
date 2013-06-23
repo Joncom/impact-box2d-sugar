@@ -32,11 +32,7 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 ### Usage ###
 
-In `main.js` require `plugins.box2d.game` and create your game as usual.
-
-```
-MyGame = ig.Game.extend({
-    // your game content here
-});
-```
+1. Copy the contents of this repo into `lib/plugins/box2d/`.
+2. In `main.js`, require `plugins.box2d.game` instead of `impact.game`.
+3. In your entities, require `plugins.box2d.entity` instead of `impact.entity`.
 
