@@ -8,7 +8,7 @@ ig.module('plugins.box2d.debug')
         world: null,
 
         alpha: 0.5,
-        thickness: 1,
+        thickness: 1.0,
 
         init: function(world, alpha, thickness) {
             this.world = world;
@@ -17,7 +17,7 @@ ig.module('plugins.box2d.debug')
             this.drawer.SetSprite(this);
             this.drawer.SetDrawScale(1 / Box2D.SCALE * ig.system.scale);
             this.drawer.SetFillAlpha(alpha || this.alpha);
-            this.drawer.SetLineThickness(thickness || 1.0);
+            this.drawer.SetLineThickness(thickness || this.thickness);
             this.drawer.SetFlags(Box2D.Dynamics.b2DebugDraw.e_shapeBit | Box2D.Dynamics.b2DebugDraw.e_jointBit);
             world.SetDebugDraw(this.drawer);
         },
