@@ -21,15 +21,3 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 **Q:** How come my game freezes?
 **A:** This usually means a number has become `NaN`, possibly caused by forgeting to use `b2Vec2`.
-
-### TODO ###
-
-The `standing` logic is completed prior to calling `collideWith`.
-
-Therefore:
-
-- Push all `check`s into a queue on each entity.
-- Push all `collideWith`s into a queue on each entity.
-- Push all `handleMovementTrace`s into a queue on each entity.
-
-Then process `standing` before processing queues.
