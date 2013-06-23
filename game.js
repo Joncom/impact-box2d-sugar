@@ -12,7 +12,6 @@ ig.module(
         allowSleep: true,
         collisionRects: [],
         debugCollisionRects: false,
-        contactBuffer: [],
 
         checkEntities: function() {
             for( var e = 0; e < this.entities.length; e++ ) {
@@ -209,29 +208,6 @@ ig.module(
                         ig.system.getDrawPos(rect.width * ts),
                         ig.system.getDrawPos(rect.height * ts));
                 }
-            }
-        },
-
-        processContactBuffer: function() {
-            /* TODO: It's possible that one entity could be touching
-             * another entity on multiple points. This should probably
-             * just count as a single collsion event. */
-            for(var i=0; i<this.contactBuffer.length; i++) {
-                var contact = this.contactBuffer[i];
-                this.processContact(contact);
-            }
-            this.contactBuffer = [];
-        },
-
-        processContact: function(contact) {
-            var a = contact.entityA;
-            var b = contact.entityB;
-            // Is this an entity vs environment collision?
-            if (!a || !b) {
-                var entity = !a ? b : a;
-                var res = this.buildResObject(contact);
-                entity.handleMovementTrace(res);
-                return;
             }
         },
 
