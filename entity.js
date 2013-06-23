@@ -14,7 +14,7 @@ ig.module(
         angle: 0,
 
         /* Box2D Setup Stuff */
-        bodyType: b2.Body.b2_dynamicBody,
+        bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,
         density: 1.0,
         isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
