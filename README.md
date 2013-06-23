@@ -5,7 +5,7 @@ Impact Box2D Sugar
 
 #### What's New? ####
 
-The following `Entity` functionally now behaves how you would expect:
+The following `Entity` functionally has been restored:
 - [standing](http://impactjs.com/documentation/class-reference/entity#standing)
 - [touches](http://impactjs.com/documentation/class-reference/entity#touches)
 - [gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)
