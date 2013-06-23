@@ -51,18 +51,17 @@ ig.module(
                 var a = contactData.entityA;
                 var b = contactData.entityB;
                 if(a && b) {
-                    var alreadyExists = function() {
-                        console.log("Was to add entity to check-queue, but it was already there.");
-                    };
-                    if ( (a.checkAgainst & b.type) && typeof a.checkEntities[b.id] === 'undefined') {
-                        a.checkEntities[b.id] = b;
-                    } else if ( (a.checkAgainst & b.type) && typeof a.checkEntities[b.id] !== 'undefined') {
-                        alreadyExists();
+                    if (a.checkAgainst & b.type) {
+                        if(typeof a.checkEntities[b.id] === 'undefined') {
+                            a.checkEntities[b.id] = { contacts: 0, entity: b };
+                        }
+                        a.checkEntities[b.id].contacts++;
                     }
-                    if ((b.checkAgainst & a.type) && typeof b.checkEntities[a.id] === 'undefined') {
-                        b.checkEntities[a.id] = a;
-                    } else if ((b.checkAgainst & a.type) && typeof b.checkEntities[a.id] !== 'undefined') {
-                        alreadyExists();
+                    if (b.checkAgainst & a.type) {
+                        if(typeof b.checkEntities[a.id] === 'undefined') {
+                            b.checkEntities[a.id] = { contacts: 0, entity: a };
+                        }
+                        b.checkEntities[a.id].contacts++;
                     }
                 }
             };
@@ -75,18 +74,17 @@ ig.module(
                 var a = contactData.entityA;
                 var b = contactData.entityB;
                 if(a && b) {
-                    var notFound = function() {
-                        console.log("Tried to remove entity from check-queue but it was not found.");
-                    };
-                    if(typeof a.checkEntities[b.id] !== 'undefined') {
-                        delete a.checkEntities[b.id];
-                    } else {
-                        notFound();
+                    if (a.checkAgainst & b.type) {
+                        if(typeof a.checkEntities[b.id] === 'undefined') {
+                            a.checkEntities[b.id] = { contacts: 0, entity: b };
+                        }
+                        a.checkEntities[b.id].contacts--;
                     }
-                    if(typeof b.checkEntities[a.id] !== 'undefined') {
-                        delete b.checkEntities[a.id];
-                    } else {
-                        notFound();
+                    if (b.checkAgainst & a.type) {
+                        if(typeof b.checkEntities[a.id] === 'undefined') {
+                            b.checkEntities[a.id] = { contacts: 0, entity: a };
+                        }
+                        b.checkEntities[a.id].contacts--;
                     }
                 }
             };
