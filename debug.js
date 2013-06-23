@@ -56,7 +56,6 @@ ig.module('plugins.box2d.debug')
         },
 
         moveTo: function(x, y) {
-            ig.system.context.beginPath();
             ig.system.context.moveTo(x, y);
         },
 
