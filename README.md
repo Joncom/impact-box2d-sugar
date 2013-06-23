@@ -29,3 +29,23 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 
 **Q:** My game freezes. What do?
 **A:** This usually means a number `NaN` because you passed the wrong argument.
+
+### Usage ###
+
+```
+ig.module(
+	'game.main'
+)
+.requires(
+	// your requires here
+	'plugins.box2d.game'
+)
+.defines(function() {
+
+    MyGame = ig.Game.extend({
+        // your game content here
+    });
+
+});
+```
+
