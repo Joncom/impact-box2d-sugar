@@ -76,7 +76,7 @@ ig.module(
 
                     // Preserve Impact's collideWith calls.
                     var normal = contact.GetManifold().m_localPlaneNormal;
-                    var axis = (Math.abs(contact.normal.y) > Math.abs(contact.normal.x)) ? 'y' : 'x';
+                    var axis = (Math.abs(normal.y) > Math.abs(normal.x)) ? 'y' : 'x';
                     a.collideQueue[b.id] = { entity: b, axis: axis };
                     b.collideQueue[a.id] = { entity: a, axis: axis };
                 }
