@@ -27,7 +27,7 @@ ig.module(
             this.thickness = (typeof thickness === 'number' ? thickness : this.thickness);
             this.drawer = new b2.DebugDraw();
             this.drawer.SetSprite(this);
-            this.drawer.SetDrawScale(1 / b2.SCALE * ig.system.scale);
+            this.drawer.SetDrawScale(1 / Box2D.SCALE * ig.system.scale);
             this.drawer.SetAlpha(this.alpha);
             this.drawer.SetLineThickness(this.thickness);
             this.drawer.SetFillAlpha(this.alpha);

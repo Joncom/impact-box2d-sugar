@@ -7,18 +7,18 @@ ig.module('plugins.box2d.entities.polygon')
         vertices: [],
 
         createBody: function() {
-            var bodyDef = new b2.BodyDef();
+            var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
-                (this.pos.x + this.size.x / 2) * b2.SCALE,
-                (this.pos.y + this.size.y / 2) * b2.SCALE
+                (this.pos.x + this.size.x / 2) * Box2D.SCALE,
+                (this.pos.y + this.size.y / 2) * Box2D.SCALE
             );
             this.body = ig.world.CreateBody(bodyDef);
 
-            var shapeDef = new b2.PolygonShape();
+            var shapeDef = new Box2D.Collision.Shapes.b2PolygonShape();
             shapeDef.SetAsArray(this.vertices, this.vertices.length);
 
-            var fixtureDef = new b2.FixtureDef();
+            var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
             fixtureDef.shape = shapeDef;
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;

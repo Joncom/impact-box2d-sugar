@@ -5,32 +5,32 @@ ig.module('plugins.box2d.entities.pill')
     ig.b2Pill = ig.Box2DEntity.extend({
 
         createBody: function() {
-            var bodyDef = new b2.BodyDef();
+            var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
-                (this.pos.x + this.size.x / 2) * b2.SCALE,
-                (this.pos.y + this.size.y / 2) * b2.SCALE
+                (this.pos.x + this.size.x / 2) * Box2D.SCALE,
+                (this.pos.y + this.size.y / 2) * Box2D.SCALE
             );
             this.body = ig.world.CreateBody(bodyDef);
 
             var radius = this.size.x / 2;
             var circleOffsetY = this.size.y / 2 - radius;
 
-            var topCircleDef = new b2.CircleShape(radius * b2.SCALE);
-            topCircleDef.SetLocalPosition(new b2.Vec2(0, -circleOffsetY * b2.SCALE));
+            var topCircleDef = new Box2D.Collision.Shapes.b2CircleShape(radius * Box2D.SCALE);
+            topCircleDef.SetLocalPosition(new Box2D.Common.Math.b2Vec2(0, -circleOffsetY * Box2D.SCALE));
             topCircleFixture = this.body.CreateFixture2(topCircleDef, this.density);
             topCircleFixture.SetRestitution(this.bounciness);
             topCircleFixture.SetFriction(1);
 
-            var bottomCircleDef = new b2.CircleShape(radius * b2.SCALE);
-            bottomCircleDef.SetLocalPosition(new b2.Vec2(0, circleOffsetY * b2.SCALE));
+            var bottomCircleDef = new Box2D.Collision.Shapes.b2CircleShape(radius * Box2D.SCALE);
+            bottomCircleDef.SetLocalPosition(new Box2D.Common.Math.b2Vec2(0, circleOffsetY * Box2D.SCALE));
             bottomCircleFixture = this.body.CreateFixture2(bottomCircleDef, this.density);
             bottomCircleFixture.SetRestitution(this.bounciness);
             bottomCircleFixture.SetFriction(1);
 
-            var boxDef = new b2.PolygonShape();
-            var boxWidth = this.size.x / 2 * b2.SCALE;
-            var boxHeight = (this.size.y / 2 - this.size.x / 2) * b2.SCALE;
+            var boxDef = new Box2D.Collision.Shapes.b2PolygonShape();
+            var boxWidth = this.size.x / 2 * Box2D.SCALE;
+            var boxHeight = (this.size.y / 2 - this.size.x / 2) * Box2D.SCALE;
             boxDef.SetAsBox(boxWidth, boxHeight);
             boxFixture = this.body.CreateFixture2(boxDef, this.density);
             boxFixture.SetRestitution(this.bounciness);

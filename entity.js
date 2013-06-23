@@ -39,18 +39,18 @@ ig.module(
         },
 
         createBody: function() {
-            var bodyDef = new b2.BodyDef();
+            var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
-                (this.pos.x + this.size.x / 2) * b2.SCALE,
-                (this.pos.y + this.size.y / 2) * b2.SCALE
+                (this.pos.x + this.size.x / 2) * Box2D.SCALE,
+                (this.pos.y + this.size.y / 2) * Box2D.SCALE
             );
             this.body = ig.world.CreateBody(bodyDef);
 
-            var shapeDef = new b2.PolygonShape();
-            shapeDef.SetAsBox(this.size.x / 2 * b2.SCALE, this.size.y / 2 * b2.SCALE);
+            var shapeDef = new Box2D.Collision.Shapes.b2PolygonShape();
+            shapeDef.SetAsBox(this.size.x / 2 * Box2D.SCALE, this.size.y / 2 * Box2D.SCALE);
 
-            var fixtureDef = new b2.FixtureDef();
+            var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
             fixtureDef.shape = shapeDef;
             fixtureDef.density = this.density;
             fixtureDef.friction = 1;
@@ -66,8 +66,8 @@ ig.module(
 
             var p = this.body.GetPosition();
             this.pos = {
-                x: (p.x / b2.SCALE - this.size.x / 2),
-                y: (p.y / b2.SCALE - this.size.y / 2)
+                x: (p.x / Box2D.SCALE - this.size.x / 2),
+                y: (p.y / Box2D.SCALE - this.size.y / 2)
             };
             this.last.x = this.pos.x;
             this.last.y = this.pos.y;
@@ -103,20 +103,20 @@ ig.module(
         },
 
         applyGravity: function() {
-            var gravity = new b2.Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * b2.SCALE);
+            var gravity = new Box2D.Common.Math.b2Vec2(0, ig.game.gravity * this.gravityFactor * this.body.GetMass() * Box2D.SCALE);
             this.body.ApplyForce(gravity, this.body.GetPosition());
         },
 
         limitVelocity: function() {
             var velocity = this.body.GetLinearVelocity();
-            var x = velocity.x / b2.SCALE;
-            var y = velocity.y / b2.SCALE;
+            var x = velocity.x / Box2D.SCALE;
+            var y = velocity.y / Box2D.SCALE;
             if (x < -this.maxVel.x) x = -this.maxVel.x;
             else if (x > this.maxVel.x) x = this.maxVel.x;
             if (y < -this.maxVel.y) y = -this.maxVel.y;
             else if (y > this.maxVel.y) y = this.maxVel.y;
-            velocity.x = x * b2.SCALE;
-            velocity.y = y * b2.SCALE;
+            velocity.x = x * Box2D.SCALE;
+            velocity.y = y * Box2D.SCALE;
             this.body.SetLinearVelocity(velocity, this.body.GetPosition());
         },
 
