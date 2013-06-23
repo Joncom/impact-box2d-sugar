@@ -17,8 +17,8 @@ ig.module(
         checkEntities: function() {
             for( var e = 0; e < this.entities.length; e++ ) {
                 var entity = this.entities[e];
-                for(var id in entity.checkEntities) {
-                    var other = entity.checkEntities[id];
+                for(var id in entity.checkQueue) {
+                    var other = entity.checkQueue[id];
                     entity.check(other);
                 }
             }
@@ -52,16 +52,16 @@ ig.module(
                 var b = contactData.entityB;
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
-                        if(typeof a.checkEntities[b.id] === 'undefined') {
-                            a.checkEntities[b.id] = { contacts: 0, entity: b };
+                        if(typeof a.checkQueue[b.id] === 'undefined') {
+                            a.checkQueue[b.id] = { contacts: 0, entity: b };
                         }
-                        a.checkEntities[b.id].contacts++;
+                        a.checkQueue[b.id].contacts++;
                     }
                     if (b.checkAgainst & a.type) {
-                        if(typeof b.checkEntities[a.id] === 'undefined') {
-                            b.checkEntities[a.id] = { contacts: 0, entity: a };
+                        if(typeof b.checkQueue[a.id] === 'undefined') {
+                            b.checkQueue[a.id] = { contacts: 0, entity: a };
                         }
-                        b.checkEntities[a.id].contacts++;
+                        b.checkQueue[a.id].contacts++;
                     }
                 }
             };
@@ -75,16 +75,16 @@ ig.module(
                 var b = contactData.entityB;
                 if(a && b) {
                     if (a.checkAgainst & b.type) {
-                        if(typeof a.checkEntities[b.id] === 'undefined') {
-                            a.checkEntities[b.id] = { contacts: 0, entity: b };
+                        if(typeof a.checkQueue[b.id] === 'undefined') {
+                            a.checkQueue[b.id] = { contacts: 0, entity: b };
                         }
-                        a.checkEntities[b.id].contacts--;
+                        a.checkQueue[b.id].contacts--;
                     }
                     if (b.checkAgainst & a.type) {
-                        if(typeof b.checkEntities[a.id] === 'undefined') {
-                            b.checkEntities[a.id] = { contacts: 0, entity: a };
+                        if(typeof b.checkQueue[a.id] === 'undefined') {
+                            b.checkQueue[a.id] = { contacts: 0, entity: a };
                         }
-                        b.checkEntities[a.id].contacts--;
+                        b.checkQueue[a.id].contacts--;
                     }
                 }
             };

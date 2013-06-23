@@ -13,7 +13,7 @@ ig.module(
         body: null,
         angle: 0,
 
-        checkEntities: {},
+        checkQueue: {},
         collideWithQueue: [],
 
         /* Box2D Setup Stuff */
