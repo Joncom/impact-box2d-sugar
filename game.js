@@ -31,6 +31,30 @@ ig.module(
             this.setupContactListener();
         },
 
+        update: function() {
+            ig.world.Step(ig.system.tick, 5, 5);
+            ig.world.ClearForces();
+            this.parent();
+        },
+
+        draw: function() {
+            this.parent();
+
+            if (this.debugCollisionRects) {
+                // Draw outlines of all collision rects
+                var ts = this.collisionMap.tilesize;
+                for (var i = 0; i < this.collisionRects.length; i++) {
+                    var rect = this.collisionRects[i];
+                    ig.system.context.strokeStyle = '#00ff00';
+                    ig.system.context.strokeRect(
+                        ig.system.getDrawPos(rect.x * ts - this.screen.x),
+                        ig.system.getDrawPos(rect.y * ts - this.screen.y),
+                        ig.system.getDrawPos(rect.width * ts),
+                        ig.system.getDrawPos(rect.height * ts));
+                }
+            }
+        },
+
         setupContactListener: function() {
             var listener = new Box2D.Dynamics.b2ContactListener();
             listener.BeginContact = function(contact) {
@@ -154,30 +178,6 @@ ig.module(
                 }
             }
             return rect;
-        },
-
-        update: function() {
-            ig.world.Step(ig.system.tick, 5, 5);
-            ig.world.ClearForces();
-            this.parent();
-        },
-
-        draw: function() {
-            this.parent();
-
-            if (this.debugCollisionRects) {
-                // Draw outlines of all collision rects
-                var ts = this.collisionMap.tilesize;
-                for (var i = 0; i < this.collisionRects.length; i++) {
-                    var rect = this.collisionRects[i];
-                    ig.system.context.strokeStyle = '#00ff00';
-                    ig.system.context.strokeRect(
-                        ig.system.getDrawPos(rect.x * ts - this.screen.x),
-                        ig.system.getDrawPos(rect.y * ts - this.screen.y),
-                        ig.system.getDrawPos(rect.width * ts),
-                        ig.system.getDrawPos(rect.height * ts));
-                }
-            }
         },
 
         /* Builds the quite possibly useful res object.

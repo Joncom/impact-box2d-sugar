@@ -41,46 +41,6 @@ ig.module(
             }
         },
 
-        createBody: function() {
-            var bodyDef = new Box2D.Dynamics.b2BodyDef();
-            bodyDef.type = this.bodyType;
-            bodyDef.position.Set(
-                (this.pos.x + this.size.x / 2) * Box2D.SCALE,
-                (this.pos.y + this.size.y / 2) * Box2D.SCALE
-            );
-            this.body = ig.world.CreateBody(bodyDef);
-
-            var shapeDef = new Box2D.Collision.Shapes.b2PolygonShape();
-            shapeDef.SetAsBox(this.size.x / 2 * Box2D.SCALE, this.size.y / 2 * Box2D.SCALE);
-
-            var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
-            fixtureDef.shape = shapeDef;
-            fixtureDef.density = this.density;
-            fixtureDef.friction = 1;
-            fixtureDef.restitution = this.bounciness;
-
-            this.body.CreateFixture(fixtureDef);
-        },
-
-        processCollisionQueues: function() {
-            // Preserve Impact's entity checks.
-            for(var id in this.checkQueue) {
-                var other = this.checkQueue[id].entity;
-                if(this.checkQueue[id].contactCount > 0) {
-                    this.check(other);
-                } else {
-                    delete this.checkQueue[id];
-                }
-            }
-            // Preserve Impact's collideWith calls.
-            for(var id in this.collideQueue) {
-                var other = this.collideQueue[id].entity;
-                var axis = this.collideQueue[id].axis;
-                this.collideWith(other, axis);
-                delete this.collideQueue[id];
-            }
-        },
-
         update: function() {
             this.processCollisionQueues();
 
@@ -124,6 +84,46 @@ ig.module(
                 }
             }
             return false;
+        },
+
+        createBody: function() {
+            var bodyDef = new Box2D.Dynamics.b2BodyDef();
+            bodyDef.type = this.bodyType;
+            bodyDef.position.Set(
+                (this.pos.x + this.size.x / 2) * Box2D.SCALE,
+                (this.pos.y + this.size.y / 2) * Box2D.SCALE
+            );
+            this.body = ig.world.CreateBody(bodyDef);
+
+            var shapeDef = new Box2D.Collision.Shapes.b2PolygonShape();
+            shapeDef.SetAsBox(this.size.x / 2 * Box2D.SCALE, this.size.y / 2 * Box2D.SCALE);
+
+            var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
+            fixtureDef.shape = shapeDef;
+            fixtureDef.density = this.density;
+            fixtureDef.friction = 1;
+            fixtureDef.restitution = this.bounciness;
+
+            this.body.CreateFixture(fixtureDef);
+        },
+
+        processCollisionQueues: function() {
+            // Preserve Impact's entity checks.
+            for(var id in this.checkQueue) {
+                var other = this.checkQueue[id].entity;
+                if(this.checkQueue[id].contactCount > 0) {
+                    this.check(other);
+                } else {
+                    delete this.checkQueue[id];
+                }
+            }
+            // Preserve Impact's collideWith calls.
+            for(var id in this.collideQueue) {
+                var other = this.collideQueue[id].entity;
+                var axis = this.collideQueue[id].axis;
+                this.collideWith(other, axis);
+                delete this.collideQueue[id];
+            }
         },
 
         applyGravity: function() {
