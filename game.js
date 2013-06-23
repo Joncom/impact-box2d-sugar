@@ -14,8 +14,15 @@ ig.module(
         debugCollisionRects: false,
         contactBuffer: [],
 
-        // Touching-entity checks handled by Box2D.
-        checkEntities: function() {},
+        checkEntities: function() {
+            for( var e = 0; e < this.entities.length; e++ ) {
+                var entity = this.entities[e];
+                for(var id in entity.checkEntities) {
+                    var other = entity.checkEntities[id];
+                    entity.check(other);
+                }
+            }
+        },
 
         loadLevel: function(data) {
 
@@ -39,6 +46,49 @@ ig.module(
                     normal: ig.copy(contact.GetManifold().m_localPlaneNormal)
                 };
                 ig.game.contactBuffer.push(contactData);
+
+                // Preserve Impact's entity checks.
+                var a = contactData.entityA;
+                var b = contactData.entityB;
+                if(a && b) {
+                    var alreadyExists = function() {
+                        console.log("Was to add entity to check-queue, but it was already there.");
+                    };
+                    if ( (a.checkAgainst & b.type) && typeof a.checkEntities[b.id] === 'undefined') {
+                        a.checkEntities[b.id] = b;
+                    } else if ( (a.checkAgainst & b.type) && typeof a.checkEntities[b.id] !== 'undefined') {
+                        alreadyExists();
+                    }
+                    if ((b.checkAgainst & a.type) && typeof b.checkEntities[a.id] === 'undefined') {
+                        b.checkEntities[a.id] = a;
+                    } else if ((b.checkAgainst & a.type) && typeof b.checkEntities[a.id] !== 'undefined') {
+                        alreadyExists();
+                    }
+                }
+            };
+            listener.EndContact = function(contact) {
+                contactData = {
+                    entityA: contact.GetFixtureA().GetBody().entity,
+                    entityB: contact.GetFixtureB().GetBody().entity,
+                    normal: ig.copy(contact.GetManifold().m_localPlaneNormal)
+                };
+                var a = contactData.entityA;
+                var b = contactData.entityB;
+                if(a && b) {
+                    var notFound = function() {
+                        console.log("Tried to remove entity from check-queue but it was not found.");
+                    };
+                    if(typeof a.checkEntities[b.id] !== 'undefined') {
+                        delete a.checkEntities[b.id];
+                    } else {
+                        notFound();
+                    }
+                    if(typeof b.checkEntities[a.id] !== 'undefined') {
+                        delete b.checkEntities[a.id];
+                    } else {
+                        notFound();
+                    }
+                }
             };
             ig.world.SetContactListener(listener);
         },
@@ -168,13 +218,6 @@ ig.module(
                 var res = this.buildResObject(contact);
                 entity.handleMovementTrace(res);
                 return;
-            }
-            // Preserve Impact's entity checks.
-            if (a.checkAgainst & b.type) {
-                a.check(b);
-            }
-            if (b.checkAgainst & a.type) {
-                b.check(a);
             }
             // Favor the axis of greater penetration.
             if (Math.abs(contact.normal.y) > Math.abs(contact.normal.x)) {
