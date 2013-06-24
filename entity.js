@@ -155,7 +155,7 @@ ig.module(
                 for(var id in this.collideQueue[axis]) {
                     var other = this.collideQueue[axis][id];
                     this.collideWith(other, axis);
-                    delete this.collideQueue[id];
+                    delete this.collideQueue[axis][id];
                 }
             }
         },
