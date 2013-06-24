@@ -25,6 +25,8 @@ TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotat
 2. In `main.js`, require `plugins.box2d.game` instead of `impact.game`.
 3. In your entities, require `plugins.box2d.entity` instead of `impact.entity`.
 
+And optionally, require `plugins.box2d.debug` for some visual aid.
+
 ### FAQ ###
 
 **Q:** What version of Box2D is this?
