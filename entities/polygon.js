@@ -2,7 +2,7 @@ ig.module('plugins.box2d.entities.polygon')
 .requires('plugins.box2d.entity')
 .defines(function(){
 
-    ig.b2Polygon = ig.Entity.extend({
+    EntityPolygon = ig.Entity.extend({
 
         vertices: [],
 

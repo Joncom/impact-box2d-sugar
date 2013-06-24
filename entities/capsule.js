@@ -1,8 +1,8 @@
-ig.module('plugins.box2d.entities.pill')
+ig.module('plugins.box2d.entities.capsule')
 .requires('plugins.box2d.entity')
 .defines(function(){
 
-    ig.b2Pill = ig.Entity.extend({
+    EntityCapsule = ig.Entity.extend({
 
         createBody: function() {
             var bodyDef = new Box2D.Dynamics.b2BodyDef();

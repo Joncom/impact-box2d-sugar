@@ -2,7 +2,7 @@ ig.module('plugins.box2d.entities.ball')
 .requires('plugins.box2d.entity')
 .defines(function(){
 
-    ig.b2Ball = ig.Entity.extend({
+    EntityBall = ig.Entity.extend({
 
         radius: 8,
 
