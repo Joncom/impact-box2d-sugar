@@ -105,6 +105,39 @@ ig.module(
             this.body.CreateFixture(fixtureDef);
         },
 
+        // Called when two fixtures begin to touch.
+        beginContact: function(other, contact) {
+            if(other) {
+                if (this.checkAgainst & other.type) {
+                    if(typeof this.checkQueue[other.id] === 'undefined') {
+                        this.checkQueue[other.id] = { contactCount: 0, entity: other };
+                    }
+                    this.checkQueue[other.id].contactCount++;
+                }
+                var normal = contact.GetManifold().m_localPlaneNormal;
+                var axis = (Math.abs(normal.y) > Math.abs(normal.x)) ? 'y' : 'x';
+                this.collideQueue[other.id] = { entity: other, axis: axis };
+            }
+        },
+
+        // Called when two fixtures cease to touch.
+        endContact: function(other, contact) {
+            if(other) {
+                if (this.checkAgainst & other.type) {
+                    if(typeof this.checkQueue[other.id] === 'undefined') {
+                        this.checkQueue[other.id] = { contactCount: 0, entity: other };
+                    }
+                    this.checkQueue[other.id].contactCount--;
+                }
+            }
+        },
+
+        // This lets you inspect a contact after the solver is finished.
+        postSolve: function(other, contact, impulse) {},
+
+        // This is called after a contact is updated.
+        preSolve: function(other, contact, oldManifold) {},
+
         processCollisionQueues: function() {
             // Preserve Impact's entity checks.
             for(var id in this.checkQueue) {

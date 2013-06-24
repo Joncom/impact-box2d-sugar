@@ -53,46 +53,30 @@ ig.module(
         },
 
         setupContactListener: function() {
-            var listener = new Box2D.Dynamics.b2ContactListener();
-            listener.BeginContact = function(contact) {
+            var callback = function(method, contact, argument) {
                 var a = contact.GetFixtureA().GetBody().entity;
                 var b = contact.GetFixtureB().GetBody().entity;
                 if(a && b) {
-                    if (a.checkAgainst & b.type) {
-                        if(typeof a.checkQueue[b.id] === 'undefined') {
-                            a.checkQueue[b.id] = { contactCount: 0, entity: b };
-                        }
-                        a.checkQueue[b.id].contactCount++;
-                    }
-                    if (b.checkAgainst & a.type) {
-                        if(typeof b.checkQueue[a.id] === 'undefined') {
-                            b.checkQueue[a.id] = { contactCount: 0, entity: a };
-                        }
-                        b.checkQueue[a.id].contactCount++;
-                    }
-                    var normal = contact.GetManifold().m_localPlaneNormal;
-                    var axis = (Math.abs(normal.y) > Math.abs(normal.x)) ? 'y' : 'x';
-                    a.collideQueue[b.id] = { entity: b, axis: axis };
-                    b.collideQueue[a.id] = { entity: a, axis: axis };
+                    a[method](b, contact, argument);
+                    b[method](a, contact, argument);
+                } else if(a && !b) {
+                    a[method](null, contact, argument);
+                } else if(b && !a) {
+                    b[method](null, contact, argument);
                 }
             };
+            var listener = new Box2D.Dynamics.b2ContactListener();
+            listener.BeginContact = function(contact) {
+                callback('beginContact', contact);
+            };
             listener.EndContact = function(contact) {
-                var a = contact.GetFixtureA().GetBody().entity;
-                var b = contact.GetFixtureB().GetBody().entity;
-                if(a && b) {
-                    if (a.checkAgainst & b.type) {
-                        if(typeof a.checkQueue[b.id] === 'undefined') {
-                            a.checkQueue[b.id] = { contactCount: 0, entity: b };
-                        }
-                        a.checkQueue[b.id].contactCount--;
-                    }
-                    if (b.checkAgainst & a.type) {
-                        if(typeof b.checkQueue[a.id] === 'undefined') {
-                            b.checkQueue[a.id] = { contactCount: 0, entity: a };
-                        }
-                        b.checkQueue[a.id].contactCount--;
-                    }
-                }
+                callback('endContact', contact);
+            };
+            listener.PostSolve = function(contact, impulse) {
+                callback('postSolve', contact, impulse);
+            };
+            listener.PreSolve = function(contact, oldManifold) {
+                callback('preSolve', contact, oldManifold);
             };
             ig.world.SetContactListener(listener);
         },
