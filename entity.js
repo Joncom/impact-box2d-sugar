@@ -14,7 +14,8 @@ ig.module(
         angle: 0,
 
         checkQueue: {},
-        collideQueue: {},
+        collideQueue: { x: {}, y: {} },
+        entityContactCount: {},
 
         /* Box2D Setup Stuff */
         bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,
@@ -109,14 +110,15 @@ ig.module(
         beginContact: function(other, contact) {
             if(other) {
                 if (this.checkAgainst & other.type) {
-                    if(typeof this.checkQueue[other.id] === 'undefined') {
-                        this.checkQueue[other.id] = { contactCount: 0, entity: other };
+                    if(typeof this.entityContactCount[other.id] === 'undefined') {
+                        this.entityContactCount[other.id] = 0;
                     }
-                    this.checkQueue[other.id].contactCount++;
+                    this.entityContactCount[other.id]++;
                 }
                 var normal = contact.GetManifold().m_localPlaneNormal;
                 var axis = (Math.abs(normal.y) > Math.abs(normal.x)) ? 'y' : 'x';
-                this.collideQueue[other.id] = { entity: other, axis: axis };
+                this.collideQueue[axis][other.id] = other;
+                this.checkQueue[other.id] = other;
             }
         },
 
@@ -124,10 +126,10 @@ ig.module(
         endContact: function(other, contact) {
             if(other) {
                 if (this.checkAgainst & other.type) {
-                    if(typeof this.checkQueue[other.id] === 'undefined') {
-                        this.checkQueue[other.id] = { contactCount: 0, entity: other };
+                    if(typeof this.entityContactCount[other.id] === 'undefined') {
+                        this.entityContactCount[other.id] = 0;
                     }
-                    this.checkQueue[other.id].contactCount--;
+                    this.entityContactCount[other.id]--;
                 }
             }
         },
@@ -141,19 +143,20 @@ ig.module(
         processCollisionQueues: function() {
             // Preserve Impact's entity checks.
             for(var id in this.checkQueue) {
-                var other = this.checkQueue[id].entity;
-                if(this.checkQueue[id].contactCount > 0) {
+                var other = this.checkQueue[id];
+                if(this.entityContactCount[id] > 0) {
                     this.check(other);
                 } else {
                     delete this.checkQueue[id];
                 }
             }
             // Preserve Impact's collideWith calls.
-            for(var id in this.collideQueue) {
-                var other = this.collideQueue[id].entity;
-                var axis = this.collideQueue[id].axis;
-                this.collideWith(other, axis);
-                delete this.collideQueue[id];
+            for(var axis in this.collideQueue) {
+                for(var id in this.collideQueue[axis]) {
+                    var other = this.collideQueue[axis][id];
+                    this.collideWith(other, axis);
+                    delete this.collideQueue[id];
+                }
             }
         },
 
