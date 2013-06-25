@@ -1,8 +1,8 @@
-ig.module('plugins.box2d.entities.ball')
+ig.module('plugins.box2d.entities.circle')
 .requires('plugins.box2d.entity')
 .defines(function(){
 
-    EntityBall = ig.Entity.extend({
+    EntityCircle = ig.Entity.extend({
 
         radius: 8,
 
