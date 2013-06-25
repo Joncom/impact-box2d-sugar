@@ -184,6 +184,15 @@ ig.module(
             }
         },
 
+        setPosition: function(x, y) {
+            this.pos.x = x;
+            this.pos.y = y;
+            this.body.SetPosition(new Box2D.Common.Math.b2Vec2(
+                (x + this.size.x / 2) * Box2D.SCALE,
+                (y + this.size.y / 2) * Box2D.SCALE
+            ));
+        },
+
         updateStanding: function() {
             this.standing = false;
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
