@@ -163,8 +163,8 @@ ig.module(
 
     });
 
-    // Due to difference in scale between Box2D and Impact,
-    // this value is increased to allow very fast moving objects.
+    // Using Box2D.SCALE == 0.1, the maximum speed any body may
+    // move will be approximately (max * 300) pixels per second.
     var max = 10; // default 2
     Box2D.Common.b2Settings.b2_maxTranslation = max;
     Box2D.Common.b2Settings.b2_maxTranslationSquared = max * max;
