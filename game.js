@@ -163,5 +163,11 @@ ig.module(
 
     });
 
+    // Due to difference in scale between Box2D and Impact,
+    // this value is increased to allow very fast moving objects.
+    var max = 10; // default 2
+    Box2D.Common.b2Settings.b2_maxTranslation = max;
+    Box2D.Common.b2Settings.b2_maxTranslationSquared = max * max;
+
 });
 
