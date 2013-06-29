@@ -184,6 +184,13 @@ ig.module(
             }
         },
 
+        getPosition: function() {
+            var pos = this.body.GetPosition();
+            var x = pos.x / Box2D.SCALE;
+            var y = pos.y / Box2D.SCALE;
+            return { x: x, y: y };
+        },
+
         setPosition: function(x, y) {
             this.pos.x = x;
             this.pos.y = y;
