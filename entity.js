@@ -200,6 +200,13 @@ ig.module(
             ));
         },
 
+        getVelocity: function() {
+            var vel = this.body.GetLinearVelocity();
+            var x = vel.x / Box2D.SCALE;
+            var y = vel.y / Box2D.SCALE;
+            return { x: x, y: y };
+        },
+
         setVelocity: function(x, y) {
             var vector = new Box2D.Common.Math.b2Vec2(
                 x * Box2D.SCALE,
