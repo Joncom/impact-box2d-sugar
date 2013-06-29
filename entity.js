@@ -185,9 +185,9 @@ ig.module(
         },
 
         getPosition: function() {
-            var pos = this.body.GetPosition();
-            var x = pos.x / Box2D.SCALE;
-            var y = pos.y / Box2D.SCALE;
+            var position = this.body.GetPosition();
+            var x = position.x / Box2D.SCALE;
+            var y = position.y / Box2D.SCALE;
             return { x: x, y: y };
         },
 
@@ -201,9 +201,9 @@ ig.module(
         },
 
         getVelocity: function() {
-            var vel = this.body.GetLinearVelocity();
-            var x = vel.x / Box2D.SCALE;
-            var y = vel.y / Box2D.SCALE;
+            var velocity = this.body.GetLinearVelocity();
+            var x = velocity.x / Box2D.SCALE;
+            var y = velocity.y / Box2D.SCALE;
             return { x: x, y: y };
         },
 
