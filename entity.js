@@ -200,6 +200,14 @@ ig.module(
             ));
         },
 
+        setVelocity: function(x, y) {
+            var vector = new Box2D.Common.Math.b2Vec2(
+                x * Box2D.SCALE,
+                y * Box2D.SCALE
+            );
+            this.body.SetLinearVelocity(vector, this.body.GetPosition());
+        },
+
         updateStanding: function() {
             this.standing = false;
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
