@@ -175,7 +175,7 @@ ig.module(
             else if (y > this.maxVel.y) y = this.maxVel.y;
             velocity.x = x * Box2D.SCALE;
             velocity.y = y * Box2D.SCALE;
-            this.body.SetLinearVelocity(velocity, this.body.GetPosition());
+            this.body.SetLinearVelocity(velocity);
         },
 
         setFixturesAsSensors: function(flag) {
@@ -212,7 +212,7 @@ ig.module(
                 x * Box2D.SCALE,
                 y * Box2D.SCALE
             );
-            this.body.SetLinearVelocity(vector, this.body.GetPosition());
+            this.body.SetLinearVelocity(vector);
         },
 
         updateStanding: function() {
