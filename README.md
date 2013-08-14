@@ -19,7 +19,7 @@ The following `Entity` functionally has been restored:
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
 
-### Usage ###
+### Installation ###
 
 1. Copy the contents of this repo into `lib/plugins/box2d/`.
 2. In `main.js`, require `plugins.box2d.game` instead of `impact.game`.
