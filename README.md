@@ -35,5 +35,5 @@ And optionally, require `plugins.box2d.debug` for some visual aid.
 **Q:** Where is some good documentation on this version of Box2D?
 **A:** [Here.](http://www.box2dflash.org/docs/2.1a/reference/)
 
-**Q:** My game freezes. What do?
-**A:** This usually means a number `NaN` because you passed the wrong argument.
+**Q:** Why does my game freeze?
+**A:** Did you pass a number where a `b2Vec2` was expected?
