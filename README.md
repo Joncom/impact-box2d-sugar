@@ -33,7 +33,7 @@ And optionally, require `plugins.box2d.debug` for some visual aid.
 **A:** Box2D 2.1a via Box2DWeb.
 
 **Q:** Where is some good documentation on this version of Box2D?
-**A:** http://www.box2dflash.org/docs/2.1a/reference/
+**A:** [Here.](http://www.box2dflash.org/docs/2.1a/reference/)
 
 **Q:** My game freezes. What do?
 **A:** This usually means a number `NaN` because you passed the wrong argument.
