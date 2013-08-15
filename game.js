@@ -13,6 +13,9 @@ ig.module(
         collisionRects: [],
         debugCollisionRects: false,
 
+        // This function is overloaded to do nothing,
+        // because checking for "touching entities" is
+        // now handled by Box2D.
         checkEntities: function() {},
 
         loadLevel: function(data) {
