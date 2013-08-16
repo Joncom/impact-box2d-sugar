@@ -3,6 +3,36 @@ Impact Box2D Sugar
 
 ##### This plugin aims to make Box2D development with ImpactJS as easy as possible. #####
 
+### Installation ###
+
+Step 1: Copy the contents of this repo into `lib/plugins/box2d/`.
+
+###### Example Game ######
+```
+ig.module('game.main')
+.requires(
+    'plugins.box2d.game',
+    `plugins.box2d.debug` // Optional, draws shapes over game.
+)
+.defines(function(){
+    MyGame = ig.Game.extend({
+        /* your game code here */
+    });
+    ig.main( '#canvas', MyGame, 60, 320, 240, 2 );
+});
+```
+
+###### Example Entity ######
+```
+ig.module('game.entities.player')
+.requires('plugins.box2d.entity')
+.defines(function(){
+    EntityPlayer = ig.Entity.extend({
+        /* your entity code here */
+    });
+});
+```
+
 ### Easy To Use ###
 
 The following `Entity` features have been restored:
@@ -36,36 +66,6 @@ console.log("Player is touching " + count + " enemies.");
 ######[.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)######
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
-
-### Installation ###
-
-Step 1: Copy the contents of this repo into `lib/plugins/box2d/`.
-
-###### Example Game ######
-```
-ig.module('game.main')
-.requires(
-    'plugins.box2d.game',
-    `plugins.box2d.debug` // Optional, draws shapes over game.
-)
-.defines(function(){
-    MyGame = ig.Game.extend({
-        /* your game code here */
-    });
-    ig.main( '#canvas', MyGame, 60, 320, 240, 2 );
-});
-```
-
-###### Example Entity ######
-```
-ig.module('game.entities.player')
-.requires('plugins.box2d.entity')
-.defines(function(){
-    EntityPlayer = ig.Entity.extend({
-        /* your entity code here */
-    });
-});
-```
 
 ### FAQ ###
 
