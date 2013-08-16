@@ -33,9 +33,7 @@ ig.module('game.entities.player')
 });
 ```
 
-### Easy To Use ###
-
-The following `Entity` features have been restored:
+### Restored Entity Functionality ###
 
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
