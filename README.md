@@ -39,6 +39,7 @@ ig.module('game.main')
 ```
 
 ###### Example Entity ######
+```
 ig.module('game.entities.player')
 .requires('plugins.box2d.entity')
 .defines(function(){
