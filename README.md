@@ -3,10 +3,16 @@ Impact Box2D Sugar
 
 ##### The goal of this plugin is to make developing Box2D games with Impact as simple as possible.#####
 
-### What's Different About This Plugin? ###
+### Easy To Use ###
 
-The following `Entity` functionally has been restored and behaves how you would expect:
-[standing](http://impactjs.com/documentation/class-reference/entity#standing),
+The following `Entity` features have been restored:
+
+######[standing](http://impactjs.com/documentation/class-reference/entity#standing)######
+```
+if(this.standing) {
+	console.log("Entity is standing!");
+}
+```
 [touches](http://impactjs.com/documentation/class-reference/entity#touches),
 [gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor),
 [last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y),
