@@ -9,8 +9,9 @@ The following `Entity` features have been restored:
 
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
-if(this.standing) {
-	console.log("Entity is standing!");
+var player = ig.game.getEntitiesByType(EntityPlayer)[0];
+if(player.standing) {
+	console.log("Player is standing!");
 }
 ```
 ######[.touches](http://impactjs.com/documentation/class-reference/entity#touches)######
