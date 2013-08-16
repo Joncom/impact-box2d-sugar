@@ -1,7 +1,7 @@
 Impact Box2D Sugar
 ==========
 
-##### The goal of this plugin is to make developing Box2D games with Impact as simple as possible.#####
+##### This plugin aims to make Box2D development with ImpactJS as easy as possible. #####
 
 ### Easy To Use ###
 
