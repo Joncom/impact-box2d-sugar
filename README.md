@@ -7,21 +7,21 @@ Impact Box2D Sugar
 
 The following `Entity` features have been restored:
 
-######[standing](http://impactjs.com/documentation/class-reference/entity#standing)######
+######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
 if(this.standing) {
 	console.log("Entity is standing!");
 }
 ```
-[touches](http://impactjs.com/documentation/class-reference/entity#touches),
-[gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor),
-[last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y),
-[maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y),
-[bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness),
-[type](http://impactjs.com/documentation/class-reference/entity#type),
-[checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst),
-[check](http://impactjs.com/documentation/class-reference/entity#check),
-and [collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith).
+[.touches](http://impactjs.com/documentation/class-reference/entity#touches),
+[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor),
+[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y),
+[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y),
+[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness),
+[.type](http://impactjs.com/documentation/class-reference/entity#type),
+[.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst),
+[.check](http://impactjs.com/documentation/class-reference/entity#check),
+[.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith).
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
 
