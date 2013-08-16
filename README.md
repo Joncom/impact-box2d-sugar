@@ -13,15 +13,26 @@ if(this.standing) {
 	console.log("Entity is standing!");
 }
 ```
-[.touches](http://impactjs.com/documentation/class-reference/entity#touches),
-[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor),
-[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y),
-[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y),
-[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness),
-[.type](http://impactjs.com/documentation/class-reference/entity#type),
-[.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst),
-[.check](http://impactjs.com/documentation/class-reference/entity#check),
-[.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith).
+######[.touches](http://impactjs.com/documentation/class-reference/entity#touches)######
+```
+var player = ig.game.getEntitiesByType(EntityPlayer)[0];
+var enemies = ig.game.getEntitiesByType(EntityEnemy);
+var count = 0;
+for(var i=0; i<enemies.length; i++) {
+	if(player.touches(enemies[i])) {
+		count++;
+	}
+}
+console.log("Player is touching " + count + " enemies.");
+```
+######[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)######
+######[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)######
+######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
+######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
+######[.type](http://impactjs.com/documentation/class-reference/entity#type)######
+######[.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst)######
+######[.check](http://impactjs.com/documentation/class-reference/entity#check)######
+######[.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)######
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
 
