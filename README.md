@@ -59,7 +59,6 @@ console.log("Player is touching " + count + " enemies.");
 EntityPlayer = ig.Entity.extend({
     // Increases the effect gravity has on the individual entity.
     gravityFactor: 3,
-}
 });
 ```
 ######[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)######
