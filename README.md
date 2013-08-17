@@ -55,6 +55,13 @@ for(var i=0; i<enemies.length; i++) {
 console.log("Player is touching " + count + " enemies.");
 ```
 ######[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)######
+```
+EntityPlayer = ig.Entity.extend({
+    // Increases the effect gravity has on the individual entity.
+    gravityFactor: 3,
+}
+});
+```
 ######[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)######
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
