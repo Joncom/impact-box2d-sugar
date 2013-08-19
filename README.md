@@ -42,6 +42,7 @@ if(player.standing) {
 	console.log("Player is standing!");
 }
 ```
+
 ######[.touches](http://impactjs.com/documentation/class-reference/entity#touches)######
 ```
 var player = ig.game.getEntitiesByType(EntityPlayer)[0];
@@ -54,6 +55,7 @@ for(var i=0; i<enemies.length; i++) {
 }
 console.log("Player is touching " + count + " enemies.");
 ```
+
 ######[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)######
 ```
 EntityPlayer = ig.Entity.extend({
@@ -61,6 +63,7 @@ EntityPlayer = ig.Entity.extend({
     gravityFactor: 3,
 });
 ```
+
 ######[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)######
 ```
 if(this.pos.x > this.last.x) {
@@ -70,6 +73,7 @@ if(this.pos.y < this.last.y) {
     console.log('Entity has moved upward.');
 }
 ```
+
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
 ######[.type](http://impactjs.com/documentation/class-reference/entity#type)######
