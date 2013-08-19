@@ -75,6 +75,11 @@ if(this.pos.y < this.last.y) {
 ```
 
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
+```
+// Cap the fall speed of an entity.
+entity.maxVel.y = 300;
+```
+
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
 ######[.type](http://impactjs.com/documentation/class-reference/entity#type)######
 ######[.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst)######
