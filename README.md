@@ -62,6 +62,14 @@ EntityPlayer = ig.Entity.extend({
 });
 ```
 ######[.last](http://impactjs.com/documentation/class-reference/entity#last-x-last-y)######
+```
+if(this.pos.x > this.last.x) {
+    console.log('Entity has moved rightward.');
+}
+if(this.pos.y < this.last.y) {
+    console.log('Entity has moved upward.');
+}
+```
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
 ######[.type](http://impactjs.com/documentation/class-reference/entity#type)######
