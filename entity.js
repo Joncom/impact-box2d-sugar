@@ -50,13 +50,13 @@ ig.module(
                 this.applyGravity();
             }
 
+            this.last.x = this.pos.x;
+            this.last.y = this.pos.y;
             var p = this.body.GetPosition();
             this.pos = {
                 x: (p.x / Box2D.SCALE - this.size.x / 2),
                 y: (p.y / Box2D.SCALE - this.size.y / 2)
             };
-            this.last.x = this.pos.x;
-            this.last.y = this.pos.y;
             this.angle = this.body.GetAngle().round(2);
 
             this.updateStanding();
