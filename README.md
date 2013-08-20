@@ -84,7 +84,6 @@ entity.maxVel.y = 300;
 You must define `bounciness` before `init` is called. If you need to change bounciness after the entity has been spawned, you must change `restitution` for each fixture in `entity.body`.
 ```
 EntityPlayer = ig.Entity.extend({
-    //
     bounciness: 1,
     init: function(x, y, settings) {
         // Bounciness is automatically applied.
