@@ -85,7 +85,7 @@ You must define `bounciness` before `init` is called. If you need to change boun
 ```
 EntityPlayer = ig.Entity.extend({
     //
-    bounciness: 3,
+    bounciness: 1,
     init: function(x, y, settings) {
         // Bounciness is automatically applied.
         this.parent(x, y, settings);
