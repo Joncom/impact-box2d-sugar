@@ -81,7 +81,7 @@ entity.maxVel.y = 300;
 ```
 
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
-Bounciness must be defined before init is called for it to be honoured. If you want to change bounciness after an entity has already been spawned, you must change `restitution` for each fixture in `entity.body`.
+You must define `bounciness` before init is called. If you need to change bounciness after the entity has been spawned, you must change `restitution` for each fixture in `entity.body`.
 ```
 EntityPlayer = ig.Entity.extend({
     //
