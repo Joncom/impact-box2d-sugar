@@ -92,10 +92,21 @@ EntityPlayer = ig.Entity.extend({
 }
 ```
 
-######[.type](http://impactjs.com/documentation/class-reference/entity#type)######
-######[.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst)######
-######[.check](http://impactjs.com/documentation/class-reference/entity#check)######
-######[.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)######
+######[.type](http://impactjs.com/documentation/class-reference/entity#type), [.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst), [.check](http://impactjs.com/documentation/class-reference/entity#check), and [.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)######
+```
+EntityPlayer = ig.Entity.extend({
+    type: ig.Entity.TYPE.A,
+    checkAgainst: ig.Entity.TYPE.B,
+    check: function(entity) {
+        console.log('Player is touching ' + entity.name);
+    },
+    collideWidth: function(entity, axis) {
+        console.log('Player just collided with ' +
+            entity.name + ' on the ' + axis + ' axis.');
+    }
+}
+});
+```
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
 
