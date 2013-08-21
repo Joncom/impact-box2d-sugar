@@ -104,7 +104,6 @@ EntityPlayer = ig.Entity.extend({
         console.log('Player just collided with ' +
             entity.name + ' on the ' + axis + ' axis.');
     }
-}
 });
 ```
 
