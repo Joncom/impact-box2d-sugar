@@ -33,7 +33,7 @@ ig.module('game.entities.player')
 });
 ```
 
-### Restored Entity Functionality ###
+### Restored Entity Properties ###
 
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
