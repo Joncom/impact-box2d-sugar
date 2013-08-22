@@ -60,6 +60,11 @@ ig.module(
             for(var i=0; i<shapes.length; i++) {
                 var shape = shapes[i];
                 var vertices = shape.settings.vertices;
+                // Scale vertices.
+                for(var v=0; v<vertices.length; v++) {
+                    vertices[v].x *= Box2D.SCALE;
+                    vertices[v].y *= Box2D.SCALE;
+                }
                 var bodyDef = new Box2D.Dynamics.b2BodyDef();
                 bodyDef.position.Set(
                     shape.x * Box2D.SCALE,
