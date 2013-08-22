@@ -268,8 +268,8 @@ ig.module(
                 vertices = ig.utilstile.defaultTileVerticesDef[ tileId ];
             }
             else {
-                // solid square (1) or climbable (100/111)
-                if (tileId === 1 || ig.utilstile.isTileClimbable(tileId)) {
+                // solid square (1)
+                if (tileId === 1) {
                     vertices = [
                         { x: 0, y: 0 },
                         { x: 1, y: 0 },
