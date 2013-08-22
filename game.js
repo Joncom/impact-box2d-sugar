@@ -619,7 +619,7 @@ ig.module(
             for (var i = 0, il = elements.length; i < il; i++) {
                 element = elements[ i ];
                 if (element !== target) {
-                    index = ig.utils.indexOfValue(target, element);
+                    index = this._indexOfValue(target, element);
                     if (index !== -1) {
                         target.splice(index, 1);
                     }
@@ -630,6 +630,15 @@ ig.module(
 
         _toArray: function (target) {
             return target ? ( ig.utils.isArray(target) !== true ? [ target ] : target ) : [];
+        },
+
+        _indexOfValue: function (array, value) {
+            for (var i = 0, il = array.length; i < il; i++) {
+                if (value === array[ i ]) {
+                    return i;
+                }
+            }
+            return -1;
         }
 
     });
