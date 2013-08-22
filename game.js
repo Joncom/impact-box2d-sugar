@@ -998,7 +998,7 @@ ig.module(
                     }
                     for (jl = containerChain.length; j < jl; j += 2) {
                         contour = containerChain[ j ];
-                        if (_ut.indexOfValue(contoursReversed, contour) === -1) {
+                        if (this._indexOfValue(contoursReversed, contour) === -1) {
                             contour.vertices.reverse();
                             contoursReversed.push(contour);
                         }
@@ -1007,12 +1007,12 @@ ig.module(
                     // generally, we know that the tiles have edges on both sides
                     // so there should always be a container at the end of the chain that wraps the outside
                     // we don't need these edges/vertices as it is unlikely the player will ever walk outside the map
-                    if (!options.retainBoundaryOuter && _ut.indexOfValue(contoursRemoved, outerBoundary) === -1) {
+                    if (!options.retainBoundaryOuter && this._indexOfValue(contoursRemoved, outerBoundary) === -1) {
                         contoursRemoved.push(outerBoundary);
                         _ut.arrayCautiousRemove(contours, outerBoundary);
                     }
                     // discard inner boundary contour
-                    if (options.discardBoundaryInner && _ut.indexOfValue(contoursRemoved, innerBoundary) === -1) {
+                    if (options.discardBoundaryInner && this._indexOfValue(contoursRemoved, innerBoundary) === -1) {
                         contoursRemoved.push(innerBoundary);
                         _ut.arrayCautiousRemove(contours, innerBoundary);
                     }
@@ -1020,7 +1020,7 @@ ig.module(
                     if (options.discardEdgesInner && containerChain.length > 2) {
                         var otherContours = containerChain.slice(2);
                         contoursRemoved = contoursRemoved.concat(otherContours);
-                        _ut.arrayCautiousRemoveMulti(contours, otherContours);
+                        this._arrayCautiousRemoveMulti(contours, otherContours);
                     }
                 }
                 // finalize contours
