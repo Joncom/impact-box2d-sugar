@@ -1009,12 +1009,12 @@ ig.module(
                     // we don't need these edges/vertices as it is unlikely the player will ever walk outside the map
                     if (!options.retainBoundaryOuter && this._indexOfValue(contoursRemoved, outerBoundary) === -1) {
                         contoursRemoved.push(outerBoundary);
-                        _ut.arrayCautiousRemove(contours, outerBoundary);
+                        this._arrayCautiousRemove(contours, outerBoundary);
                     }
                     // discard inner boundary contour
                     if (options.discardBoundaryInner && this._indexOfValue(contoursRemoved, innerBoundary) === -1) {
                         contoursRemoved.push(innerBoundary);
-                        _ut.arrayCautiousRemove(contours, innerBoundary);
+                        this._arrayCautiousRemove(contours, innerBoundary);
                     }
                     // discard anything beyond inner boundary contour
                     if (options.discardEdgesInner && containerChain.length > 2) {
@@ -1073,6 +1073,14 @@ ig.module(
                 return true;
             }
             return false;
+        },
+
+        _arrayCautiousRemove: function (target, element) {
+            var index = ig.utils.indexOfValue(target, element);
+            if (index !== -1) {
+                target.splice(index, 1);
+            }
+            return target;
         }
 
     });
