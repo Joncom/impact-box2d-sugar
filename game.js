@@ -521,7 +521,7 @@ ig.module(
                             var tileFrom = data[ tileLast.iy ][ tileLast.ix + 1 ];
                             if (tileFrom) {
                                 // get tile at start of next row and make sure it is part of tile pool
-                                index = _ut.indexOfValue(tilePool, tileFrom);
+                                index = this._indexOfValue(tilePool, tileFrom);
                                 if (index !== -1) {
                                     line = this._findShapedTileLine(tilePool, false, index, length);
                                     if (line.length === length) {
