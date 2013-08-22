@@ -57,16 +57,13 @@ ig.module(
             var world = new Box2D.Dynamics.b2World(gravity, this.allowSleep);
             var shapes = this._shapesFromCollisionMap(this.collisionMap).edges;
             console.log(shapes);
-            var tilesize = collisionMap.tilesize;
             for(var i=0; i<shapes.length; i++) {
                 var shape = shapes[i];
-                var width = shape.settings.size.x;
-                var height = shape.settings.size.y;
                 var vertices = shape.settings.vertices;
                 var bodyDef = new Box2D.Dynamics.b2BodyDef();
                 bodyDef.position.Set(
-                    shape.x * tilesize * Box2D.SCALE + width * tilesize / 2 * Box2D.SCALE,
-                    shape.y * tilesize * Box2D.SCALE + height * tilesize / 2 * Box2D.SCALE);
+                    shape.x * Box2D.SCALE,
+                    shape.y * Box2D.SCALE);
                 var body = world.CreateBody(bodyDef);
                 var shape = new Box2D.Collision.Shapes.b2PolygonShape();
                 shape.SetAsArray(vertices, vertices.length);
