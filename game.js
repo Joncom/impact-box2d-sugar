@@ -230,7 +230,7 @@ ig.module(
         _shapeFromTile: function (map, ix, iy) {
             var i, il;
             var tileId = map.data[ iy ][ ix ];
-            var vertices = ig.utilstile.verticesFromTile(map, ix, iy);
+            var vertices = this._verticesFromTile(map, ix, iy);
             var segments;
             if (vertices) {
                 // get or compute segments from tile
@@ -258,6 +258,130 @@ ig.module(
                 vertices: vertices,
                 segments: segments || []
             };
+        },
+
+        _verticesFromTile: function (map, ix, iy) {
+            var tileId = map.data[ iy ][ ix ];
+            var vertices;
+            // get or compute shape from tile
+            if (ig.utilstile.defaultTileVerticesDef[ tileId ]) {
+                vertices = ig.utilstile.defaultTileVerticesDef[ tileId ];
+            }
+            else {
+                // solid square (1) or climbable (100/111)
+                if (tileId === 1 || ig.utilstile.isTileClimbable(tileId)) {
+                    vertices = [
+                        { x: 0, y: 0 },
+                        { x: 1, y: 0 },
+                        { x: 1, y: 1 },
+                        { x: 0, y: 1 }
+                    ];
+                }
+                // solid sloped
+                else {
+                    vertices = [];
+                    // find vertices
+                    var def = map.tiledef[ tileId ];
+                    if (def) {
+                        var va = vertices[ 0 ] = { x: def[0], y: def[1] };
+                        var vb = vertices[ 1 ] = { x: def[2], y: def[3] };
+                        var ax = va.x;
+                        var ay = va.y;
+                        var bx = vb.x;
+                        var by = vb.y;
+                        var fx = bx - ax;
+                        var fy = by - ay;
+                        // we have two points and the slope's facing direction
+                        // find remaining points
+                        // corner
+                        var vc = vertices[ 2 ] = { x: ( fy < 0 ? 1 : 0 ), y: ( fx > 0 ? 1 : 0 ) };
+                        var cx = vc.x;
+                        var cy = vc.y;
+                        var vd, ve, dax, day, dbx, dby;
+                        // check if 5 sided
+                        var fiveSided = false;
+                        if (Math.abs(fx) < 1 && Math.abs(fy) < 1) {
+                            var quadrantA = _utv2.pointQuadrant(ax, ay, 0.5, 0.5);
+                            var quadrantB = _utv2.pointQuadrant(bx, by, 0.5, 0.5);
+                            var quadrantC = _utv2.pointQuadrant(cx, cy, 0.5, 0.5);
+                            if (!( quadrantA & quadrantC ) && !( quadrantB & quadrantC )) {
+                                fiveSided = true;
+                            }
+                        }
+                        if (fiveSided === true) {
+                            // generate vertices in both directions from corner
+                            if (cx !== cy) {
+                                dax = cx;
+                                dby = cy;
+                                if (cx == 1) {
+                                    day = 1;
+                                    dbx = 0;
+                                }
+                                else {
+                                    day = 0;
+                                    dbx = 1;
+                                }
+                            }
+                            else {
+                                day = cy;
+                                dbx = cx;
+                                if (cx == 1) {
+                                    dax = 0;
+                                    dby = 0;
+                                }
+                                else {
+                                    dax = 1;
+                                    dby = 1;
+                                }
+                            }
+                            vd = vertices[ 3 ] = { x: dax, y: day };
+                            ve = vertices[ 4 ] = { x: dbx, y: dby };
+                        }
+                        else {
+                            // check from corner to connected points
+                            // generate d vertices in both directions for testing against a and b
+                            if (cx !== cy) {
+                                dax = cx;
+                                dby = cy;
+                                if (cx == 1) {
+                                    day = Math.max(ay, by);
+                                    dbx = Math.min(ax, bx);
+                                }
+                                else {
+                                    day = Math.min(ay, by);
+                                    dbx = Math.max(ax, bx);
+                                }
+                            }
+                            else {
+                                day = cy;
+                                dbx = cx;
+                                if (cx == 1) {
+                                    dax = Math.min(ax, bx);
+                                    dby = Math.min(ay, by);
+                                }
+                                else {
+                                    dax = Math.max(ax, bx);
+                                    dby = Math.max(ay, by);
+                                }
+                            }
+                            // da is duplicate of a
+                            if (( dax === ax && day === ay ) || ( dax === bx && day === by )) {
+                                // db is not duplicate of b
+                                if (!( ( dbx === ax && dby === ay ) || ( dbx === bx && dby === by ) )) {
+                                    vd = vertices[ 3 ] = { x: dbx, y: dby };
+                                }
+                            }
+                            else {
+                                vd = vertices[ 3 ] = { x: dax, y: day };
+                            }
+                        }
+                        vertices = _utv2.pointsToConvexHull(vertices);
+                    }
+                    // store so we don't compute again
+                    ig.utilstile.defaultTileVerticesDef[ tileId ] = vertices;
+                }
+            }
+            return vertices;
         }
 
     });
