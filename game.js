@@ -544,7 +544,7 @@ ig.module(
                             vertices = vertices.concat(this._getNonDuplicateSegmentVertices(rectangle[ i ], data, rectangle));
                         }
                         // vertices to contours
-                        contours = contours.concat(ig.utilstile.verticesToContours(vertices, options));
+                        contours = contours.concat(this._verticesToContours(vertices, options));
                     }
                 }
                 // general shapes that may or may not be concave
@@ -554,7 +554,7 @@ ig.module(
                         vertices = vertices.concat(this._getNonDuplicateSegmentVertices(tiles[ i ], data, tiles));
                     }
                     // vertices to contours
-                    contours = ig.utilstile.verticesToContours(vertices, options);
+                    contours = this._verticesToContours(vertices, options);
                 }
                 // contours to shapes
                 for (i = 0, il = contours.length; i < il; i++) {
@@ -865,6 +865,204 @@ ig.module(
                 }
             }
             return overlap;
+        },
+
+        _verticesToContours: function (vertices, options) {
+            var contours = [];
+            if (vertices.length > 1) {
+                options = options || {};
+                // find each contour within vertices
+                var vertexPool = vertices.slice(0);
+                var contour = {
+                    vertices: [],
+                    minX: Number.MAX_VALUE,
+                    minY: Number.MAX_VALUE,
+                    maxX: -Number.MAX_VALUE,
+                    maxY: -Number.MAX_VALUE
+                };
+                var contourVertices = contour.vertices;
+                var vb = vertexPool.pop();
+                var va = vertexPool.pop();
+                var pva, pvb;
+                var sva, svb;
+                var i, il, j, jl;
+                // length > -2 because we need 1 extra loop for final segment/contour
+                while (vertexPool.length > -2) {
+                    var stepped = false;
+                    // if we haven't looped around, try to step to next
+                    sva = contourVertices[ 0 ];
+                    svb = contourVertices[ 1 ];
+                    if (contourVertices.length <= 2 || vb.x !== sva.x || vb.y !== sva.y) {
+                        for (i = 0, il = vertexPool.length; i < il; i += 2) {
+                            pva = vertexPool[ i ];
+                            pvb = vertexPool[ i + 1 ];
+                            if (vb.x === pva.x && vb.y === pva.y) {
+                                stepped = true;
+                                break;
+                            }
+                        }
+                    }
+                    // only add the second vector of each pair
+                    contourVertices.push(vb);
+                    // update contour min/max
+                    if (vb.x < contour.minX) contour.minX = vb.x;
+                    if (vb.x > contour.maxX) contour.maxX = vb.x;
+                    if (vb.y < contour.minY) contour.minY = vb.y;
+                    if (vb.y > contour.maxY) contour.maxY = vb.y;
+                    if (stepped === true) {
+                        vertexPool.splice(i, 2);
+                        va = pva;
+                        vb = pvb;
+                    }
+                    else {
+                        contours.push(contour);
+                        if (vertexPool.length > 0) {
+                            contour = {
+                                vertices: []
+                            };
+                            contour.minX = contour.minY = Number.MAX_VALUE;
+                            contour.maxX = contour.maxY = -Number.MAX_VALUE;
+                            contourVertices = contour.vertices;
+
+                            vb = vertexPool.pop();
+                            va = vertexPool.pop();
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                }
+                // set contour size
+                for (i = 0, il = contours.length; i < il; i++) {
+                    contour = contours[ i ];
+                    contour.width = contour.maxX - contour.minX;
+                    contour.height = contour.maxY - contour.minY;
+                }
+                // sort contours by largest up
+                contours.sort(function (a, b) {
+                    return ( b.width * b.width + b.height * b.height ) - ( a.width * a.width + a.height * a.height );
+                });
+                // test each contour to find containing contours
+                // if shape's AABB is fully contained by another shape, make chain ordered from smallest to largest
+                var contourPool = contours.slice(0);
+                var containerChains = [];
+                var containerChain = [];
+                var containingContour, contained;
+                contour = contourPool.pop();
+                while (contourPool.length > -1) {
+                    contained = false;
+                    if (contour) {
+                        // search contours instead of contour pool so we can find all containers
+                        for (i = contours.length - 1; i > -1; i--) {
+                            containingContour = contours[ i ];
+                            if (contour !== containingContour && _uti.AABBContains(contour.minX, contour.minY, contour.maxX, contour.maxY, containingContour.minX, containingContour.minY, containingContour.maxX, containingContour.maxY)) {
+                                contained = true;
+                                break;
+                            }
+                        }
+                        containerChain.push(contour);
+                    }
+                    if (contained) {
+                        contourPool.erase(containingContour);
+                        contour = containingContour;
+                    }
+                    else {
+                        if (containerChain.length > 1) {
+                            containerChains.push(containerChain);
+                        }
+                        if (contourPool.length > 0) {
+                            containerChain = [];
+                            contour = contourPool.pop();
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                }
+                // check each container chain
+                var contoursReversed = [];
+                var contoursRemoved = [];
+                for (i = 0, il = containerChains.length; i < il; i++) {
+                    containerChain = containerChains[ i ];
+                    var outerBoundary = containerChain[ containerChain.length - 1 ];
+                    var innerBoundary = containerChain[ containerChain.length - 2 ];
+                    // reverse vertices of every other contour to avoid creating ccw contours
+                    // this happens because converting tiles to vertices cannot control the direction of the segments
+                    // even length chain, start with first
+                    if (containerChain.length % 2 === 0) {
+                        j = 0;
+                    }
+                    // odd length chain, start with second
+                    else {
+                        j = 1;
+                    }
+                    for (jl = containerChain.length; j < jl; j += 2) {
+                        contour = containerChain[ j ];
+                        if (_ut.indexOfValue(contoursReversed, contour) === -1) {
+                            contour.vertices.reverse();
+                            contoursReversed.push(contour);
+                        }
+                    }
+                    // discard outer boundary contour
+                    // generally, we know that the tiles have edges on both sides
+                    // so there should always be a container at the end of the chain that wraps the outside
+                    // we don't need these edges/vertices as it is unlikely the player will ever walk outside the map
+                    if (!options.retainBoundaryOuter && _ut.indexOfValue(contoursRemoved, outerBoundary) === -1) {
+                        contoursRemoved.push(outerBoundary);
+                        _ut.arrayCautiousRemove(contours, outerBoundary);
+                    }
+                    // discard inner boundary contour
+                    if (options.discardBoundaryInner && _ut.indexOfValue(contoursRemoved, innerBoundary) === -1) {
+                        contoursRemoved.push(innerBoundary);
+                        _ut.arrayCautiousRemove(contours, innerBoundary);
+                    }
+                    // discard anything beyond inner boundary contour
+                    if (options.discardEdgesInner && containerChain.length > 2) {
+                        var otherContours = containerChain.slice(2);
+                        contoursRemoved = contoursRemoved.concat(otherContours);
+                        _ut.arrayCautiousRemoveMulti(contours, otherContours);
+                    }
+                }
+                // finalize contours
+                for (i = 0, il = contours.length; i < il; i++) {
+                    contour = contours[ i ];
+                    contourVertices = contour.vertices;
+                    // optimization (default): find and remove all intermediary collinear vertices
+                    if (!options.discardCollinear) {
+                        sva = contourVertices[ 0 ];
+                        for (j = contourVertices.length - 1; j > 0; j--) {
+                            va = contourVertices[ j ];
+                            vb = contourVertices[ j - 1 ];
+                            if (_utv2.pointsCW(sva, va, vb) === 0) {
+                                contourVertices.splice(j, 1);
+                            }
+                            else {
+                                sva = va;
+                            }
+                            va = vb;
+                        }
+                        // do one extra collinear check with first vertex as target for removal
+                        if (_utv2.pointsCW(contourVertices[ j + 1 ], contourVertices[ j ], contourVertices[ contourVertices.length - 1 ]) === 0) {
+                            contourVertices.splice(0, 1);
+                        }
+                    }
+                    // if vertices should be in reverse order
+                    if (options.reverse) {
+                        contourVertices.reverse();
+                    }
+                    // make vertices relative
+                    var minX = contour.minX;
+                    var minY = contour.minY;
+                    var width = contour.width;
+                    var height = contour.height;
+                    for (j = 0, jl = contourVertices.length; j < jl; j++) {
+                        va = contourVertices[ j ];
+                        va.x -= minX + width * 0.5;
+                        va.y -= minY + height * 0.5;
+                    }
+                }
+            }
+            return contours;
         }
 
     });
