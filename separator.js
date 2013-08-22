@@ -1,5 +1,5 @@
 ig.module('plugins.box2d.separator')
-.requires()
+.requires('plugins.box2d.lib')
 .defines(function(){
 
     // Original JavaScript found here:
