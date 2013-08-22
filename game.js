@@ -219,7 +219,7 @@ ig.module(
                     }
                 }
                 // solid tiles to shapes
-                shapes.edges = shapes.edges.concat(ig.utilstile.shapedTilesToShapes(solids, data, {
+                shapes.edges = shapes.edges.concat(this._shapedTilesToShapes(solids, data, {
                     retainBoundaryOuter: options.retainBoundaryOuter,
                     discardBoundaryInner: options.discardBoundaryInner,
                     discardEdgesInner: options.discardEdgesInner
@@ -464,6 +464,116 @@ ig.module(
 
         _pointsCW: function (p1, p2, p3) {
             return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
+        },
+
+        _shapedTilesToShapes: function (tiles, data, options) {
+            options = options || {};
+            var shapes = [];
+            var vertices = [];
+            var contours = [];
+            var i, il, j, jl, index;
+            // create tile groups from tiles
+            if (options.groupByTileId) {
+                // lets avoid infinite recursion!
+                delete options.groupByTileId;
+                // group by id
+                var ids = [];
+                var id;
+                var groups = {};
+                var group;
+                for (i = 0, il = tiles.length; i < il; i++) {
+                    var tile = tiles[ i ];
+                    if (groups[ tile.id ]) {
+                        groups[ tile.id ].push(tile);
+                    }
+                    else {
+                        ids.push(tile.id);
+                        groups[ tile.id ] = [ tile ];
+                    }
+                }
+                // create shapes for each group
+                for (i = 0, il = ids.length; i < il; i++) {
+                    id = ids[ i ];
+                    group = groups[ id ];
+                    options.id = id;
+                    shapes = shapes.concat(this._shapedTilesToShapes(group, data, options));
+                }
+            }
+            else {
+                // rectangle shapes that may or may not be concave
+                if (options.rectangles) {
+                    // step horizontal connected tiles
+                    // add line if matches last, else create new rectangle
+                    var tilePool = tiles.slice(0);
+                    var rectangles = [];
+                    var line, length, stepped, rectangle;
+                    while (tilePool.length > 0) {
+                        // get first horizontal line of tiles
+                        line = ig.utilstile.findShapedTileLine(tilePool);
+                        _ut.arrayCautiousRemoveMulti(tilePool, line);
+                        length = line.length;
+                        rectangle = line;
+                        stepped = true;
+                        // find as many matching length rows as possible
+                        while (stepped) {
+                            stepped = false;
+                            var tileLast = line[ 0 ];
+                            var tileFrom = data[ tileLast.iy ][ tileLast.ix + 1 ];
+                            if (tileFrom) {
+                                // get tile at start of next row and make sure it is part of tile pool
+                                index = _ut.indexOfValue(tilePool, tileFrom);
+                                if (index !== -1) {
+                                    line = ig.utilstile.findShapedTileLine(tilePool, false, index, length);
+                                    if (line.length === length) {
+                                        _ut.arrayCautiousRemoveMulti(tilePool, line);
+                                        rectangle = rectangle.concat(line);
+                                        stepped = true;
+                                    }
+                                }
+                            }
+                        }
+                        if (rectangle.length > 0) {
+                            rectangles.push(rectangle);
+                        }
+                    }
+                    for (j = 0, jl = rectangles.length; j < jl; j++) {
+                        rectangle = rectangles[ j ];
+                        // keep non-duplicate edge vertices
+                        vertices = [];
+                        for (i = 0, il = rectangle.length; i < il; i++) {
+                            vertices = vertices.concat(ig.utilstile.getNonDuplicateSegmentVertices(rectangle[ i ], data, rectangle));
+                        }
+                        // vertices to contours
+                        contours = contours.concat(ig.utilstile.verticesToContours(vertices, options));
+                    }
+                }
+                // general shapes that may or may not be concave
+                else {
+                    // keep non-duplicate edge vertices
+                    for (i = 0, il = tiles.length; i < il; i++) {
+                        vertices = vertices.concat(ig.utilstile.getNonDuplicateSegmentVertices(tiles[ i ], data, tiles));
+                    }
+                    // vertices to contours
+                    contours = ig.utilstile.verticesToContours(vertices, options);
+                }
+                // contours to shapes
+                for (i = 0, il = contours.length; i < il; i++) {
+                    var contour = contours[ i ];
+                    shapes.push({
+                       id: options.id,
+                        x: contour.minX,
+                        y: contour.minY,
+                        settings: {
+                            size: {
+                                x: contour.width,
+                                y: contour.height
+                            },
+                            vertices: contour.vertices
+                        }
+                    });
+                }
+            }
+            return shapes;
         }
 
     });
