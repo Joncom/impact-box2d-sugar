@@ -29,6 +29,10 @@ ig.module(
                 var ld = data.layer[i];
                 if (ld.name == 'collision') {
                     ig.world = this.createWorldFromMap(ld.data, ld.width, ld.height, ld.tilesize);
+
+                    var shapes = this._shapesFromCollisionMap(ld.data);
+                    console.log(shapes);
+
                     break;
                 }
             }
