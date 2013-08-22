@@ -2,6 +2,7 @@ ig.module('plugins.box2d.separator')
 .requires('plugins.box2d.lib')
 .defines(function(){
 
+    // Replaced .call(this) with .call(window) to make globally accessible.
     // Original JavaScript found here:
     // https://raw.github.com/isaksky/asteroids/master/source/js/box_2d_separator.js
 
@@ -349,6 +350,6 @@ ig.module('plugins.box2d.separator')
             separate: separate,
             validate: validate
         };
-    }).call(this);
+    }).call(window);
 
 });
