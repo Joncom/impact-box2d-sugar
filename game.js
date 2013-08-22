@@ -955,7 +955,7 @@ ig.module(
                         // search contours instead of contour pool so we can find all containers
                         for (i = contours.length - 1; i > -1; i--) {
                             containingContour = contours[ i ];
-                            if (contour !== containingContour && _uti.AABBContains(contour.minX, contour.minY, contour.maxX, contour.maxY, containingContour.minX, containingContour.minY, containingContour.maxX, containingContour.maxY)) {
+                            if (contour !== containingContour && this._AABBContains(contour.minX, contour.minY, contour.maxX, contour.maxY, containingContour.minX, containingContour.minY, containingContour.maxX, containingContour.maxY)) {
                                 contained = true;
                                 break;
                             }
@@ -1063,6 +1063,16 @@ ig.module(
                 }
             }
             return contours;
+        },
+
+        _AABBContains: function (aminX, aminY, amaxX, amaxY, bminX, bminY, bmaxX, bmaxY) {
+            if (aminX >= bminX
+                && amaxX <= bmaxX
+                && aminY >= bminY
+                && amaxY <= bmaxY) {
+                return true;
+            }
+            return false;
         }
 
     });
