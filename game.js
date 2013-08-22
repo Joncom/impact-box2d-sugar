@@ -1033,7 +1033,7 @@ ig.module(
                         for (j = contourVertices.length - 1; j > 0; j--) {
                             va = contourVertices[ j ];
                             vb = contourVertices[ j - 1 ];
-                            if (_utv2.pointsCW(sva, va, vb) === 0) {
+                            if (this._pointsCW(sva, va, vb) === 0) {
                                 contourVertices.splice(j, 1);
                             }
                             else {
@@ -1042,7 +1042,7 @@ ig.module(
                             va = vb;
                         }
                         // do one extra collinear check with first vertex as target for removal
-                        if (_utv2.pointsCW(contourVertices[ j + 1 ], contourVertices[ j ], contourVertices[ contourVertices.length - 1 ]) === 0) {
+                        if (this._pointsCW(contourVertices[ j + 1 ], contourVertices[ j ], contourVertices[ contourVertices.length - 1 ]) === 0) {
                             contourVertices.splice(0, 1);
                         }
                     }
