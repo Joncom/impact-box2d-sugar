@@ -629,7 +629,11 @@ ig.module(
         },
 
         _toArray: function (target) {
-            return target ? ( ig.utils.isArray(target) !== true ? [ target ] : target ) : [];
+            return target ? ( this._isArray(target) !== true ? [ target ] : target ) : [];
+        },
+
+        _isArray: function (target) {
+            return Object.prototype.toString.call(target) === '[object Array]';
         },
 
         _indexOfValue: function (array, value) {
