@@ -447,7 +447,7 @@ ig.module(
             var loc = 1;
             for (i = 2, il = points.length; i < il; i++) {
                 // find next valid point
-                while (ig.utilsvector2.pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
+                while (this._pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
                     loc--;
                 }
                 loc++;
@@ -460,6 +460,10 @@ ig.module(
                 pointsSorted[ i ] = points[ pointsByAngle[ i ].index ];
             }
             return pointsSorted;
+        },
+
+        _pointsCW: function (p1, p2, p3) {
+            return (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
         }
 
     });
