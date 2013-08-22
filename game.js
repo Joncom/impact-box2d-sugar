@@ -185,7 +185,7 @@ ig.module(
                 var i, il, tile, shape;
                 for (iy = 0; iy < height; iy++) {
                     for (ix = 0; ix < width; ix++) {
-                        shape = ig.utilstile.shapeFromTile(map, ix, iy);
+                        shape = this._shapeFromTile(map, ix, iy);
                         tile = {
                             id: map.data[ iy ][ ix ],
                             ix: ix,
@@ -223,6 +223,39 @@ ig.module(
                 }));
             }
             return shapes;
+        },
+
+        _shapeFromTile: function (map, ix, iy) {
+            var i, il;
+            var tileId = map.data[ iy ][ ix ];
+            var vertices = ig.utilstile.verticesFromTile(map, ix, iy);
+            var segments;
+            if (vertices) {
+                // get or compute segments from tile
+                if (ig.utilstile.defaultTileSegmentsDef[ tileId ]) {
+                    segments = ig.utilstile.defaultTileSegmentsDef[ tileId ];
+                }
+                else {
+                    ig.utilstile.defaultTileSegmentsDef[ tileId ] = segments = [];
+                    for (i = 0, il = vertices.length; i < il; i++) {
+                        var va = vertices[ i ];
+                        var indexB = i === il - 1 ? 0 : i + 1;
+                        var vb = vertices[ indexB ];
+                        // store segment with pre-computed normal for later use
+                        // normal should be facing out and normalized between 0 and 1
+                        var dx = vb.x - va.x;
+                        var dy = vb.y - va.y;
+                        var l = Math.sqrt(dx * dx + dy * dy);
+                        var nx = dy / l;
+                        var ny = -dx / l;
+                        segments.push({ a: i, b: indexB, normal: { x: nx, y: ny } });
+                    }
+                }
+            }
+            return {
+                vertices: vertices,
+                segments: segments || []
+            };
         }
 
     });
