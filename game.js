@@ -664,7 +664,7 @@ ig.module(
                 // if normal is axis aligned to x/y
                 // compare segment to touching tiles from normal direction
                 if (( normal.x === 0 && normal.y !== 0 ) || ( normal.x !== 0 && normal.y === 0 )) {
-                    var touchingTiles = ig.utilstile.getTouchingTilesByDirection(tile, normal, tileData, tilesAllowed);
+                    var touchingTiles = this._getTouchingTilesByDirection(tile, normal, tileData, tilesAllowed);
                     // check each touching for overlap
                     for (j = 0, jl = touchingTiles.length; j < jl; j++) {
                         var touchingTile = touchingTiles[ j ];
@@ -684,6 +684,54 @@ ig.module(
                 }
             }
             return nonDuplicates;
+        },
+
+        _getTouchingTilesByDirection: function (tile, direction, tileData, tilesAllowed) {
+            var ix = tile.ix;
+            var iy = tile.iy;
+            var nx = direction.x;
+            var ny = direction.y;
+            var touchingTiles = [];
+            var touchingTile;
+            var row;
+            if (nx !== 0) {
+                row = tileData[ iy ];
+                if (nx > 0) {
+                    if (ix < row.length - 1) {
+                        touchingTile = row[ ix + 1 ];
+                        if (!tilesAllowed || this._indexOfValue(tilesAllowed, touchingTile) !== -1) {
+                            touchingTiles.push(touchingTile);
+                        }
+                    }
+                }
+                else {
+                    if (ix > 0) {
+                        touchingTile = row[ ix - 1 ];
+                        if (!tilesAllowed || this._indexOfValue(tilesAllowed, touchingTile) !== -1) {
+                            touchingTiles.push(touchingTile);
+                        }
+                    }
+                }
+            }
+            if (ny !== 0) {
+                if (ny > 0) {
+                    if (iy < tileData.length - 1) {
+                        touchingTile = tileData[ iy + 1 ][ ix ];
+                        if (!tilesAllowed || this._indexOfValue(tilesAllowed, touchingTile) !== -1) {
+                            touchingTiles.push(touchingTile);
+                        }
+                    }
+                }
+                else {
+                    if (iy > 0) {
+                        touchingTile = tileData[ iy - 1 ][ ix ];
+                        if (!tilesAllowed || this._indexOfValue(tilesAllowed, touchingTile) !== -1) {
+                            touchingTiles.push(touchingTile);
+                        }
+                    }
+                }
+            }
+            return touchingTiles;
         }
 
     });
