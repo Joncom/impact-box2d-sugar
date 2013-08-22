@@ -16,6 +16,7 @@ ig.module(
         debugCollisionRects: false,
 
         defaultTileSegmentsDef: {},
+        defaultTileVerticesDef: {},
 
         // This function is overloaded to do nothing,
         // because checking for "touching entities" is
@@ -264,8 +265,8 @@ ig.module(
             var tileId = map.data[ iy ][ ix ];
             var vertices;
             // get or compute shape from tile
-            if (ig.utilstile.defaultTileVerticesDef[ tileId ]) {
-                vertices = ig.utilstile.defaultTileVerticesDef[ tileId ];
+            if (this.defaultTileVerticesDef[ tileId ]) {
+                vertices = this.defaultTileVerticesDef[ tileId ];
             }
             else {
                 // solid square (1)
@@ -378,7 +379,7 @@ ig.module(
                         vertices = _utv2.pointsToConvexHull(vertices);
                     }
                     // store so we don't compute again
-                    ig.utilstile.defaultTileVerticesDef[ tileId ] = vertices;
+                    this.defaultTileVerticesDef[ tileId ] = vertices;
                 }
             }
             return vertices;
