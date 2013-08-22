@@ -15,6 +15,8 @@ ig.module(
         collisionRects: [],
         debugCollisionRects: false,
 
+        defaultTileSegmentsDef: {},
+
         // This function is overloaded to do nothing,
         // because checking for "touching entities" is
         // now handled by Box2D.
@@ -232,11 +234,11 @@ ig.module(
             var segments;
             if (vertices) {
                 // get or compute segments from tile
-                if (ig.utilstile.defaultTileSegmentsDef[ tileId ]) {
-                    segments = ig.utilstile.defaultTileSegmentsDef[ tileId ];
+                if (this.defaultTileSegmentsDef[ tileId ]) {
+                    segments = this.defaultTileSegmentsDef[ tileId ];
                 }
                 else {
-                    ig.utilstile.defaultTileSegmentsDef[ tileId ] = segments = [];
+                    this.defaultTileSegmentsDef[ tileId ] = segments = [];
                     for (i = 0, il = vertices.length; i < il; i++) {
                         var va = vertices[ i ];
                         var indexB = i === il - 1 ? 0 : i + 1;
