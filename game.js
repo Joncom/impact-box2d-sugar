@@ -59,6 +59,8 @@ ig.module(
             console.log(shapes);
             for(var i=0; i<shapes.length; i++) {
                 var shape = shapes[i];
+                var width = shape.settings.size.x;
+                var height = shape.settings.size.y;
                 var vertices = shape.settings.vertices;
                 // Scale vertices.
                 for(var v=0; v<vertices.length; v++) {
@@ -67,8 +69,8 @@ ig.module(
                 }
                 var bodyDef = new Box2D.Dynamics.b2BodyDef();
                 bodyDef.position.Set(
-                    shape.x * Box2D.SCALE,
-                    shape.y * Box2D.SCALE);
+                    shape.x * Box2D.SCALE + (width / 2) * Box2D.SCALE,
+                    shape.y * Box2D.SCALE + (height / 2) * Box2D.SCALE);
                 var body = world.CreateBody(bodyDef);
                 var shape = new Box2D.Collision.Shapes.b2PolygonShape();
                 shape.SetAsArray(vertices, vertices.length);
