@@ -2,8 +2,10 @@ ig.module(
     'plugins.box2d.game'
 )
 .requires(
+    'plugins.box2d.utilstile',
     'plugins.box2d.lib',
     'impact.game'
+
 )
 .defines(function(){
 
