@@ -669,7 +669,7 @@ ig.module(
                     for (j = 0, jl = touchingTiles.length; j < jl; j++) {
                         var touchingTile = touchingTiles[ j ];
                         if (touchingTile.shape.vertices.length > 0) {
-                            overlap = ig.utilstile.getSegmentOverlapWithTile(va, vb, normal, touchingTile);
+                            overlap = this._getSegmentOverlapWithTile(va, vb, normal, touchingTile);
                             if (overlap) break;
                         }
                     }
@@ -732,6 +732,139 @@ ig.module(
                 }
             }
             return touchingTiles;
+        },
+
+        _getSegmentOverlapWithTile: function (vaA, vbA, normalCompare, tile) {
+            var overlap = false;
+            var shape = tile.shape;
+            var vertices = shape.vertices;
+            var segments = shape.segments;
+            var i, il;
+            var segmentPotential, normal, segment;
+            // find overlapping segment, assuming no more than 1 overlap can occur in a tile
+            for (i = 0, il = segments.length; i < il; i++) {
+                segmentPotential = segments[ i ];
+                normal = segmentPotential.normal;
+                // for any overlap to occur, normals must be pointing in opposite directions
+                if (normalCompare.x === -normal.x && normalCompare.y === -normal.y) {
+                    segment = segmentPotential;
+                    break;
+                }
+            }
+            if (segment) {
+                var vaB = vertices[ segment.a ];
+                var vbB = vertices[ segment.b ];
+                var xaA = vaA.x;
+                var yaA = vaA.y;
+                var xbA = vbA.x;
+                var ybA = vbA.y;
+                var xaB = vaB.x;
+                var yaB = vaB.y;
+                var xbB = vbB.x;
+                var ybB = vbB.y;
+                var xlA = xbA - xaA;
+                var ylA = ybA - yaA;
+                var lenA = Math.sqrt(xlA * xlA + ylA * ylA);
+                var xnA = xlA / lenA;
+                var ynA = ylA / lenA;
+                var xlB = xaB - xbB;
+                var ylB = yaB - ybB;
+                var lenB = Math.sqrt(xlB * xlB + ylB * ylB);
+                var xnB = xlB / lenB;
+                var ynB = ylB / lenB;
+                var cross = xnA * ynB - ynA * xnB;
+                // if cross product = 0, lines are parallel
+                // no need to check for collinearity
+                if (cross === 0) {
+                    var saebMin, saebMax, easbMin, easbMax, normal;
+                    var minCompare, maxCompare, property;
+                    // horizontal lines
+                    if (xnA !== 0) {
+                        saebMin = Math.min(xaA, xbB);
+                        saebMax = Math.max(xaA, xbB);
+                        easbMin = Math.min(xbA, xaB);
+                        easbMax = Math.max(xbA, xaB);
+                        normal = xnA;
+                        minCompare = xaA;
+                        maxCompare = xbA;
+                        property = 'x';
+                    }
+                    // vertical lines
+                    else {
+                        saebMin = Math.min(yaA, ybB);
+                        saebMax = Math.max(yaA, ybB);
+                        easbMin = Math.min(ybA, yaB);
+                        easbMax = Math.max(ybA, yaB);
+                        normal = ynA;
+                        minCompare = yaA;
+                        maxCompare = ybA;
+                        property = 'y';
+                    }
+                    // fully overlapping
+                    if (saebMin === saebMax && easbMin === easbMax) {
+                        overlap = true;
+                    }
+                    // partial or no overlap
+                    else {
+                        var overlappingBy = normal < 0 ? saebMin - easbMax : easbMin - saebMax;
+                        // find edges outside partial overlap
+                        if (overlappingBy > 0) {
+                            // duplicate will be new edges instead of boolean
+                            overlap = {
+                                segmentA: { va: { x: vaA.x, y: vaA.y }, vb: { x: vbA.x, y: vbA.y } },
+                                segmentB: { va: { x: vaB.x, y: vaB.y }, vb: { x: vbB.x, y: vbB.y } }
+                            };
+                            var min, max;
+                            var wipeout = true;
+                            if (normal < 0) {
+                                min = saebMin === saebMax ? 0 : ( saebMin === minCompare ? SEGMENT_B : SEGMENT_A );
+                                max = easbMin === easbMax ? 0 : ( easbMax === maxCompare ? SEGMENT_B : SEGMENT_A );
+                                if (min === SEGMENT_A) {
+                                    overlap.segmentA.vb[ property ] += overlappingBy;
+                                    wipeout = false;
+                                }
+                                else if (min === SEGMENT_B) {
+                                    overlap.segmentB.va[ property ] += overlappingBy;
+                                }
+                                if (max === SEGMENT_A) {
+                                    overlap.segmentA.va[ property ] -= overlappingBy;
+                                    wipeout = false;
+                                }
+                                else if (max === SEGMENT_B) {
+                                    overlap.segmentB.vb[ property ] -= overlappingBy;
+                                }
+                                // other edge may be bigger and fully overlapping this one
+                                if (wipeout === true) {
+                                    overlap = true;
+                                }
+                            }
+                            else {
+                                min = saebMin === saebMax ? 0 : ( saebMin === minCompare ? SEGMENT_A : SEGMENT_B );
+                                max = easbMin === easbMax ? 0 : ( easbMax === maxCompare ? SEGMENT_A : SEGMENT_B );
+                                if (min === SEGMENT_A) {
+                                    overlap.segmentA.vb[ property ] -= overlappingBy;
+                                    wipeout = false;
+                                }
+                                else if (min === SEGMENT_B) {
+                                    overlap.segmentB.va[ property ] -= overlappingBy;
+                                }
+                                if (max === SEGMENT_A) {
+                                    overlap.segmentA.va[ property ] += overlappingBy;
+                                    wipeout = false;
+                                }
+                                else if (max === SEGMENT_B) {
+                                    overlap.segmentB.vb[ property ] += overlappingBy;
+                                }
+                                // other edge may be bigger and fully overlapping this one
+                                if (wipeout === true) {
+                                    overlap = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return overlap;
         }
 
     });
