@@ -541,7 +541,7 @@ ig.module(
                         // keep non-duplicate edge vertices
                         vertices = [];
                         for (i = 0, il = rectangle.length; i < il; i++) {
-                            vertices = vertices.concat(ig.utilstile.getNonDuplicateSegmentVertices(rectangle[ i ], data, rectangle));
+                            vertices = vertices.concat(this._getNonDuplicateSegmentVertices(rectangle[ i ], data, rectangle));
                         }
                         // vertices to contours
                         contours = contours.concat(ig.utilstile.verticesToContours(vertices, options));
@@ -551,7 +551,7 @@ ig.module(
                 else {
                     // keep non-duplicate edge vertices
                     for (i = 0, il = tiles.length; i < il; i++) {
-                        vertices = vertices.concat(ig.utilstile.getNonDuplicateSegmentVertices(tiles[ i ], data, tiles));
+                        vertices = vertices.concat(this._getNonDuplicateSegmentVertices(tiles[ i ], data, tiles));
                     }
                     // vertices to contours
                     contours = ig.utilstile.verticesToContours(vertices, options);
@@ -643,6 +643,47 @@ ig.module(
                 }
             }
             return -1;
+        },
+
+        _getNonDuplicateSegmentVertices: function (tile, tileData, tilesAllowed) {
+            var ix = tile.ix;
+            var iy = tile.iy;
+            var shape = tile.shape;
+            var vertices = shape.vertices;
+            var segments = shape.segments;
+            var nonDuplicates = [];
+            // add segment vertices in clockwise order while checking for duplicates
+            var i, il;
+            var j, jl;
+            for (i = 0, il = segments.length; i < il; i++) {
+                var segment = segments[ i ];
+                var va = vertices[ segment.a ];
+                var vb = vertices[ segment.b ];
+                var normal = segment.normal;
+                var overlap = false;
+                // if normal is axis aligned to x/y
+                // compare segment to touching tiles from normal direction
+                if (( normal.x === 0 && normal.y !== 0 ) || ( normal.x !== 0 && normal.y === 0 )) {
+                    var touchingTiles = ig.utilstile.getTouchingTilesByDirection(tile, normal, tileData, tilesAllowed);
+                    // check each touching for overlap
+                    for (j = 0, jl = touchingTiles.length; j < jl; j++) {
+                        var touchingTile = touchingTiles[ j ];
+                        if (touchingTile.shape.vertices.length > 0) {
+                            overlap = ig.utilstile.getSegmentOverlapWithTile(va, vb, normal, touchingTile);
+                            if (overlap) break;
+                        }
+                    }
+                }
+                // no overlap at all
+                if (overlap === false) {
+                    nonDuplicates.push(va, vb);
+                }
+                // partial overlap found, use returned non-overlapping segment
+                else if (overlap.segmentA) {
+                    nonDuplicates.push(overlap.segmentA.va, overlap.segmentA.vb);
+                }
+            }
+            return nonDuplicates;
         }
 
     });
