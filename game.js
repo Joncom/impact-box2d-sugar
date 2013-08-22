@@ -376,7 +376,7 @@ ig.module(
                                 vd = vertices[ 3 ] = { x: dax, y: day };
                             }
                         }
-                        vertices = _utv2.pointsToConvexHull(vertices);
+                        vertices = this._pointsToConvexHull(vertices);
                     }
                     // store so we don't compute again
                     this.defaultTileVerticesDef[ tileId ] = vertices;
