@@ -1,4 +1,4 @@
-ig.module('plugins.box2d.seperator')
+ig.module('plugins.box2d.separator')
 .requires()
 .defines(function(){
 
