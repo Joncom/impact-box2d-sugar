@@ -510,7 +510,7 @@ ig.module(
                     while (tilePool.length > 0) {
                         // get first horizontal line of tiles
                         line = this._findShapedTileLine(tilePool);
-                        _ut.arrayCautiousRemoveMulti(tilePool, line);
+                        this._arrayCautiousRemoveMulti(tilePool, line);
                         length = line.length;
                         rectangle = line;
                         stepped = true;
@@ -525,7 +525,7 @@ ig.module(
                                 if (index !== -1) {
                                     line = this._findShapedTileLine(tilePool, false, index, length);
                                     if (line.length === length) {
-                                        _ut.arrayCautiousRemoveMulti(tilePool, line);
+                                        this._arrayCautiousRemoveMulti(tilePool, line);
                                         rectangle = rectangle.concat(line);
                                         stepped = true;
                                     }
@@ -610,6 +610,22 @@ ig.module(
                 }
             }
             return tileFrom;
+        },
+
+        _arrayCautiousRemoveMulti: function (target, elements) {
+            var element, index;
+            elements = ig.utils.toArray(elements);
+            // for each element
+            for (var i = 0, il = elements.length; i < il; i++) {
+                element = elements[ i ];
+                if (element !== target) {
+                    index = ig.utils.indexOfValue(target, element);
+                    if (index !== -1) {
+                        target.splice(index, 1);
+                    }
+                }
+            }
+            return target;
         }
 
     });
