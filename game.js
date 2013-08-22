@@ -614,7 +614,7 @@ ig.module(
 
         _arrayCautiousRemoveMulti: function (target, elements) {
             var element, index;
-            elements = ig.utils.toArray(elements);
+            elements = this._toArray(elements);
             // for each element
             for (var i = 0, il = elements.length; i < il; i++) {
                 element = elements[ i ];
@@ -626,6 +626,10 @@ ig.module(
                 }
             }
             return target;
+        },
+
+        _toArray: function (target) {
+            return target ? ( ig.utils.isArray(target) !== true ? [ target ] : target ) : [];
         }
 
     });
