@@ -164,6 +164,115 @@ ig.module(
                 }
             }
             return rect;
+        },
+
+        _shapesFromCollisionMap: function (map, options) {
+            var shapes = {
+                oneWays: [],
+                edges: [],
+                climbables: []
+            };
+            if (map instanceof ig.CollisionMap) {
+                options = options || {};
+                // copy data so we can clear spots we've already visited and used
+                // data is edited as we go so we don't extract duplicates
+                var data = ig.copy(map.data);
+                // extract each tile shape from map
+                var tilesize = map.tilesize;
+                var width = map.width;
+                var height = map.height;
+                var solids = [];
+                var climbables = [];
+                var oneWays = [];
+                var vertices, scaledVertices, segments, segment;
+                var ix, iy, x, y;
+                var i, il, tile, shape;
+                for (iy = 0; iy < height; iy++) {
+                    for (ix = 0; ix < width; ix++) {
+                        shape = ig.utilstile.shapeFromTile(map, ix, iy);
+                        tile = {
+                            id: map.data[ iy ][ ix ],
+                            ix: ix,
+                            iy: iy,
+                            x: ix * tilesize,
+                            y: iy * tilesize,
+                            width: tilesize,
+                            height: tilesize,
+                            shape: shape
+                        };
+                        // not empty
+                        if (shape.vertices.length > 0) {
+                            // copy, absolutely position, and scale vertices
+                            scaledVertices = [];
+                            vertices = shape.vertices;
+                            segments = shape.segments;
+                            for (i = 0, il = segments.length; i < il; i++) {
+                                segment = segments[ i ];
+                                var va = vertices[ segment.a ];
+                                scaledVertices[ segment.a ] = { x: tile.x + va.x * tilesize, y: tile.y + va.y * tilesize };
+                            }
+                            shape.vertices = scaledVertices;
+                            // add to list by type
+                            if (ig.utilstile.isTileClimbable(tile.id) && !options.ignoreClimbables) {
+                                climbables.push(tile);
+                            }
+                            else if (ig.utilstile.isTileOneWay(tile.id) && !options.ignoreOneWays) {
+                                oneWays.push(tile);
+                            }
+                            else if (!options.ignoreSolids) {
+                                solids.push(tile);
+                            }
+                        }
+                        // store in copied data so other tiles can compare
+                        data[ iy ][ ix ] = tile;
+                    }
+                }
+                // solid tiles to shapes
+                shapes.edges = shapes.edges.concat(ig.utilstile.shapedTilesToShapes(solids, data, {
+                    retainBoundaryOuter: options.retainBoundaryOuter,
+                    discardBoundaryInner: options.discardBoundaryInner,
+                    discardEdgesInner: options.discardEdgesInner
+                }));
+                // climbable tiles to shapes
+                shapes.climbables = shapes.climbables.concat(ig.utilstile.shapedTilesToShapes(climbables, data, {
+                    rectangles: options.rectangles || !options.contourClimbables,
+                    groupByTileId: !options.ungrouped
+                }));
+                // adjust climbable shapes by id
+                for (i = 0, il = shapes.climbables.length; i < il; i++) {
+                    shape = shapes.climbables[ i ];
+                    if (shape.id === TILE_CLIMBABLE_WITH_TOP) {
+                        shape.settings.oneWay = true;
+                    }
+                    else {
+                        shape.settings.sensor = true;
+                    }
+                }
+                // one-way tiles to shapes
+                shapes.oneWays = shapes.oneWays.concat(ig.utilstile.shapedTilesToShapes(oneWays, data, {
+                    rectangles: options.rectangles || !options.contourSolids,
+                    groupByTileId: !options.ungrouped
+                }));
+                // adjust one-way shapes by id
+                for (i = 0, il = shapes.oneWays.length; i < il; i++) {
+                    shape = shapes.oneWays[ i ];
+                    // one-way
+                    if (ig.utilstile.isTileOneWay(shape.id)) {
+                        shape.settings.oneWay = true;
+                        // set one way facing (default up)
+                        if (shape.id === TILE_ONE_WAY_DOWN) {
+                            shape.settings.oneWayFacing = { x: 0, y: 1 };
+                        }
+                        else if (shape.id === TILE_ONE_WAY_RIGHT) {
+                            shape.settings.oneWayFacing = { x: 1, y: 0 };
+                        }
+                        else if (shape.id === TILE_ONE_WAY_LEFT) {
+                            shape.settings.oneWayFacing = { x: -1, y: 0 };
+                        }
+                    }
+                }
+            }
+            return shapes;
         }
 
     });
