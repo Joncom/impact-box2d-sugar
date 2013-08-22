@@ -509,7 +509,7 @@ ig.module(
                     var line, length, stepped, rectangle;
                     while (tilePool.length > 0) {
                         // get first horizontal line of tiles
-                        line = ig.utilstile.findShapedTileLine(tilePool);
+                        line = this._findShapedTileLine(tilePool);
                         _ut.arrayCautiousRemoveMulti(tilePool, line);
                         length = line.length;
                         rectangle = line;
@@ -523,7 +523,7 @@ ig.module(
                                 // get tile at start of next row and make sure it is part of tile pool
                                 index = _ut.indexOfValue(tilePool, tileFrom);
                                 if (index !== -1) {
-                                    line = ig.utilstile.findShapedTileLine(tilePool, false, index, length);
+                                    line = this._findShapedTileLine(tilePool, false, index, length);
                                     if (line.length === length) {
                                         _ut.arrayCautiousRemoveMulti(tilePool, line);
                                         rectangle = rectangle.concat(line);
@@ -574,6 +574,30 @@ ig.module(
                 }
             }
             return shapes;
+        },
+
+        _findShapedTileLine: function (tiles, horizontal, indexFrom, length) {
+            indexFrom = indexFrom || 0;
+            length = length || 0;
+            var tileFrom = tiles[ indexFrom ];
+            var line = [];
+            var stepped = true;
+            var i, il;
+            while (stepped) {
+                stepped = false;
+                // add tile to line
+                line.push(tileFrom);
+                if (line.length === length) {
+                    break;
+                }
+                // step to next in line
+                var tileNext = horizontal ? ig.utilstile.stepShapedTileHorizontally(tiles, tileFrom) : ig.utilstile.stepShapedTileVertically(tiles, tileFrom);
+                if (tileFrom !== tileNext) {
+                    stepped = true;
+                    tileFrom = tileNext;
+                }
+            }
+            return line;
         }
 
     });
