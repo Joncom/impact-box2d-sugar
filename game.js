@@ -60,7 +60,7 @@ ig.module(
                 var shape = shapes[i];
                 var width = shape.settings.size.x;
                 var height = shape.settings.size.y;
-                var vertices = ig.copy(shape.settings.vertices);
+                var vertices = shape.settings.vertices;
                 // Scale vertices.
                 for(var v=0; v<vertices.length; v++) {
                     vertices[v].x *= Box2D.SCALE;
