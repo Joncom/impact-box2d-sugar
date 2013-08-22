@@ -56,7 +56,6 @@ ig.module(
             var gravity = new Box2D.Common.Math.b2Vec2(0, 0);
             var world = new Box2D.Dynamics.b2World(gravity, this.allowSleep);
             var shapes = this._shapesFromCollisionMap(this.collisionMap).edges;
-            console.log(shapes);
             for(var i=0; i<shapes.length; i++) {
                 var shape = shapes[i];
                 var width = shape.settings.size.x;
