@@ -591,13 +591,25 @@ ig.module(
                     break;
                 }
                 // step to next in line
-                var tileNext = horizontal ? ig.utilstile.stepShapedTileHorizontally(tiles, tileFrom) : ig.utilstile.stepShapedTileVertically(tiles, tileFrom);
+                var tileNext = horizontal ?
+                    this._stepShapedTileHorizontally(tiles, tileFrom) :
+                    this._stepShapedTileVertically(tiles, tileFrom);
                 if (tileFrom !== tileNext) {
                     stepped = true;
                     tileFrom = tileNext;
                 }
             }
             return line;
+        },
+
+        _stepShapedTileHorizontally: function (tiles, tileFrom) {
+            for (var i = 0, il = tiles.length; i < il; i++) {
+                var tileNext = tiles[ i ];
+                if (tileFrom.iy === tileNext.iy && tileFrom.ix + 1 === tileNext.ix) {
+                    return tileNext;
+                }
+            }
+            return tileFrom;
         }
 
     });
