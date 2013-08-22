@@ -168,9 +168,7 @@ ig.module(
 
         _shapesFromCollisionMap: function (map, options) {
             var shapes = {
-                oneWays: [],
-                edges: [],
-                climbables: []
+                edges: []
             };
             if (map instanceof ig.CollisionMap) {
                 options = options || {};
@@ -182,8 +180,6 @@ ig.module(
                 var width = map.width;
                 var height = map.height;
                 var solids = [];
-                var climbables = [];
-                var oneWays = [];
                 var vertices, scaledVertices, segments, segment;
                 var ix, iy, x, y;
                 var i, il, tile, shape;
@@ -212,16 +208,8 @@ ig.module(
                                 scaledVertices[ segment.a ] = { x: tile.x + va.x * tilesize, y: tile.y + va.y * tilesize };
                             }
                             shape.vertices = scaledVertices;
-                            // add to list by type
-                            if (ig.utilstile.isTileClimbable(tile.id) && !options.ignoreClimbables) {
-                                climbables.push(tile);
-                            }
-                            else if (ig.utilstile.isTileOneWay(tile.id) && !options.ignoreOneWays) {
-                                oneWays.push(tile);
-                            }
-                            else if (!options.ignoreSolids) {
-                                solids.push(tile);
-                            }
+                            // add to list
+                            solids.push(tile);
                         }
                         // store in copied data so other tiles can compare
                         data[ iy ][ ix ] = tile;
@@ -233,44 +221,6 @@ ig.module(
                     discardBoundaryInner: options.discardBoundaryInner,
                     discardEdgesInner: options.discardEdgesInner
                 }));
-                // climbable tiles to shapes
-                shapes.climbables = shapes.climbables.concat(ig.utilstile.shapedTilesToShapes(climbables, data, {
-                    rectangles: options.rectangles || !options.contourClimbables,
-                    groupByTileId: !options.ungrouped
-                }));
-                // adjust climbable shapes by id
-                for (i = 0, il = shapes.climbables.length; i < il; i++) {
-                    shape = shapes.climbables[ i ];
-                    if (shape.id === TILE_CLIMBABLE_WITH_TOP) {
-                        shape.settings.oneWay = true;
-                    }
-                    else {
-                        shape.settings.sensor = true;
-                    }
-                }
-                // one-way tiles to shapes
-                shapes.oneWays = shapes.oneWays.concat(ig.utilstile.shapedTilesToShapes(oneWays, data, {
-                    rectangles: options.rectangles || !options.contourSolids,
-                    groupByTileId: !options.ungrouped
-                }));
-                // adjust one-way shapes by id
-                for (i = 0, il = shapes.oneWays.length; i < il; i++) {
-                    shape = shapes.oneWays[ i ];
-                    // one-way
-                    if (ig.utilstile.isTileOneWay(shape.id)) {
-                        shape.settings.oneWay = true;
-                        // set one way facing (default up)
-                        if (shape.id === TILE_ONE_WAY_DOWN) {
-                            shape.settings.oneWayFacing = { x: 0, y: 1 };
-                        }
-                        else if (shape.id === TILE_ONE_WAY_RIGHT) {
-                            shape.settings.oneWayFacing = { x: 1, y: 0 };
-                        }
-                        else if (shape.id === TILE_ONE_WAY_LEFT) {
-                            shape.settings.oneWayFacing = { x: -1, y: 0 };
-                        }
-                    }
-                }
             }
             return shapes;
         }
