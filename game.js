@@ -72,9 +72,17 @@ ig.module(
                     shape.x * Box2D.SCALE + (width / 2) * Box2D.SCALE,
                     shape.y * Box2D.SCALE + (height / 2) * Box2D.SCALE);
                 var body = world.CreateBody(bodyDef);
-                var shape = new Box2D.Collision.Shapes.b2PolygonShape();
-                shape.SetAsArray(vertices, vertices.length);
-                body.CreateFixture2(shape);
+                var shapeIsConvex = false; // TODO: Check if shape is actually convex.
+                if(shapeIsConvex) {
+                    var shape = new Box2D.Collision.Shapes.b2PolygonShape();
+                    shape.SetAsArray(vertices, vertices.length);
+                    body.CreateFixture2(shape);
+                }
+                else {
+                    // Break the concave shape up into smaller convex shapes.
+                    var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
+                    Box2DSeparator.separate(body, fixtureDef, vertices, 1);
+                }
             }
             return world;
         },
