@@ -345,10 +345,12 @@ ig.module(
             for (i = 1, il = points.length; i < il; i++) {
                 point = points[ i ];
                 if (point.y === pointMin.y) {
+
                     if (point.x < pointMin.x) {
                         indexMin = i;
                         pointMin = point;
                     }
+
                 }
                 else if (point.y < pointMin.y) {
                     indexMin = i;
@@ -356,9 +358,7 @@ ig.module(
                 }
             }
             // sort points by angle from min
-            var pointsByAngle = [
-                { x: pointMin.x, y: pointMin.y, index: indexMin }
-            ];
+            var pointsByAngle = [];
             var pointFromMin;
             for (i = 0, il = points.length; i < il; i++) {
                 if (i === indexMin) continue;
@@ -379,11 +379,13 @@ ig.module(
                 }
                 return 0;
             });
+            // add last point and min point to beginning
+            pointsByAngle.unshift( pointsByAngle[ pointsByAngle.length - 1 ], { x: pointMin.x, y: pointMin.y, index: indexMin } );
             // search for convex hull
             // loc is location, and at end of search the final index
             var pointTemp;
-            var loc = 1;
-            for (i = 2, il = points.length; i < il; i++) {
+            var loc = 2;
+            for (i = 3, il = points.length; i <= il; i++) {
                 // find next valid point
                 while (this._pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
                     loc--;
