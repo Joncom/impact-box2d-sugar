@@ -385,7 +385,7 @@ ig.module(
             var loc = 1;
             for (i = 2, il = points.length; i < il; i++) {
                 // find next valid point
-                while (ig.utilsvector2.pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
+                while (this._pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
                     loc--;
                 }
                 loc++;
