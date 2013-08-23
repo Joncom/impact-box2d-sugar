@@ -855,7 +855,9 @@ ig.module(
                         vb = pvb;
                     }
                     else {
-                        contours.push(contour);
+                        if (contour.vertices.length >= 3) {
+                            contours.push(contour);
+                        }
                         if (vertexPool.length > 0) {
                             contour = {
                                 vertices: []
