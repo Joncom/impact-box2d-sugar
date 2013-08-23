@@ -1016,7 +1016,7 @@ ig.module(
         },
 
         _arrayCautiousRemove: function (target, element) {
-            var index = ig.utils.indexOfValue(target, element);
+            var index = this._indexOfValue(target, element);
             if (index !== -1) {
                 target.splice(index, 1);
             }
