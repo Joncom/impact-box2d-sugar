@@ -89,7 +89,8 @@ ig.module(
 
         _polygonIsConvex: function(vertices) {
             var hull = this._pointsToConvexHull(vertices);
-            return vertices.length === hull.length;
+            // -1 because the first and last point are the same.
+            return vertices.length === hull.length - 1;
         },
 
         setupContactListener: function() {
