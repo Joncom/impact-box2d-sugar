@@ -333,9 +333,7 @@ ig.module(
         },
 
         _pointsToConvexHull: function (points) {
-            if (points.length < 3) {
-                return points;
-            }
+            if (points.length < 3) return points;
             // find the point with the smallest y
             var i, il;
             var indexMin = 0, pointMin = points[ indexMin ], point;
@@ -358,33 +356,21 @@ ig.module(
             ];
             var pointFromMin;
             for (i = 0, il = points.length; i < il; i++) {
-                if (i === indexMin) {
-                    continue;
-                }
+                if (i === indexMin) continue;
                 point = points[ i ];
                 pointFromMin = { x: point.x, y: point.y };
                 pointFromMin.angle = Math.atan(( point.y - pointMin.y ) / ( point.x - pointMin.x));
-                if (pointFromMin.angle < 0) {
-                    pointFromMin.angle += Math.PI;
-                }
+                if (pointFromMin.angle < 0) pointFromMin.angle += Math.PI;
                 pointFromMin.distance = ( point.x - pointMin.x ) * ( point.x - pointMin.x ) + ( point.y - pointMin.y ) * ( point.y - pointMin.y );
                 pointFromMin.index = i;
                 pointsByAngle.push(pointFromMin);
             }
             pointsByAngle.sort(function (a, b) {
-                if (a.angle < b.angle) {
-                    return -1;
-                }
-                else if (a.angle > b.angle) {
-                    return 1;
-                }
+                if (a.angle < b.angle) return -1;
+                else if (a.angle > b.angle) return 1;
                 else {
-                    if (a.distance < b.distance) {
-                        return -1;
-                    }
-                    else if (a.distance > b.distance) {
-                        return 1;
-                    }
+                    if (a.distance < b.distance) return -1;
+                    else if (a.distance > b.distance) return 1;
                 }
                 return 0;
             });
@@ -394,7 +380,7 @@ ig.module(
             var loc = 1;
             for (i = 2, il = points.length; i < il; i++) {
                 // find next valid point
-                while (this._pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
+                while (ig.utilsvector2.pointsCW(pointsByAngle[ loc - 1 ], pointsByAngle[ loc ], pointsByAngle[ i ]) <= 0) {
                     loc--;
                 }
                 loc++;
