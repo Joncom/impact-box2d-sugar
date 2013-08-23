@@ -72,8 +72,7 @@ ig.module(
                     shape.x * Box2D.SCALE + (width / 2) * Box2D.SCALE,
                     shape.y * Box2D.SCALE + (height / 2) * Box2D.SCALE);
                 var body = world.CreateBody(bodyDef);
-                var shapeIsConvex = false; // TODO: Check if shape is actually convex.
-                if(shapeIsConvex) {
+                if(this._polygonIsConvex(vertices)) {
                     var shape = new Box2D.Collision.Shapes.b2PolygonShape();
                     shape.SetAsArray(vertices, vertices.length);
                     body.CreateFixture2(shape);
