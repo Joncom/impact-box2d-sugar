@@ -108,6 +108,7 @@ EntityPlayer = ig.Entity.extend({
 ```
 
 TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
+TODO: Inform the user when no b2World was created do to no collision map, or fail gracefully.
 
 ### FAQ ###
 
