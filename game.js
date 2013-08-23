@@ -87,6 +87,11 @@ ig.module(
             return world;
         },
 
+        _polygonIsConvex: function(vertices) {
+            var hull = this._pointsToConvexHull(vertices);
+            return vertices.length === hull.length;
+        },
+
         setupContactListener: function() {
             var callback = function(method, contact, argument) {
                 var a = contact.GetFixtureA().GetBody().entity;
