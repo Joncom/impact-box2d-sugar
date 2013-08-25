@@ -36,7 +36,7 @@ ig.module('game.entities.player')
 ### New Entity Properties ###
 
 ###### .isFixedRotation ######
-Setting `true` prevents body from rotating. Default is #false#.
+Setting `true` prevents body from rotating. Default is `false`.
 
 ### Restored Entity Properties ###
 
