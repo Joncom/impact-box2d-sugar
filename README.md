@@ -35,6 +35,9 @@ ig.module('game.entities.player')
 
 ### New Entity Properties ###
 
+###### .isBullet ######
+Setting `true` enabled continuous collision. This prevents fast moving entities from "tunneling" through walls and other entities, but requires more CPU. Default is `false`.
+
 ###### .isFixedRotation ######
 Setting `true` prevents body from rotating. Default is `false`.
 
@@ -111,8 +114,6 @@ EntityPlayer = ig.Entity.extend({
     }
 });
 ```
-
-TODO: Document new added properties such as `Entity.isBullet`.
 
 TODO: Inform the user when no b2World was created do to no collision map, or fail gracefully.
 
