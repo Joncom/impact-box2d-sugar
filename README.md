@@ -33,6 +33,11 @@ ig.module('game.entities.player')
 });
 ```
 
+### New Entity Properties ###
+
+###### .isFixedRotation ######
+Setting `true` prevents body from rotating. Default is #false#.
+
 ### Restored Entity Properties ###
 
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
@@ -107,7 +112,8 @@ EntityPlayer = ig.Entity.extend({
 });
 ```
 
-TODO: Document new added properties such as `Entity.isBullet` and `.isFixedRotation`.
+TODO: Document new added properties such as `Entity.isBullet`.
+
 TODO: Inform the user when no b2World was created do to no collision map, or fail gracefully.
 
 ### FAQ ###
