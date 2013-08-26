@@ -36,7 +36,7 @@ ig.module('game.entities.player')
 ### New Entity Properties ###
 
 ###### .isBullet ######
-Setting `true` enabled continuous collision. This prevents fast moving entities from "tunneling" through walls and other entities, but requires more CPU. Default is `false`.
+Setting `true` enables continuous collision. This prevents fast moving entities from "tunneling" through walls and other entities, but requires more CPU. Default is `false`.
 
 ###### .isFixedRotation ######
 Setting `true` prevents body from rotating. Default is `false`.
