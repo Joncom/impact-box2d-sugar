@@ -42,7 +42,7 @@ Setting `true` enables continuous collision. This prevents fast moving entities 
 Setting `true` prevents body from rotating. Default is `false`.
 
 ###### .isSensor ######
-Setting `true` prevents the entity from physically interacting other entities or the world. Collision detection functions like [`.touches`](https://github.com/Joncom/impact-box2d-sugar#touches) still work, and collision events such as [`check`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) and [`collideWith`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) are still fired. Default is `false`.
+Setting `true` prevents the entity from physically interacting with other entities or the world. Collision detection functions like [`.touches`](https://github.com/Joncom/impact-box2d-sugar#touches) still work, and collision events such as [`check`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) and [`collideWith`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) still fire. Default is `false`.
 
 ### Restored Entity Properties ###
 
