@@ -12,7 +12,7 @@ Step 1: Copy the contents of this repo into `lib/plugins/box2d/`.
 ig.module('game.main')
 .requires(
     'plugins.box2d.game',
-    `plugins.box2d.debug` // Optional, draws body shapes.
+    'plugins.box2d.debug' // Optional, draws body shapes.
 )
 .defines(function(){
     MyGame = ig.Game.extend({
