@@ -46,10 +46,10 @@ Setting `true` prevents the entity from physically interacting with other entiti
 
 ### Restored Entity Properties ###
 
-######[.pos](http://impactjs.com/documentation/class-reference/entity#pos-x-pos-y).x/y######
-Read and write the position like you would a non-Box2D game. All changes are passed automatically to the Box2D world.
+######[.pos](http://impactjs.com/documentation/class-reference/entity#pos-x-pos-y)######
+Handling position is the same as any non-Box2D game.
 ```
-// Move an entity 100px to the right.
+// Move an entity 100 pixels to the right.
 entity.pos.x += 100;
 // Get the y position of an entity in pixels.
 console.log(entity.pos.y);
