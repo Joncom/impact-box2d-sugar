@@ -49,10 +49,24 @@ ig.module(
                 });
 
                 // Position
-                Object.defineProperty(this.pos, 'x', {
+                var position = {};
+                Object.defineProperty(this, 'pos', {
                     get: function() {
-                        var position = entity.body.GetPosition();
-                        return position.x / Box2D.SCALE - entity.size.x / 2;
+                        return position;
+                    },
+                    set: function(object) {
+                        position.x = object.x;
+                        position.y = object.y;
+                        var x = (object.x + entity.size.x / 2) * Box2D.SCALE;
+                        var y = (object.x + entity.size.x / 2) * Box2D.SCALE;
+                        var vector = new Box2D.Common.Math.b2Vec2(x, y);
+                        entity.body.SetPosition(vector);
+                    }
+                });
+                Object.defineProperty(position, 'x', {
+                    get: function() {
+                        var b2Pos = entity.body.GetPosition();
+                        return b2Pos.x / Box2D.SCALE - entity.size.x / 2;
                     },
                     set: function(x) {
                         x = (x + entity.size.x / 2) * Box2D.SCALE;
@@ -63,8 +77,8 @@ ig.module(
                 });
                 Object.defineProperty(this.pos, 'y', {
                     get: function() {
-                        var position = entity.body.GetPosition();
-                        return position.y / Box2D.SCALE - entity.size.y / 2;
+                        var b2Pos = entity.body.GetPosition();
+                        return b2Pos.y / Box2D.SCALE - entity.size.y / 2;
                     },
                     set: function(y) {
                         y = (y + entity.size.y / 2) * Box2D.SCALE;
@@ -73,6 +87,7 @@ ig.module(
                         entity.body.SetPosition(newPos);
                     }
                 });
+
             }
         },
 
