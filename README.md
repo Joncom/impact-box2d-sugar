@@ -125,6 +125,9 @@ TODO: Inform the user when no b2World was created do to no collision map, or fai
 **Q:** What version of Box2D is this?
 **A:** Box2D 2.1a via Box2DWeb.
 
+**Q:** Are Weltmeister slope tiles supported?
+**A:** Yes. (Thanks [Collin Hover](https://github.com/collinhover))
+
 **Q:** Where is some good documentation on this version of Box2D?
 **A:** [Here.](http://www.box2dflash.org/docs/2.1a/reference/)
 
