@@ -47,6 +47,32 @@ ig.module(
                     get: function() { return entity.body.IsFixedRotation(); },
                     set: function(flag) { entity.body.SetFixedRotation(flag); }
                 });
+
+                // Position
+                Object.defineProperty(this.pos, 'x', {
+                    get: function() {
+                        var position = entity.body.GetPosition();
+                        return position.x / Box2D.SCALE - entity.size.x / 2;
+                    },
+                    set: function(x) {
+                        x = (x + entity.size.x / 2) * Box2D.SCALE;
+                        var oldPos = entity.body.GetPosition();
+                        var newPos = new Box2D.Common.Math.b2Vec2(x, oldPos.y);
+                        entity.body.SetPosition(newPos);
+                    }
+                });
+                Object.defineProperty(this.pos, 'y', {
+                    get: function() {
+                        var position = entity.body.GetPosition();
+                        return position.y / Box2D.SCALE - entity.size.y / 2;
+                    },
+                    set: function(y) {
+                        y = (y + entity.size.y / 2) * Box2D.SCALE;
+                        var oldPos = entity.body.GetPosition();
+                        var newPos = new Box2D.Common.Math.b2Vec2(oldPos.x, y);
+                        entity.body.SetPosition(newPos);
+                    }
+                });
             }
         },
 
