@@ -54,9 +54,8 @@ entity.pos.x += 100;
 
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
-var player = ig.game.getEntitiesByType(EntityPlayer)[0];
-if(player.standing) {
-	console.log("Player is standing!");
+if(entity.standing) {
+	entity.jump();
 }
 ```
 
