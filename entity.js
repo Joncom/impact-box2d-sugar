@@ -219,22 +219,6 @@ ig.module(
             }
         },
 
-        getPosition: function() {
-            var position = this.body.GetPosition();
-            var x = position.x / Box2D.SCALE;
-            var y = position.y / Box2D.SCALE;
-            return { x: x, y: y };
-        },
-
-        setPosition: function(x, y) {
-            this.pos.x = x;
-            this.pos.y = y;
-            this.body.SetPosition(new Box2D.Common.Math.b2Vec2(
-                (x + this.size.x / 2) * Box2D.SCALE,
-                (y + this.size.y / 2) * Box2D.SCALE
-            ));
-        },
-
         getVelocity: function() {
             var velocity = this.body.GetLinearVelocity();
             var x = velocity.x / Box2D.SCALE;
