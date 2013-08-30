@@ -101,13 +101,11 @@ entity.maxVel.y = 300;
 
 ######[.bounciness](http://impactjs.com/documentation/class-reference/entity#bounciness)######
 ```
-EntityPlayer = ig.Entity.extend({
-    bounciness: 1,
-    init: function(x, y, settings) {
-        // Bounciness is automatically applied.
-        this.parent(x, y, settings);
-    }
+EntityExample = ig.Entity.extend({
+    bounciness: 1 // Full bounce.
 }
+// You can change the value at any time.
+entity.bounciness = 0.5;
 ```
 
 ######[.type](http://impactjs.com/documentation/class-reference/entity#type), [.checkAgainst](http://impactjs.com/documentation/class-reference/entity#checkagainst), [.check](http://impactjs.com/documentation/class-reference/entity#check), and [.collideWith](http://impactjs.com/documentation/class-reference/entity#collidewith)######
