@@ -85,17 +85,39 @@ ig.module(
                 });
 
                 // Velocity
-                var velocity = 0;
-                Object.defineProperty(this.vel, 'y', {
+                var velocity = {};
+                Object.defineProperty(this, 'vel', {
                     get: function() {
-                        var velocity = entity.body.GetLinearVelocity();
-                        return (velocity.y / Box2D.SCALE).round(2);
+                        return velocity;
                     },
-                    set: function(value) {
-                        velocity = value;
-                        var scaled = value * Box2D.SCALE;
+                    set: function(object) {
+                        var x = object.x * Box2D.SCALE;
+                        var y = object.y * Box2D.SCALE;
+                        var vector = new Box2D.Common.Math.b2Vec2(x, y);
+                        entity.body.SetLinearVelocity(vector);
+                    }
+                });
+                Object.defineProperty(velocity, 'x', {
+                    get: function() {
+                        var b2Vel = entity.body.GetLinearVelocity();
+                        return (b2Vel.x / Box2D.SCALE).round(2);
+                    },
+                    set: function(x) {
+                        x *= Box2D.SCALE;
                         var oldVel = entity.body.GetLinearVelocity();
-                        var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, scaled);
+                        var newVel = new Box2D.Common.Math.b2Vec2(x, oldVel.y);
+                        entity.body.SetLinearVelocity(newVel);
+                    }
+                });
+                Object.defineProperty(velocity, 'y', {
+                    get: function() {
+                        var b2Vel = entity.body.GetLinearVelocity();
+                        return (b2Vel.y / Box2D.SCALE).round(2);
+                    },
+                    set: function(y) {
+                        y *= Box2D.SCALE;
+                        var oldVel = entity.body.GetLinearVelocity();
+                        var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, y);
                         entity.body.SetLinearVelocity(newVel);
                     }
                 });
