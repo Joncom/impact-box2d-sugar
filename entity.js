@@ -104,6 +104,15 @@ ig.module(
                     }
                 });
 
+                Object.defineProperty(this, 'bodyType', {
+                    get: function() {
+                        return entity.body.GetType();
+                    },
+                    set: function(value) {
+                        entity.body.SetType(value);
+                    }
+                });
+
             }
         },
 
