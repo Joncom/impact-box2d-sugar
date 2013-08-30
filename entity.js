@@ -71,7 +71,7 @@ ig.module(
                         entity.body.SetPosition(newPos);
                     }
                 });
-                Object.defineProperty(this.pos, 'y', {
+                Object.defineProperty(position, 'y', {
                     get: function() {
                         var b2Pos = entity.body.GetPosition();
                         return b2Pos.y / Box2D.SCALE - entity.size.y / 2;
