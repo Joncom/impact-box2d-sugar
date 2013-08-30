@@ -52,6 +52,12 @@ Setting `true` prevents the entity from physically interacting with other entiti
 entity.pos.x += 100;
 ```
 
+######[.vel](http://impactjs.com/documentation/class-reference/entity#pos-x-pos-y)######
+```
+// Make the entity jump upward.
+entity.vel.x -= 300;
+```
+
 ######[.standing](http://impactjs.com/documentation/class-reference/entity#standing)######
 ```
 if(entity.standing) {
