@@ -86,6 +86,22 @@ ig.module(
                     }
                 });
 
+                // Velocity
+                var velocity = 0;
+                Object.defineProperty(this.vel, 'y', {
+                    get: function() {
+                        var velocity = entity.body.GetLinearVelocity();
+                        return (velocity.y / Box2D.SCALE).round(2);
+                    },
+                    set: function(value) {
+                        velocity = value;
+                        var scaled = value * Box2D.SCALE;
+                        var oldVel = entity.body.GetLinearVelocity();
+                        var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, scaled);
+                        entity.body.SetLinearVelocity(newVel);
+                    }
+                });
+
                 Object.defineProperty(this, 'isBullet', {
                     get: function() {
                         return entity.body.IsBullet();
