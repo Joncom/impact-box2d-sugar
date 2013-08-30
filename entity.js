@@ -88,6 +88,14 @@ ig.module(
                     }
                 });
 
+                Object.defineProperty(this, 'isBullet', {
+                    get: function() {
+                        return entity.body.IsBullet();
+                    },
+                    set: function(flag) {
+                        entity.body.SetBullet(flag);
+                    }
+                });
             }
         },
 
