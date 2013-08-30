@@ -113,6 +113,14 @@ ig.module(
                     }
                 });
 
+                Object.defineProperty(this, 'allowSleep', {
+                    get: function() {
+                        return entity.body.IsSleepingAllowed();
+                    },
+                    set: function(flag) {
+                        entity.body.SetSleepingAllowed(flag);
+                    }
+                });
             }
         },
 
