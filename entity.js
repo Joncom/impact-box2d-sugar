@@ -312,21 +312,6 @@ ig.module(
             }
         },
 
-        getVelocity: function() {
-            var velocity = this.body.GetLinearVelocity();
-            var x = velocity.x / Box2D.SCALE;
-            var y = velocity.y / Box2D.SCALE;
-            return { x: x, y: y };
-        },
-
-        setVelocity: function(x, y) {
-            var vector = new Box2D.Common.Math.b2Vec2(
-                x * Box2D.SCALE,
-                y * Box2D.SCALE
-            );
-            this.body.SetLinearVelocity(vector);
-        },
-
         updateStanding: function() {
             this.standing = false;
             for (var edge = this.body.m_contactList; edge; edge = edge.next) {
