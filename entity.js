@@ -94,6 +94,16 @@ ig.module(
                         entity.body.SetBullet(flag);
                     }
                 });
+
+                Object.defineProperty(this, 'angle', {
+                    get: function() {
+                        return entity.body.GetAngle();
+                    },
+                    set: function(angle) {
+                        entity.body.SetAngle(angle);
+                    }
+                });
+
             }
         },
 
@@ -109,7 +119,6 @@ ig.module(
             var p = this.body.GetPosition();
             this.pos.x = (p.x / Box2D.SCALE - this.size.x / 2);
             this.pos.y = (p.y / Box2D.SCALE - this.size.y / 2);
-            this.angle = this.body.GetAngle().round(2);
 
             this.updateStanding();
             this.limitVelocity();
