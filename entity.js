@@ -104,6 +104,19 @@ ig.module(
                     }
                 });
 
+                Object.defineProperty(this, 'bounciness', {
+                    get: function() {
+                        var fixture = entity.body.GetFixtureList();
+                        return fixture.GetRestitution();
+                    },
+                    set: function(value) {
+                        for (var fixture = entity.body.GetFixtureList();
+                                fixture; fixture = fixture.GetNext()) {
+                            fixture.SetRestitution(value);
+                        }
+                    }
+                });
+
                 Object.defineProperty(this, 'bodyType', {
                     get: function() {
                         return entity.body.GetType();
