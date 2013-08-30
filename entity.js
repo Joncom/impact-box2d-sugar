@@ -133,9 +133,6 @@ ig.module(
 
             this.last.x = this.pos.x;
             this.last.y = this.pos.y;
-            var p = this.body.GetPosition();
-            this.pos.x = (p.x / Box2D.SCALE - this.size.x / 2);
-            this.pos.y = (p.y / Box2D.SCALE - this.size.y / 2);
 
             this.updateStanding();
             this.limitVelocity();
