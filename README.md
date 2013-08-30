@@ -95,7 +95,7 @@ update: function () {
 
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
 ```
-// Cap the fall speed of an entity.
+// Cap the vertical speed of an entity.
 entity.maxVel.y = 300;
 ```
 
