@@ -17,14 +17,12 @@ ig.module(
         collideQueue: { x: {}, y: {} },
         entityContactCount: {},
 
-        /* Box2D Setup Stuff */
         bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,
         density: 1.0,
         isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
         allowSleep: true, // Better performance.
-        /* END */
 
         init: function(x, y, settings) {
             this.parent(x, y, settings);
