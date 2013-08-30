@@ -53,8 +53,6 @@ ig.module(
                         return position;
                     },
                     set: function(object) {
-                        position.x = object.x;
-                        position.y = object.y;
                         var x = (object.x + entity.size.x / 2) * Box2D.SCALE;
                         var y = (object.x + entity.size.x / 2) * Box2D.SCALE;
                         var vector = new Box2D.Common.Math.b2Vec2(x, y);
