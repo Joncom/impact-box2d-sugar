@@ -153,6 +153,22 @@ ig.module(
                     }
                 });
 
+                Object.defineProperty(this, 'standing', {
+                    get: function() {
+                        for (var edge = this.body.m_contactList;
+                                edge; edge = edge.next) {
+                            if (!edge.contact.IsTouching()) {
+                                continue;
+                            }
+                            var normal = edge.contact.m_manifold.m_localPlaneNormal;
+                            if (normal.y < 0) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+
                 Object.defineProperty(this, 'bodyType', {
                     get: function() {
                         return entity.body.GetType();
@@ -183,7 +199,6 @@ ig.module(
             this.last.x = this.pos.x;
             this.last.y = this.pos.y;
 
-            this.updateStanding();
             this.limitVelocity();
 
             if (this.currentAnim) {
@@ -309,20 +324,6 @@ ig.module(
         setFixturesAsSensors: function(flag) {
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(flag);
-            }
-        },
-
-        updateStanding: function() {
-            this.standing = false;
-            for (var edge = this.body.m_contactList; edge; edge = edge.next) {
-                if (!edge.contact.IsTouching()) {
-                    continue;
-                }
-                var normal = edge.contact.m_manifold.m_localPlaneNormal;
-                if (normal.y < 0) {
-                    this.standing = true;
-                    break;
-                }
             }
         }
 
