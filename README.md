@@ -67,15 +67,9 @@ if(entity.standing) {
 
 ######[.touches](http://impactjs.com/documentation/class-reference/entity#touches)######
 ```
-var player = ig.game.getEntitiesByType(EntityPlayer)[0];
-var enemies = ig.game.getEntitiesByType(EntityEnemy);
-var count = 0;
-for(var i=0; i<enemies.length; i++) {
-	if(player.touches(enemies[i])) {
-		count++;
-	}
+if(enemy.touches(player)) {
+    player.kill();
 }
-console.log("Player is touching " + count + " enemies.");
 ```
 
 ######[.gravityFactor](http://impactjs.com/documentation/class-reference/entity#gravityfactor)######
