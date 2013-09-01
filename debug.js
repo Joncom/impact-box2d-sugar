@@ -3,12 +3,13 @@ ig.module('plugins.box2d.debug')
 .defines(function(){
 
     ig.Box2DDebug = ig.Class.extend({
+
         drawer: null,
         canvas: null,
         world: null,
-
         alpha: 0.5,
         thickness: 1.0,
+        clearBeforeDraw: false,
 
         init: function(world, alpha, thickness) {
             this.world = world;
@@ -29,7 +30,15 @@ ig.module('plugins.box2d.debug')
             ig.system.context.restore();
         },
 
-        clearRect: function() {},
+        clearRect: function() {
+            if(this.clearBeforeDraw) {
+                ig.system.context.clearRect(
+                ig.game.screen.x * ig.system.scale,
+                ig.game.screen.y * ig.system.scale,
+                ig.system.width * ig.system.scale,
+                ig.system.height * ig.system.scale);
+            }
+        },
 
         beginPath: function() {
             ig.system.context.lineWidth = this.strokeWidth;
