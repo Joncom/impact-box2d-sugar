@@ -123,8 +123,6 @@ EntityPlayer = ig.Entity.extend({
 });
 ```
 
-TODO: Inform the user when no b2World was created do to no collision map, or fail gracefully.
-
 ### FAQ ###
 
 **Q:** What version of Box2D is this?
