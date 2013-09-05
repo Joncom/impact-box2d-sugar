@@ -17,6 +17,7 @@ ig.module(
         collideQueue: { x: {}, y: {} },
         entityContactCount: {},
 
+        hasBody: true,
         bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,
         density: 1.0,
         isFixedRotation: false,
@@ -28,7 +29,7 @@ ig.module(
             this.parent(x, y, settings);
 
             // Only create a box2d body when we are not in Weltmeister
-            if (!ig.global.wm) {
+            if (!ig.global.wm && this.hasBody) {
                 this.createBody();
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
