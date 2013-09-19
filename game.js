@@ -49,9 +49,17 @@ ig.module(
         },
 
         loadLevel: function(data) {
-            this.parent(data);
+            this.collisionMap = ig.CollisionMap.staticNoCollision;
+            for(var i=0; i<data.layer.length; i++) {
+                var ld = data.layer[i];
+                if(ld.name == 'collision') {
+                    this.collisionMap =
+                        new ig.CollisionMap(ld.tilesize, ld.data);
+                }
+            }
             ig.world = this.createWorldFromCollisionMap(this.collisionMap);
             this.setupContactListener();
+            this.parent(data);
         },
 
         createWorldFromCollisionMap: function(collisionMap) {
