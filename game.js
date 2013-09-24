@@ -66,7 +66,8 @@ ig.module(
             // Gravity is applied to entities individually.
             var gravity = new Box2D.Common.Math.b2Vec2(0, 0);
             var world = new Box2D.Dynamics.b2World(gravity, this.allowSleep);
-            var shapes = this._shapesFromCollisionMap(this.collisionMap).edges;
+            var shapes = this._shapesFromCollisionMap(
+                this.collisionMap, {rectangles: true}).edges;
             for(var i=0; i<shapes.length; i++) {
                 var shape = shapes[i];
                 var width = shape.settings.size.x;
@@ -555,6 +556,16 @@ ig.module(
             for (var i = 0, il = tiles.length; i < il; i++) {
                 var tileNext = tiles[ i ];
                 if (tileFrom.iy === tileNext.iy && tileFrom.ix + 1 === tileNext.ix) {
+                    return tileNext;
+                }
+            }
+            return tileFrom;
+        },
+
+        _stepShapedTileVertically: function (tiles, tileFrom) {
+            for (var i = 0, il = tiles.length; i < il; i++) {
+                var tileNext = tiles[ i ];
+                if (tileFrom.ix === tileNext.ix && tileFrom.iy + 1 === tileNext.iy) {
                     return tileNext;
                 }
             }
