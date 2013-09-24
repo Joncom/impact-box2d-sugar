@@ -180,12 +180,11 @@ ig.module(
                         data[ iy ][ ix ] = tile;
                     }
                 }
+                // store original rectangles option
+                var rectangles = options.rectangles;
                 // solid tiles to shapes
-                shapes.edges = shapes.edges.concat(this._shapedTilesToShapes(solids, data, {
-                    retainBoundaryOuter: options.retainBoundaryOuter,
-                    discardBoundaryInner: options.discardBoundaryInner,
-                    discardEdgesInner: options.discardEdgesInner
-                }));
+                options.rectangles = typeof rectangles !== 'undefined' ? rectangles : !options.contourSolids;
+                shapes.edges = shapes.edges.concat(this._shapedTilesToShapes(solids, data, options));
             }
             return shapes;
         },
