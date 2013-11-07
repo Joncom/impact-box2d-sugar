@@ -5,6 +5,10 @@ ig.module('plugins.box2d.entities.capsule')
     EntityCapsule = ig.Entity.extend({
 
         createBody: function() {
+            if(this.size.x === this.size.y) {
+                throw 'Capsule width must be different than height.';
+            }
+
             var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
