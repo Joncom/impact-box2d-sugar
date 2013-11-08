@@ -10,6 +10,7 @@ ig.module(
     ig.Entity.inject({
 
         maxVel: { x: 9999, y: 9999 },
+        friction: { x: 0.3, y: 0.3 },
         body: null,
         angle: 0,
 
