@@ -31,6 +31,11 @@ ig.module(
 
             // Only create a box2d body when we are not in Weltmeister
             if (!ig.global.wm && this.hasBody) {
+
+                if(this.friction.x !== this.friction.y) {
+                    throw 'Entity.friction.x/y must be equal.';
+                }
+
                 this.createBody();
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
