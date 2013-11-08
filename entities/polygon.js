@@ -6,7 +6,7 @@ ig.module('plugins.box2d.entities.polygon')
 
         vertices: [],
 
-        createBody: function() {
+        createBody: function(friction) {
             var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
@@ -21,7 +21,7 @@ ig.module('plugins.box2d.entities.polygon')
             var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
             fixtureDef.shape = shapeDef;
             fixtureDef.density = this.density;
-            fixtureDef.friction = 1;
+            fixtureDef.friction = friction;
             fixtureDef.restitution = this.bounciness;
 
             this.body.CreateFixture(fixtureDef);

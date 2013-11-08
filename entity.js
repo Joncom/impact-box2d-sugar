@@ -36,7 +36,11 @@ ig.module(
                     throw 'Entity.friction.x/y must be equal.';
                 }
 
-                this.createBody();
+                // Can use either friction.x or y,
+                // because both should be identical.
+                var friction = this.friction.x;
+
+                this.createBody(friction);
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
                 this.body.SetAngle(this.angle);
@@ -235,7 +239,7 @@ ig.module(
             }
         },
 
-        createBody: function() {
+        createBody: function(friction) {
             var bodyDef = new Box2D.Dynamics.b2BodyDef();
             bodyDef.type = this.bodyType;
             bodyDef.position.Set(
@@ -250,7 +254,7 @@ ig.module(
             var fixtureDef = new Box2D.Dynamics.b2FixtureDef();
             fixtureDef.shape = shapeDef;
             fixtureDef.density = this.density;
-            fixtureDef.friction = 1;
+            fixtureDef.friction = friction;
             fixtureDef.restitution = this.bounciness;
 
             this.body.CreateFixture(fixtureDef);

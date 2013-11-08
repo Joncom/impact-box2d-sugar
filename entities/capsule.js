@@ -4,7 +4,7 @@ ig.module('plugins.box2d.entities.capsule')
 
     EntityCapsule = ig.Entity.extend({
 
-        createBody: function() {
+        createBody: function(friction) {
             if(this.size.x === this.size.y) {
                 throw 'Capsule width must be different than height.';
             }
@@ -25,13 +25,13 @@ ig.module('plugins.box2d.entities.capsule')
             circleADef.SetLocalPosition(new Box2D.Common.Math.b2Vec2(-circleOffsetX * Box2D.SCALE, -circleOffsetY * Box2D.SCALE));
             circleAFixture = this.body.CreateFixture2(circleADef, this.density);
             circleAFixture.SetRestitution(this.bounciness);
-            circleAFixture.SetFriction(1);
+            circleAFixture.SetFriction(friction);
 
             var circleBDef = new Box2D.Collision.Shapes.b2CircleShape(radius * Box2D.SCALE);
             circleBDef.SetLocalPosition(new Box2D.Common.Math.b2Vec2(circleOffsetX * Box2D.SCALE, circleOffsetY * Box2D.SCALE));
             circleBFixture = this.body.CreateFixture2(circleBDef, this.density);
             circleBFixture.SetRestitution(this.bounciness);
-            circleBFixture.SetFriction(1);
+            circleBFixture.SetFriction(friction);
 
             var boxDef = new Box2D.Collision.Shapes.b2PolygonShape();
             var boxWidth = (this.size.x > this.size.y ? this.size.y : this.size.x) / 2 * Box2D.SCALE;
@@ -39,7 +39,7 @@ ig.module('plugins.box2d.entities.capsule')
             boxDef.SetAsBox(boxWidth, boxHeight);
             boxFixture = this.body.CreateFixture2(boxDef, this.density);
             boxFixture.SetRestitution(this.bounciness);
-            boxFixture.SetFriction(1);
+            boxFixture.SetFriction(friction);
         }
 
     });
