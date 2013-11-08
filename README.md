@@ -95,7 +95,6 @@ update: function () {
 ```
 
 ######[.friction](http://impactjs.com/documentation/class-reference/entity#friction-x-friction-y)######
-Box2D Manual exerpt: "The friction parameter is usually set between 0 and 1, but can be any non-negative value. A friction value of 0 turns off friction and a value of 1 makes the friction strong."
 ```
 // Box2D does not distinguish between X and Y
 // frictions. Therefor set friction like this:
