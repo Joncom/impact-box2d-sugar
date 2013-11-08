@@ -94,6 +94,16 @@ update: function () {
 }
 ```
 
+######[.friction](http://impactjs.com/documentation/class-reference/entity#friction-x-friction-y)######
+```
+// Box2D does not distinguish between X and Y
+// frictions. Therefor set friction like:
+entity.friction.x = 3;
+// or like this:
+entity.friction.y = 3;
+// They both do the exact same thing.
+```
+
 ######[.maxVel](http://impactjs.com/documentation/class-reference/entity#maxvel-x-maxvel-y)######
 ```
 // Cap the vertical speed of an entity.
