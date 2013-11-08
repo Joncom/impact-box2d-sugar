@@ -164,6 +164,34 @@ ig.module(
                     }
                 });
 
+                // Friction
+                // Setting either x or y has the same result:
+                // All fixtures are set to that new value.
+                Object.defineProperty(this.friction, 'x', {
+                    get: function() {
+                        var fixture = entity.body.GetFixtureList();
+                        return fixture.GetFriction();
+                    },
+                    set: function(friction) {
+                        for (var fixture = entity.body.GetFixtureList();
+                                fixture; fixture = fixture.GetNext()) {
+                            fixture.SetFriction(friction);
+                        }
+                    }
+                });
+                Object.defineProperty(this.friction, 'y', {
+                    get: function() {
+                        var fixture = entity.body.GetFixtureList();
+                        return fixture.GetFriction();
+                    },
+                    set: function(friction) {
+                        for (var fixture = entity.body.GetFixtureList();
+                                fixture; fixture = fixture.GetNext()) {
+                            fixture.SetFriction(friction);
+                        }
+                    }
+                });
+
                 Object.defineProperty(this, 'standing', {
                     get: function() {
                         for (var edge = this.body.m_contactList;
