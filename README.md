@@ -87,8 +87,9 @@ update: function () {
     if(this.last.x !== this.pos.x) {
         console.log("Entity moved horizontally.");
     }
-    // `this.last` must be read before calling
-    // `this.parent()` where it is overwritten.
+
+    // Make sure you get your this.last reading
+    // before calling this.parent()...
     this.parent();
 }
 ```
