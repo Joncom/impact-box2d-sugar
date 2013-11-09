@@ -5,7 +5,6 @@ ig.module(
     'plugins.box2d.lib',
     'plugins.box2d.separator',
     'impact.game'
-
 )
 .defines(function(){
 
