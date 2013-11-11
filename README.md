@@ -145,5 +145,3 @@ EntityPlayer = ig.Entity.extend({
 **Q:** Where is some good documentation on this version of Box2D?
 **A:** [Here.](http://www.box2dflash.org/docs/2.1a/reference/)
 
-**Q:** Why does my game freeze?
-**A:** Did you pass a number where a `b2Vec2` was expected?
