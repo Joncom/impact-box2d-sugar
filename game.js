@@ -1,9 +1,9 @@
 ig.module(
-    'plugins.box2d.game'
+    'plugins.joncom.box2d.game'
 )
 .requires(
-    'plugins.box2d.lib',
-    'plugins.box2d.separator',
+    'plugins.joncom.box2d.lib',
+    'plugins.joncom.box2d.separator',
     'impact.game'
 )
 .defines(function(){

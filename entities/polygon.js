@@ -1,5 +1,5 @@
-ig.module('plugins.box2d.entities.polygon')
-.requires('plugins.box2d.entity')
+ig.module('plugins.joncom.box2d.entities.polygon')
+.requires('plugins.joncom.box2d.entity')
 .defines(function(){
 
     EntityPolygon = ig.Entity.extend({

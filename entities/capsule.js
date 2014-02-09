@@ -1,5 +1,5 @@
-ig.module('plugins.box2d.entities.capsule')
-.requires('plugins.box2d.entity')
+ig.module('plugins.joncom.box2d.entities.capsule')
+.requires('plugins.joncom.box2d.entity')
 .defines(function(){
 
     EntityCapsule = ig.Entity.extend({

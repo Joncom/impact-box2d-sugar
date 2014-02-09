@@ -1,5 +1,5 @@
-ig.module('plugins.box2d.debug')
-.requires('plugins.box2d.game')
+ig.module('plugins.joncom.box2d.debug')
+.requires('plugins.joncom.box2d.game')
 .defines(function(){
 
     ig.Box2DDebug = ig.Class.extend({

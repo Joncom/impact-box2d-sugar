@@ -11,8 +11,8 @@ Step 1: Copy the contents of this repo into `lib/plugins/box2d/`.
 ```
 ig.module('game.main')
 .requires(
-    'plugins.box2d.game',
-    'plugins.box2d.debug' // Optional, draws body shapes.
+    'plugins.joncom.box2d.game',
+    'plugins.joncom.box2d.debug' // Optional, draws body shapes.
 )
 .defines(function(){
     MyGame = ig.Game.extend({
@@ -25,7 +25,7 @@ ig.module('game.main')
 ###### Example Entity ######
 ```
 ig.module('game.entities.player')
-.requires('plugins.box2d.entity')
+.requires('plugins.joncom.box2d.entity')
 .defines(function(){
     EntityPlayer = ig.Entity.extend({
         /* your entity code here */

@@ -1,5 +1,5 @@
-ig.module('plugins.box2d.separator')
-.requires('plugins.box2d.lib')
+ig.module('plugins.joncom.box2d.separator')
+.requires('plugins.joncom.box2d.lib')
 .defines(function(){
 
     // Replaced .call(this) with .call(window) to make globally accessible.

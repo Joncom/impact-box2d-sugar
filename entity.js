@@ -1,9 +1,9 @@
 ig.module(
-    'plugins.box2d.entity'
+    'plugins.joncom.box2d.entity'
 )
 .requires(
     'impact.entity',
-    'plugins.box2d.game'
+    'plugins.joncom.box2d.game'
 )
 .defines(function(){
 
