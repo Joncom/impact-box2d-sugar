@@ -47,6 +47,7 @@ ig.module('plugins.joncom.box2d.entities.circle')
         },
 
         _setRadius: function(radius) {
+            this.size.x = this.size.y = (2 * radius);
             var b2Radius = radius * Box2D.SCALE;
             this.body.GetFixtureList().GetShape().SetRadius(b2Radius);
         }
