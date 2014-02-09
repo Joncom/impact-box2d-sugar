@@ -182,13 +182,13 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'bodyType', {
-                    get: this._getBodyType,
-                    set: this._setBodyType
+                    get: entity._getBodyType,
+                    set: entity._setBodyType
                 });
 
                 Object.defineProperty(this, 'allowSleep', {
-                    get: this._getSleepingAllowed,
-                    set: this._setSleepingAllowed
+                    get: entity._getSleepingAllowed,
+                    set: entity._setSleepingAllowed
                 });
 
                 Object.defineProperty(this, 'density', {
