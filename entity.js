@@ -202,8 +202,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'allowSleep', {
-                    get: _getSleepingAllowed,
-                    set: _setSleepingAllowed
+                    get: this._getSleepingAllowed,
+                    set: this._setSleepingAllowed
                 });
 
                 Object.defineProperty(this, 'density', {
