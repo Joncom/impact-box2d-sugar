@@ -9,6 +9,13 @@ ig.module('plugins.joncom.box2d.entities.circle')
         init: function(x, y, settings) {
             this.parent(x, y, settings);
             this.size.x = this.size.y = (2 * this.radius);
+
+            if (!ig.global.wm && this.hasBody) {
+                Object.defineProperty(this, 'radius', {
+                    get: this._getRadius,
+                    set: this._setRadius
+                });
+            }
         },
 
         createBody: function(friction) {
@@ -30,6 +37,19 @@ ig.module('plugins.joncom.box2d.entities.circle')
             fixtureDef.restitution = this.bounciness;
 
             this.body.CreateFixture(fixtureDef);
+        },
+
+        /* .radius logic */
+
+        _getRadius: function() {
+            var b2Radius = this.body.GetFixtureList().GetShape().GetRadius();
+            return (b2Radius / Box2D.SCALE).round(2);
+        },
+
+        _setRadius: function(radius) {
+            this._pxRadius = radius;
+            var b2Radius = radius * Box2D.SCALE;
+            this.body.GetFixtureList().GetShape().SetRadius(b2Radius);
         }
 
     });
