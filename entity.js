@@ -26,6 +26,9 @@ ig.module(
         isSensor: false,
         allowSleep: true, // Better performance.
 
+        _vel: {}, // vel is mapped to _vel to allow manipulation
+                  // of the whole object, not just vel.x/y
+
         init: function(x, y, settings) {
             this.parent(x, y, settings);
 
@@ -95,27 +98,17 @@ ig.module(
                     }
                 });
 
-                // Velocity
-                var velocity = {};
-
                 Object.defineProperty(this, 'vel', {
-                    get: function() {
-                        return velocity;
-                    },
-                    set: function(object) {
-                        var x = object.x * Box2D.SCALE;
-                        var y = object.y * Box2D.SCALE;
-                        var vector = new Box2D.Common.Math.b2Vec2(x, y);
-                        entity.body.SetLinearVelocity(vector);
-                    }
+                    get: this._getVelocity,
+                    set: this._setVelocity
                 });
 
-                Object.defineProperty(velocity, 'x', {
+                Object.defineProperty(this._vel, 'x', {
                     get: this._getVelocityX.bind(this),
                     set: this._setVelocityX.bind(this)
                 });
 
-                Object.defineProperty(velocity, 'y', {
+                Object.defineProperty(this._vel, 'y', {
                     get: this._getVelocityY.bind(this),
                     set: this._setVelocityY.bind(this)
                 });
@@ -405,6 +398,19 @@ ig.module(
 
         _setIsBullet: function(flag) {
             this.body.SetBullet(flag);
+        },
+
+        /* .vel logic */
+
+        _getVelocity: function() {
+            return this._vel;
+        },
+
+        _setVelocity: function(object) {
+            var x = object.x * Box2D.SCALE;
+            var y = object.y * Box2D.SCALE;
+            var vector = new Box2D.Common.Math.b2Vec2(x, y);
+            this.body.SetLinearVelocity(vector);
         },
 
         /* .vel.x logic */
