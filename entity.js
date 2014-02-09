@@ -206,12 +206,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'allowSleep', {
-                    get: function() {
-                        return entity.body.IsSleepingAllowed();
-                    },
-                    set: function(flag) {
-                        entity.body.SetSleepingAllowed(flag);
-                    }
+                    get: _getSleepingAllowed,
+                    set: _setSleepingAllowed
                 });
 
                 Object.defineProperty(this, 'density', {
@@ -390,6 +386,16 @@ ig.module(
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetDensity(density);
             }
+        },
+
+        /* .sleepingAllowed logic */
+
+        _getSleepingAllowed: function() {
+            return this.body.IsSleepingAllowed();
+        },
+
+        _setSleepingAllowed: function(flag) {
+            this.body.SetSleepingAllowed(flag);
         }
 
     });
