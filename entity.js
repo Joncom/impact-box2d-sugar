@@ -28,6 +28,8 @@ ig.module(
 
         _vel: {}, // vel is mapped to _vel to allow manipulation
                   // of the whole object, not just vel.x/y
+        _pos: {}, // pos is mapped to _pos to allow manipulation
+                  // of the whole object, not just pos.x/y
 
         init: function(x, y, settings) {
             this.parent(x, y, settings);
@@ -60,42 +62,19 @@ ig.module(
                     set: function(flag) { entity.body.SetFixedRotation(flag); }
                 });
 
-                // Position
-                var position = {};
                 Object.defineProperty(this, 'pos', {
-                    get: function() {
-                        return position;
-                    },
-                    set: function(object) {
-                        var x = (object.x + entity.size.x / 2) * Box2D.SCALE;
-                        var y = (object.y + entity.size.y / 2) * Box2D.SCALE;
-                        var vector = new Box2D.Common.Math.b2Vec2(x, y);
-                        entity.body.SetPosition(vector);
-                    }
+                    get: this._getPos,
+                    set: this._setPos
                 });
-                Object.defineProperty(position, 'x', {
-                    get: function() {
-                        var b2Pos = entity.body.GetPosition();
-                        return b2Pos.x / Box2D.SCALE - entity.size.x / 2;
-                    },
-                    set: function(x) {
-                        x = (x + entity.size.x / 2) * Box2D.SCALE;
-                        var oldPos = entity.body.GetPosition();
-                        var newPos = new Box2D.Common.Math.b2Vec2(x, oldPos.y);
-                        entity.body.SetPosition(newPos);
-                    }
+
+                Object.defineProperty(this._pos, 'x', {
+                    get: this._getPosX.bind(this),
+                    set: this._setPosX.bind(this)
                 });
-                Object.defineProperty(position, 'y', {
-                    get: function() {
-                        var b2Pos = entity.body.GetPosition();
-                        return b2Pos.y / Box2D.SCALE - entity.size.y / 2;
-                    },
-                    set: function(y) {
-                        y = (y + entity.size.y / 2) * Box2D.SCALE;
-                        var oldPos = entity.body.GetPosition();
-                        var newPos = new Box2D.Common.Math.b2Vec2(oldPos.x, y);
-                        entity.body.SetPosition(newPos);
-                    }
+
+                Object.defineProperty(this._pos, 'y', {
+                    get: this._getPosY.bind(this),
+                    set: this._setPosY.bind(this)
                 });
 
                 Object.defineProperty(this, 'vel', {
@@ -439,6 +418,43 @@ ig.module(
             var oldVel = this.body.GetLinearVelocity();
             var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, velocity);
             this.body.SetLinearVelocity(newVel);
+        },
+
+        /* .pos logic */
+
+        _getPos: function() {
+            return this._pos;
+        },
+
+        _setPos: function(object) {
+            var x = (object.x + this.size.x / 2) * Box2D.SCALE;
+            var y = (object.y + this.size.y / 2) * Box2D.SCALE;
+            var vector = new Box2D.Common.Math.b2Vec2(x, y);
+            this.body.SetPosition(vector);
+        },
+
+        _getPosX: function() {
+            var b2Pos = this.body.GetPosition();
+            return b2Pos.x / Box2D.SCALE - this.size.x / 2;
+        },
+
+        _setPosX: function(x) {
+            x = (x + this.size.x / 2) * Box2D.SCALE;
+            var oldPos = this.body.GetPosition();
+            var newPos = new Box2D.Common.Math.b2Vec2(x, oldPos.y);
+            this.body.SetPosition(newPos);
+        },
+
+        _getPosY: function() {
+            var b2Pos = this.body.GetPosition();
+            return b2Pos.y / Box2D.SCALE - this.size.y / 2;
+        },
+
+        _setPosY: function(y) {
+            y = (y + this.size.y / 2) * Box2D.SCALE;
+            var oldPos = this.body.GetPosition();
+            var newPos = new Box2D.Common.Math.b2Vec2(oldPos.x, y);
+            this.body.SetPosition(newPos);
         }
 
     });
