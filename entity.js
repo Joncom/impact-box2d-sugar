@@ -227,12 +227,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'density', {
-                    get: function() {
-                        return entity.body.GetFixtureList().GetDensity();
-                    },
-                    set: function(density) {
-                        entity._setDensity(density);
-                    }
+                    get: entity._getDensity,
+                    set: entity._setDensity
                 });
             }
         },
@@ -376,6 +372,10 @@ ig.module(
         },
 
         /* .density property manipulation */
+
+        _getDensity: function() {
+            return this.body.GetFixtureList().GetDensity();
+        },
 
         _setDensity: function(density) {
             this._setFixturesDensity(density);
