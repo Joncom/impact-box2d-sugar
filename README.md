@@ -46,7 +46,7 @@ Setting `true` prevents body from rotating. Default is `false`.
 Setting `true` prevents the entity from physically interacting with other entities or the world. [`.touches`](https://github.com/Joncom/impact-box2d-sugar#touches) still works. [`.check`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) and [`.collideWith`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) still fire. Default is `false`.
 
 ###### .density ######
-Used during `init`, along with shape and size, to calculate mass. Changing this value will change the mass.
+Used to calculate mass when creating the entity body. Changing this value will change the mass.
 
 
 ### Restored Entity Properties ###
