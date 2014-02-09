@@ -20,7 +20,8 @@ ig.module(
 
         hasBody: true,
         bodyType: Box2D.Dynamics.b2Body.b2_dynamicBody,
-        density: 1.0,
+        mass: null, // Calculated automatically if left null.
+        density: 1.0, // Used to calculate mass; Ignored if mass specified.
         isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
@@ -46,6 +47,9 @@ ig.module(
                 var friction = this.friction.x;
 
                 this.createBody(friction);
+                if(this.mass !== null) {
+                    this.body.SetMass(this.mass);
+                }
                 this.body.entity = this;
                 this.body.SetSleepingAllowed(this.allowSleep);
                 this.body.SetAngle(this.angle);
@@ -58,6 +62,11 @@ ig.module(
                 Object.defineProperty(this, 'isFixedRotation', {
                     get: this._getIsFixedRotation,
                     set: this._setIsFixedRotation
+                });
+
+                Object.defineProperty(this, 'mass', {
+                    get: this._getMass,
+                    set: this._setMass
                 });
 
                 Object.defineProperty(this, 'isSensor', {
@@ -333,8 +342,25 @@ ig.module(
         _getBodyType: function() {
             return this.body.GetType();
         },
+
         _setBodyType: function(value) {
             this.body.SetType(value);
+        },
+
+        /* .mass logic */
+
+        _getMass: function() {
+            return this.body.GetMass();
+        },
+
+        _setMass: function(mass) {
+            var data = new Box2D.Collision.Shapes.b2MassData();
+            data.center = new Box2D.Common.Math.b2Vec2(
+                (this.size.x / 2) * Box2D.SCALE,
+                (this.size.y / 2) * Box2D.SCALE
+            );
+            data.mass = mass;
+            this.body.SetMassData(data);
         },
 
         /* .friction logic */
