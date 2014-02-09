@@ -379,6 +379,7 @@ ig.module(
             this.body.SetBullet(flag);
         },
 
+
         /* .vel logic */
 
         _getVelocity: function() {
@@ -392,8 +393,6 @@ ig.module(
             this.body.SetLinearVelocity(vector);
         },
 
-        /* .vel.x logic */
-
         _getVelocityX: function() {
             var b2Vel = this.body.GetLinearVelocity();
             return (b2Vel.x / Box2D.SCALE).round(2);
@@ -406,8 +405,6 @@ ig.module(
             this.body.SetLinearVelocity(newVel);
         },
 
-        /* .vel.y logic */
-
         _getVelocityY: function() {
             var b2Vel = this.body.GetLinearVelocity();
             return (b2Vel.y / Box2D.SCALE).round(2);
@@ -419,6 +416,7 @@ ig.module(
             var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, velocity);
             this.body.SetLinearVelocity(newVel);
         },
+
 
         /* .pos logic */
 
