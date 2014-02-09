@@ -375,6 +375,8 @@ ig.module(
             }
         },
 
+        /* .density property manipulation */
+
         _setDensity: function(density) {
             this._setFixturesDensity(density);
             this.body.ResetMassData();
