@@ -225,6 +225,15 @@ ig.module(
                         entity.body.SetSleepingAllowed(flag);
                     }
                 });
+
+                Object.defineProperty(this, 'density', {
+                    get: function() {
+                        return entity.body.GetFixtureList().GetDensity();
+                    },
+                    set: function(density) {
+                        entity._setFixturesDensity(density);
+                    }
+                });
             }
         },
 
@@ -363,6 +372,12 @@ ig.module(
         setFixturesAsSensors: function(flag) {
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(flag);
+            }
+        },
+
+        _setFixturesDensity: function(density) {
+            for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
+                fixture.SetDensity(density);
             }
         }
 
