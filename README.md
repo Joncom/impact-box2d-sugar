@@ -5,7 +5,7 @@ Impact Box2D Sugar
 
 ### Installation ###
 
-Step 1: Copy the contents of this repo into `lib/plugins/box2d/`.
+Step 1: Copy the contents of this repo into `lib/plugins/joncom/box2d/`.
 
 ###### Example Game ######
 ```
