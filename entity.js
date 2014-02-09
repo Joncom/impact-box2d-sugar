@@ -143,12 +143,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'angle', {
-                    get: function() {
-                        return entity.body.GetAngle();
-                    },
-                    set: function(angle) {
-                        entity.body.SetAngle(angle);
-                    }
+                    get: entity._getAngle,
+                    set: entity._setAngle
                 });
 
                 Object.defineProperty(this, 'bounciness', {
@@ -406,6 +402,16 @@ ig.module(
                     fixture; fixture = fixture.GetNext()) {
                 fixture.SetRestitution(value);
             }
+        },
+
+        /* .angle logic */
+
+        _getAngle: function() {
+            return this.body.GetAngle();
+        },
+
+        _setAngle: function(angle) {
+            this.body.SetAngle(angle);
         }
 
     });
