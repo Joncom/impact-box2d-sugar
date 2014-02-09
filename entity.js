@@ -111,60 +111,60 @@ ig.module(
                 });
 
                 Object.defineProperty(velocity, 'x', {
-                    get: entity._getVelocityX.bind(entity),
-                    set: entity._setVelocityX.bind(entity)
+                    get: this._getVelocityX.bind(this),
+                    set: this._setVelocityX.bind(this)
                 });
 
                 Object.defineProperty(velocity, 'y', {
-                    get: entity._getVelocityY.bind(entity),
-                    set: entity._setVelocityY.bind(entity)
+                    get: this._getVelocityY.bind(this),
+                    set: this._setVelocityY.bind(this)
                 });
 
                 Object.defineProperty(this, 'isBullet', {
-                    get: entity._getIsBullet,
-                    set: entity._setIsBullet
+                    get: this._getIsBullet,
+                    set: this._setIsBullet
                 });
 
                 Object.defineProperty(this, 'angle', {
-                    get: entity._getAngle,
-                    set: entity._setAngle
+                    get: this._getAngle,
+                    set: this._setAngle
                 });
 
                 Object.defineProperty(this, 'bounciness', {
-                    get: entity._getFirstFixtureBounciness,
-                    set: entity._setFixturesBounciness
+                    get: this._getFirstFixtureBounciness,
+                    set: this._setFixturesBounciness
                 });
 
                 // Friction
                 // Setting either x or y has the same result:
                 // All fixtures are set to that new value.
                 Object.defineProperty(this.friction, 'x', {
-                    get: entity._getFirstFixtureFriction,
-                    set: entity._setFixturesFriction
+                    get: this._getFirstFixtureFriction,
+                    set: this._setFixturesFriction
                 });
 
                 Object.defineProperty(this.friction, 'y', {
-                    get: entity._getFirstFixtureFriction,
-                    set: entity._setFixturesFriction
+                    get: this._getFirstFixtureFriction,
+                    set: this._setFixturesFriction
                 });
 
                 Object.defineProperty(this, 'standing', {
-                    get: entity._isStanding
+                    get: this._isStanding
                 });
 
                 Object.defineProperty(this, 'bodyType', {
-                    get: entity._getBodyType,
-                    set: entity._setBodyType
+                    get: this._getBodyType,
+                    set: this._setBodyType
                 });
 
                 Object.defineProperty(this, 'allowSleep', {
-                    get: entity._getSleepingAllowed,
-                    set: entity._setSleepingAllowed
+                    get: this._getSleepingAllowed,
+                    set: this._setSleepingAllowed
                 });
 
                 Object.defineProperty(this, 'density', {
-                    get: entity._getDensity,
-                    set: entity._setDensity
+                    get: this._getDensity,
+                    set: this._setDensity
                 });
             }
         },
