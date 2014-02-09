@@ -51,13 +51,18 @@ ig.module(
                 this.body.SetAngle(this.angle);
                 this.body.SetBullet(this.isBullet);
                 this.body.SetFixedRotation(this.isFixedRotation);
-                this.setFixturesAsSensors(this.isSensor);
+                this._setFixturesIsSensor(this.isSensor);
                 this.applyGravity(); // 1st step needs gravity too!
                 ig.world.Step(0, 5, 5); // Make contact edges available for .touches
 
                 Object.defineProperty(this, 'isFixedRotation', {
                     get: this._getIsFixedRotation,
                     set: this._setIsFixedRotation
+                });
+
+                Object.defineProperty(this, 'isSensor', {
+                    get: this._getFirstFixtureIsSensor,
+                    set: this._setFixturesIsSensor
                 });
 
                 Object.defineProperty(this, 'pos', {
@@ -268,7 +273,13 @@ ig.module(
             this.body.SetLinearVelocity(velocity);
         },
 
-        setFixturesAsSensors: function(flag) {
+        /* .isSensor logic */
+
+        _getFirstFixtureIsSensor: function() {
+            return this.body.GetFixtureList().IsSensor();
+        },
+
+        _setFixturesIsSensor: function(flag) {
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(flag);
             }
