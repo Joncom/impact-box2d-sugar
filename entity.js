@@ -168,28 +168,13 @@ ig.module(
                 // Setting either x or y has the same result:
                 // All fixtures are set to that new value.
                 Object.defineProperty(this.friction, 'x', {
-                    get: function() {
-                        var fixture = entity.body.GetFixtureList();
-                        return fixture.GetFriction();
-                    },
-                    set: function(friction) {
-                        for (var fixture = entity.body.GetFixtureList();
-                                fixture; fixture = fixture.GetNext()) {
-                            fixture.SetFriction(friction);
-                        }
-                    }
+                    get: entity._getFirstFixtureFriction,
+                    set: entity._setFixturesFriction
                 });
+
                 Object.defineProperty(this.friction, 'y', {
-                    get: function() {
-                        var fixture = entity.body.GetFixtureList();
-                        return fixture.GetFriction();
-                    },
-                    set: function(friction) {
-                        for (var fixture = entity.body.GetFixtureList();
-                                fixture; fixture = fixture.GetNext()) {
-                            fixture.SetFriction(friction);
-                        }
-                    }
+                    get: entity._getFirstFixtureFriction,
+                    set: entity._setFixturesFriction
                 });
 
                 Object.defineProperty(this, 'standing', {
@@ -401,6 +386,20 @@ ig.module(
         },
         _setBodyType: function(value) {
             this.body.SetType(value);
+        },
+
+        /* .friction logic */
+
+        _getFirstFixtureFriction: function() {
+            var fixture = this.body.GetFixtureList();
+            return fixture.GetFriction();
+        },
+
+        _setFixturesFriction: function(friction) {
+            for (var fixture = this.body.GetFixtureList();
+                    fixture; fixture = fixture.GetNext()) {
+                fixture.SetFriction(friction);
+            }
         }
 
     });
