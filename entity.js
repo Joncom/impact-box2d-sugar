@@ -57,9 +57,10 @@ ig.module(
 
                 // Allow change of isFixedRotation through entity property.
                 var entity = this;
+
                 Object.defineProperty(this, 'isFixedRotation', {
-                    get: function() { return entity.body.IsFixedRotation(); },
-                    set: function(flag) { entity.body.SetFixedRotation(flag); }
+                    get: this._getIsFixedRotation,
+                    set: this._setIsFixedRotation
                 });
 
                 Object.defineProperty(this, 'pos', {
@@ -450,6 +451,17 @@ ig.module(
             var oldPos = this.body.GetPosition();
             var newPos = new Box2D.Common.Math.b2Vec2(oldPos.x, y);
             this.body.SetPosition(newPos);
+        },
+
+
+        /* .isFixedRotation logic */
+
+        _getIsFixedRotation: function() {
+            return this.body.IsFixedRotation();
+        },
+
+        _setIsFixedRotation: function(flag) {
+            this.body.SetFixedRotation(flag);
         }
 
     });
