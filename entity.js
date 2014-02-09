@@ -55,9 +55,6 @@ ig.module(
                 this.applyGravity(); // 1st step needs gravity too!
                 ig.world.Step(0, 5, 5); // Make contact edges available for .touches
 
-                // Allow change of isFixedRotation through entity property.
-                var entity = this;
-
                 Object.defineProperty(this, 'isFixedRotation', {
                     get: this._getIsFixedRotation,
                     set: this._setIsFixedRotation
