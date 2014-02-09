@@ -97,6 +97,7 @@ ig.module(
 
                 // Velocity
                 var velocity = {};
+
                 Object.defineProperty(this, 'vel', {
                     get: function() {
                         return velocity;
@@ -108,29 +109,15 @@ ig.module(
                         entity.body.SetLinearVelocity(vector);
                     }
                 });
+
                 Object.defineProperty(velocity, 'x', {
-                    get: function() {
-                        var b2Vel = entity.body.GetLinearVelocity();
-                        return (b2Vel.x / Box2D.SCALE).round(2);
-                    },
-                    set: function(x) {
-                        x *= Box2D.SCALE;
-                        var oldVel = entity.body.GetLinearVelocity();
-                        var newVel = new Box2D.Common.Math.b2Vec2(x, oldVel.y);
-                        entity.body.SetLinearVelocity(newVel);
-                    }
+                    get: entity._getVelocityX.bind(entity),
+                    set: entity._setVelocityX.bind(entity)
                 });
+
                 Object.defineProperty(velocity, 'y', {
-                    get: function() {
-                        var b2Vel = entity.body.GetLinearVelocity();
-                        return (b2Vel.y / Box2D.SCALE).round(2);
-                    },
-                    set: function(y) {
-                        y *= Box2D.SCALE;
-                        var oldVel = entity.body.GetLinearVelocity();
-                        var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, y);
-                        entity.body.SetLinearVelocity(newVel);
-                    }
+                    get: entity._getVelocityY.bind(entity),
+                    set: entity._setVelocityY.bind(entity)
                 });
 
                 Object.defineProperty(this, 'isBullet', {
@@ -418,6 +405,34 @@ ig.module(
 
         _setIsBullet: function(flag) {
             this.body.SetBullet(flag);
+        },
+
+        /* .vel.x logic */
+
+        _getVelocityX: function() {
+            var b2Vel = this.body.GetLinearVelocity();
+            return (b2Vel.x / Box2D.SCALE).round(2);
+        },
+
+        _setVelocityX: function(velocity) {
+            velocity *= Box2D.SCALE;
+            var oldVel = this.body.GetLinearVelocity();
+            var newVel = new Box2D.Common.Math.b2Vec2(velocity, oldVel.y);
+            this.body.SetLinearVelocity(newVel);
+        },
+
+        /* .vel.y logic */
+
+        _getVelocityY: function() {
+            var b2Vel = this.body.GetLinearVelocity();
+            return (b2Vel.y / Box2D.SCALE).round(2);
+        },
+
+        _setVelocityY: function(velocity) {
+            velocity *= Box2D.SCALE;
+            var oldVel = this.body.GetLinearVelocity();
+            var newVel = new Box2D.Common.Math.b2Vec2(oldVel.x, velocity);
+            this.body.SetLinearVelocity(newVel);
         }
 
     });
