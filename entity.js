@@ -371,7 +371,7 @@ ig.module(
             return false;
         },
 
-        /* .density property manipulation */
+        /* .density logic */
 
         _getDensity: function() {
             return this.body.GetFixtureList().GetDensity();
