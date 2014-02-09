@@ -231,7 +231,7 @@ ig.module(
                         return entity.body.GetFixtureList().GetDensity();
                     },
                     set: function(density) {
-                        entity._setFixturesDensity(density);
+                        entity._setDensity(density);
                     }
                 });
             }
@@ -373,6 +373,11 @@ ig.module(
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(flag);
             }
+        },
+
+        _setDensity: function(density) {
+            this._setFixturesDensity(density);
+            this.body.ResetMassData();
         },
 
         _setFixturesDensity: function(density) {
