@@ -45,8 +45,11 @@ Setting `true` prevents body from rotating. Default is `false`.
 ###### .isSensor ######
 Setting `true` prevents the entity from physically interacting with other entities or the world. [`.touches`](https://github.com/Joncom/impact-box2d-sugar#touches) still works. [`.check`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) and [`.collideWith`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) still fire. Default is `false`.
 
+###### .mass ######
+Mass of entity in kilograms. Calculated automatically during `init` if `null`. Default is `null`.
+
 ###### .density ######
-Used to calculate mass when creating the entity body. Changing this value will change the mass.
+Used to calculate mass during `init` if mass is not `null`. Mass is recalculated if this value changes. Default is `1`.
 
 
 ### Restored Entity Properties ###
