@@ -197,12 +197,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'bodyType', {
-                    get: function() {
-                        return entity.body.GetType();
-                    },
-                    set: function(value) {
-                        entity.body.SetType(value);
-                    }
+                    get: this._getBodyType,
+                    set: this._setBodyType
                 });
 
                 Object.defineProperty(this, 'allowSleep', {
@@ -396,6 +392,15 @@ ig.module(
 
         _setSleepingAllowed: function(flag) {
             this.body.SetSleepingAllowed(flag);
+        },
+
+        /* .bodyType logic */
+
+        _getBodyType: function() {
+            return this.body.GetType();
+        },
+        _setBodyType: function(value) {
+            this.body.SetType(value);
         }
 
     });
