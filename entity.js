@@ -107,9 +107,6 @@ ig.module(
                     set: this._setFixturesBounciness
                 });
 
-                // Friction
-                // Setting either x or y has the same result:
-                // All fixtures are set to that new value.
                 Object.defineProperty(this.friction, 'x', {
                     get: this._getFirstFixtureFriction,
                     set: this._setFixturesFriction
