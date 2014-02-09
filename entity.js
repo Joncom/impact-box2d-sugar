@@ -134,12 +134,8 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'isBullet', {
-                    get: function() {
-                        return entity.body.IsBullet();
-                    },
-                    set: function(flag) {
-                        entity.body.SetBullet(flag);
-                    }
+                    get: entity._getIsBullet,
+                    set: entity._setIsBullet
                 });
 
                 Object.defineProperty(this, 'angle', {
@@ -412,6 +408,16 @@ ig.module(
 
         _setAngle: function(angle) {
             this.body.SetAngle(angle);
+        },
+
+        /* .isBullet logic */
+
+        _getIsBullet: function() {
+            return this.body.IsBullet();
+        },
+
+        _setIsBullet: function(flag) {
+            this.body.SetBullet(flag);
         }
 
     });
