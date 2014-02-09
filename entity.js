@@ -193,19 +193,7 @@ ig.module(
                 });
 
                 Object.defineProperty(this, 'standing', {
-                    get: function() {
-                        for (var edge = this.body.m_contactList;
-                                edge; edge = edge.next) {
-                            if (!edge.contact.IsTouching()) {
-                                continue;
-                            }
-                            var normal = edge.contact.m_manifold.m_localPlaneNormal;
-                            if (normal.y < 0) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
+                    get: entity._isStanding
                 });
 
                 Object.defineProperty(this, 'bodyType', {
@@ -369,6 +357,22 @@ ig.module(
             for (var fixture = this.body.GetFixtureList(); fixture; fixture = fixture.m_next) {
                 fixture.SetSensor(flag);
             }
+        },
+
+        /* .standing logic */
+
+        _isStanding: function() {
+            for (var edge = this.body.m_contactList;
+                    edge; edge = edge.next) {
+                if (!edge.contact.IsTouching()) {
+                    continue;
+                }
+                var normal = edge.contact.m_manifold.m_localPlaneNormal;
+                if (normal.y < 0) {
+                    return true;
+                }
+            }
+            return false;
         },
 
         /* .density property manipulation */
