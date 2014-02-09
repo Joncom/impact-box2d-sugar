@@ -33,6 +33,7 @@ ig.module('game.entities.player')
 });
 ```
 
+
 ### New Entity Properties ###
 
 ###### .isBullet ######
@@ -43,6 +44,10 @@ Setting `true` prevents body from rotating. Default is `false`.
 
 ###### .isSensor ######
 Setting `true` prevents the entity from physically interacting with other entities or the world. [`.touches`](https://github.com/Joncom/impact-box2d-sugar#touches) still works. [`.check`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) and [`.collideWith`](https://github.com/Joncom/impact-box2d-sugar#type-checkagainst-check-and-collidewith) still fire. Default is `false`.
+
+###### .density ######
+Used by Box2D to calculate mass during `init`. If changed afterward, call `entity.body.ResetMassData()` to recalculate the mass value.
+
 
 ### Restored Entity Properties ###
 
