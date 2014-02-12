@@ -25,7 +25,7 @@ ig.module(
         isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
-        allowSleep: true, // Better performance.
+        maySleep: true, // Better performance.
 
         _vel: {}, // vel is mapped to _vel to allow manipulation
                   // of the whole object, not just vel.x/y
@@ -51,7 +51,7 @@ ig.module(
                     this.body.SetMass(this.mass);
                 }
                 this.body.entity = this;
-                this.body.SetSleepingAllowed(this.allowSleep);
+                this.body.SetSleepingAllowed(this.maySleep);
                 this.body.SetAngle(this.angle);
                 this.body.SetBullet(this.isBullet);
                 this.body.SetFixedRotation(this.isFixedRotation);
@@ -138,7 +138,7 @@ ig.module(
                     set: this._setBodyType
                 });
 
-                Object.defineProperty(this, 'allowSleep', {
+                Object.defineProperty(this, 'maySleep', {
                     get: this._getSleepingAllowed,
                     set: this._setSleepingAllowed
                 });

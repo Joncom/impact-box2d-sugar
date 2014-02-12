@@ -10,7 +10,7 @@ ig.module(
 
     ig.Game.inject({
 
-        allowSleep: true,
+        maySleep: true,
         debugCollisionRects: false,
 
         defaultTileSegmentsDef: {},
@@ -64,7 +64,7 @@ ig.module(
         createWorldFromCollisionMap: function(collisionMap) {
             // Gravity is applied to entities individually.
             var gravity = new Box2D.Common.Math.b2Vec2(0, 0);
-            var world = new Box2D.Dynamics.b2World(gravity, this.allowSleep);
+            var world = new Box2D.Dynamics.b2World(gravity, this.maySleep);
             var shapes = this._shapesFromCollisionMap(
                 this.collisionMap, {rectangles: true}).edges;
             for(var i=0; i<shapes.length; i++) {
