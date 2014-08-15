@@ -8,6 +8,9 @@ ig.module(
 )
 .defines(function(){
 
+    var SEGMENT_A = 1;
+    var SEGMENT_B = 2;
+
     ig.Game.inject({
 
         maySleep: true,
