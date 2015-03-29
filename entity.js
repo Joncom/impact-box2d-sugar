@@ -303,8 +303,14 @@ ig.module(
                     continue;
                 }
                 var normal = edge.contact.m_manifold.m_localPlaneNormal;
-                if (normal.y < 0) {
-                    return true;
+                if (edge.contact.GetFixtureA().GetBody().entity === this) {
+                    if (normal.y > 0) {
+                        return true;
+                    }
+                } else {
+                    if (normal.y < 0) {
+                        return true;
+                    }
                 }
             }
             return false;
