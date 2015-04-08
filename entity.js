@@ -47,15 +47,7 @@ ig.module(
                 var friction = this.friction.x;
 
                 this.createBody(friction);
-                if(this.mass !== null) {
-                    this.body.SetMass(this.mass);
-                }
-                this.body.entity = this;
-                this.body.SetSleepingAllowed(this.maySleep);
-                this.body.SetAngle(this.angle);
-                this.body.SetBullet(this.isBullet);
-                this.body.SetFixedRotation(this.isFixedRotation);
-                this._setFixturesIsSensor(this.isSensor);
+                this.initBody();
                 this.applyGravity(); // 1st step needs gravity too!
                 ig.world.Step(0, 5, 5); // Make contact edges available for .touches
 
@@ -148,6 +140,16 @@ ig.module(
                     set: this._setDensity
                 });
             }
+        },
+
+        initBody: function() {
+            if(this.mass !== null) this.body.SetMass(this.mass);
+            this.body.entity = this;
+            this.body.SetSleepingAllowed(this.maySleep);
+            this.body.SetAngle(this.angle);
+            this.body.SetBullet(this.isBullet);
+            this.body.SetFixedRotation(this.isFixedRotation);
+            this._setFixturesIsSensor(this.isSensor);
         },
 
         update: function() {
