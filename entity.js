@@ -143,13 +143,13 @@ ig.module(
         },
 
         initBody: function() {
-            if(this.mass !== null) this._setMass(this.mass);
             this.body.entity = this;
             this.body.SetSleepingAllowed(this.maySleep);
             this.body.SetAngle(this.angle);
             this.body.SetBullet(this.isBullet);
             this.body.SetFixedRotation(this.isFixedRotation);
             this._setFixturesIsSensor(this.isSensor);
+            if(this.mass !== null) this._setMass(this.mass);
         },
 
         update: function() {
