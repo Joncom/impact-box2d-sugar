@@ -143,7 +143,7 @@ ig.module(
         },
 
         initBody: function() {
-            if(this.mass !== null) this.body.SetMass(this.mass);
+            if(this.mass !== null) this._setMass(this.mass);
             this.body.entity = this;
             this.body.SetSleepingAllowed(this.maySleep);
             this.body.SetAngle(this.angle);
