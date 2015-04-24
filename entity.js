@@ -48,7 +48,6 @@ ig.module(
 
                 this.createBody(friction);
                 this.initBody();
-                this.applyGravity(); // 1st step needs gravity too!
                 ig.world.Step(0, 5, 5); // Make contact edges available for .touches
 
                 Object.defineProperty(this, 'isFixedRotation', {
@@ -153,14 +152,14 @@ ig.module(
         },
 
         update: function() {
+            this.last.x = this.pos.x;
+            this.last.y = this.pos.y;
+
             this.processCollisionQueues();
 
             if (this.body.IsAwake()) {
                 this.applyGravity();
             }
-
-            this.last.x = this.pos.x;
-            this.last.y = this.pos.y;
 
             this.limitVelocity();
 

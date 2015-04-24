@@ -25,11 +25,11 @@ ig.module(
         checkEntities: function() {},
 
         update: function() {
+            this.parent();
             if(ig.world) {
                 ig.world.Step(ig.system.tick, 5, 5);
                 ig.world.ClearForces();
             }
-            this.parent();
         },
 
         draw: function() {
