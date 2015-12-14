@@ -25,7 +25,7 @@ ig.module(
         isFixedRotation: false,
         isBullet: false, // Prevents tunneling at the cost of performance.
         isSensor: false,
-        maySleep: true, // Better performance.
+        maySleep: false, // Setting to true can improve performance.
 
         _vel: {}, // vel is mapped to _vel to allow manipulation
                   // of the whole object, not just vel.x/y

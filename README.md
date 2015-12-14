@@ -52,7 +52,7 @@ Mass of entity in kilograms. Calculated automatically during `init` if `null`. D
 Used to calculate mass during `init` if mass is not `null`. Mass is recalculated if this value changes. Default is `1`.
 
 ###### .maySleep ######
-Allow or disallow the entity to sleep when inactive. When sleeping Box2D does not calculate physics for this entity, thus saving CPU. Default is `true`.
+Allow or disallow the entity to sleep when inactive. When sleeping Box2D does not calculate physics for this entity, thus saving CPU. Default is `false`.
 
 
 ### Restored Entity Properties ###
