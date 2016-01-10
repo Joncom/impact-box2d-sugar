@@ -108,7 +108,7 @@ update: function () {
 ######[.friction](http://impactjs.com/documentation/class-reference/entity#friction-x-friction-y)######
 ```
 // Box2D does not distinguish between X and Y
-// frictions. Therefor set friction like this:
+// frictions. Therefore set friction like this:
 entity.friction.x = 3;
 // or like this:
 entity.friction.y = 3;
